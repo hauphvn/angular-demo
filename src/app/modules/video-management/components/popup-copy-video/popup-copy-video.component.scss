@@ -1,0 +1,419 @@
+@import '../../../../../assets/scss/common';
+
+.flex-center-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.video-custom-dialog-class {
+  .container-custom {
+    background-color: $color-white;
+    .dialog-title {
+      @include sizeTitleModal;
+      margin-bottom: 0;
+    }
+  }
+  
+  .w-15 {
+    width: 15% !important;
+  }
+  input[type="radio"]{
+    height: 18px;
+    width: 18px;
+    position: relative;
+    top: 3px;
+    margin-left: 5px;
+  }
+  .wrap-option-copy{
+    padding-top: 15px;
+    justify-content: flex-start;
+  
+    .flex-center {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  
+    .option-copy {
+      @include sizeSmall;
+      color: $color-grey;
+      @extend .flex-center;
+      width: 100%;
+      background: transparent;
+      padding: 0;
+  
+      input[type=radio] {
+        width: 12px;
+        height: 12px;
+        margin-bottom: 6px;
+        cursor: pointer;
+      }
+  
+      label {
+        cursor: pointer;
+      }
+  
+      .option-type {
+        color: $color-black1;
+        font-weight: bold;
+      }
+  
+      .option-label {
+        @extend .flex-center;
+        width: auto;
+      }
+  
+      label {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  .wrap-chose-copy-source{
+    max-width: 100%;
+    margin: 0;
+    padding:0;
+  
+    .input-group {
+      @extend .select-common;
+      select {
+        height: 48px;
+        padding: 13px 10px;
+        @include size16;
+        background: url('../../../../../assets/icons/arrow.svg') no-repeat right #FDFDFD;
+        -webkit-appearance: none;
+        background-position-x: calc(100% - 17px);
+        border: 1px solid $color-border1;
+        box-sizing: border-box;
+        border-radius: 8px;
+        overflow: hidden;
+  
+        &[ng-reflect-model="-1"] {
+          color: $color-border;
+          background-color: #F9F9F9;
+        }
+      }
+    }
+  }
+  .wrap-checkbox-pattern {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid $color-border1;
+    background-color: transparent;
+    justify-content: flex-start;
+    label{
+      @include sizeSmall;
+      cursor: pointer;
+      font-weight: bold;
+      color: #8E8E8E;
+      position: relative;
+      height: 100%;
+      margin: 0;
+      line-height: 12px;
+  
+      &.active {
+        color: $color-black1;
+  
+        &::after {
+          position: absolute; 
+          left: 0; 
+          bottom: -3px; 
+          width: 100%; 
+          height: 2px; 
+          border-bottom: 2px solid $color-yellow;
+          content: ""
+        }
+      }
+    }
+  
+    input {
+      display: none;
+    }
+  }
+  .wrap-checkbox-individual{
+    padding-left: 15px;
+    width: 100%;
+    .row {
+      @extend .flex-center-between;
+
+      &:first-child {
+        border-bottom: none;
+      }
+
+      .col-sm-4 {
+        @extend .flex-center-between;
+        border: 1px solid $color-border;
+        box-sizing: border-box;
+        border-radius: 8px 8px 0 0;
+        max-width: 230px;
+        padding: 10px;
+  
+        span {
+          @include sizeSmall;
+          line-height: 15px;
+          color: $color-grey;
+          font-weight: bold;
+  
+        }
+  
+        .form-check-label {
+          padding-right: 5px;
+          @include sizeSmall;
+          color: #8E8E8E;
+          line-height: 12px;
+
+          &.custom-text {
+            max-width: 144px;
+            color: $color-black1;
+            font-size: 14px;
+            line-height: 15px;
+            padding: 0 !important;
+          }
+        }
+  
+        .form-check-input {
+          padding: 0 !important;
+          margin: 0;
+          position: relative;
+          width: 12px;
+          height: 12px;
+          border-radius: 0;
+        }
+      }
+
+      &.individual__content {
+        align-items: flex-start;
+
+        .info-text {
+          @include sizeSmall;
+          color: #8E8E8E;
+          line-height: 18px;
+          padding: 0 17px;
+        }
+
+        .col-sm-4 {
+          display: block;
+          border-top: 0;
+          border-radius: 0 0 8px 8px;
+
+          .form-check {
+            padding-left: 2px;
+            @extend .flex-center-between;
+            padding-top: 10px;
+
+            &:nth-child(1) {
+              padding-top: 0;
+            }
+
+            .form-check-label {
+              padding-right: 11px;
+            }
+          }
+        }
+      }
+    }
+    input:hover{
+      cursor: pointer;
+    }
+    
+  }
+  .wrap-checkbox {
+    max-width: 68%;
+    background-color: #ddd;
+  }
+
+  .wrap-process__block {
+    padding: 0 8px;
+  }
+  .wrap-process{
+    .ui-dropdown{
+      margin-right: 2%;
+    }
+    width: 83%;
+    margin: 20px auto 0;
+  
+    h4 {
+      // @include size12;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 15px;
+      color: $color-grey;
+
+      margin-bottom: 5px;
+    }
+
+    &.individual-avtice {
+      width: 50%;
+      float: left;
+      max-width: 347px;
+    }
+  }
+  .wrap-model-footer{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 1rem;
+
+    > div {
+      margin: 0;
+    }
+
+    button {
+      @include  buttonModal;
+
+      &.btn-primary {
+        background-color: $color-yellow;
+      }
+      &.btn-secondary {
+        background-color: $color-white;
+      }
+    }
+  }
+  .wrap-choose-data{
+    float: left;
+    width: 100%;
+    .option-choose-data-header{
+      max-width: 68%;
+    }
+    .option-choose-data-content{
+      max-width: 68%;
+    }
+  }
+
+  .scroll-choose-data{
+     height: 8em;
+     overflow: auto;
+   }
+  .bg-transparent {
+    background: transparent !important;
+  }
+  
+  .body-midle {
+    margin-bottom: 25px;
+  }
+  
+  .body-xml {
+    margin-bottom: 25px;
+  }
+  
+  
+  .body-midle-header {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .body-midle-footer {
+    font-size: 1rem;
+    padding-bottom: 10px;
+  }
+  
+  .scroll-xml {
+    overflow-y: auto;
+    height: calc(100% - 43px);
+  }
+  
+  .area-border {
+    border: 1px solid black !important;
+    height: 16rem;
+  
+    border-radius: 3px;
+    background-color: #f2f2f2 !important;
+  }
+  
+  .modal-title {
+    font-size: 20px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    width: 342px;
+    text-transform: uppercase;
+    box-shadow: 0px 3px 5px 0px #6f6869;
+  }
+  
+  
+  .body-header input {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: transparent;
+  }
+  
+  .mat-dialog-content.video-title-content {
+    margin: 0px 0px 10px 0px !important;
+    max-height: calc(95vh - 112px) !important;
+    padding: 0 !important;
+  }
+  
+  .custom-mat-form-field .mat-form-field-flex {
+    :focus {
+      background-color: whitesmoke !important;
+      border: 1px solid black;
+      box-shadow: none;
+    }
+  }
+  
+  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: rgb(0, 0, 0);
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgb(0, 0, 0);
+  }
+  
+  .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
+  .mat-form-field-flex:hover
+  .mat-form-field-outline-thick {
+    opacity: 0.7;
+  }
+  
+  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: black;
+  }
+  
+  .mat-form-field-appearance-outline {
+    .mat-form-field-appearance-outline,
+    .mat-form-field-flex {
+      padding: 0px !important;
+    }
+  
+    .mat-form-field-outline.mat-form-field-outline-thick {
+      .mat-form-field-outline-start,
+      .mat-form-field-outline-gap,
+      .mat-form-field-outline-end {
+        border-width: 1px !important;
+      }
+    }
+  
+    .mat-form-field-infix,
+    .mat-form-field-subscript-wrapper {
+      padding: 0 !important;
+  
+      select.mat-input-element,
+      input.mat-input-element {
+        padding: 0 0 0.6em 0.6em !important;
+        margin: 0 !important;
+        top: unset;
+      }
+    }
+  }
+  
+  .popup-detail-width-form-field {
+    width: 95%;
+  }
+  
+  .custom-text{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .form-check-input:disabled ~ .form-check-label.custom-disabled-label{
+    color: black !important;
+  }
+}

@@ -1,0 +1,34 @@
+<mat-toolbar id="wrap-cut-video-control-bar" class="justify-content-center">
+  <div class="wrap-dashboard">
+    <div *ngIf="showTextTimeStart" id="mb-wrap-current-time" class="wrap-current-time">
+      <div class="wrap-time-start">Start <span class="text">{{stringStartTime}}</span></div>
+    </div>
+    <div class="wrap-video-control">
+      <mat-button mat-button-icon class="control-icon" (click)="changeTime($event, -1)">
+        <img class="image-width" src="../../../../../assets/icons/Reroll_1.svg" alt="Reroll_1" />
+        <span class="number">1</span>
+      </mat-button>
+      <mat-button mat-button-icon class="control-icon" (click)="changeTime($event, -1 / 100)">
+        <img class="image-width" src="../../../../../assets/icons/Reroll_0.01.svg" alt="Reroll_0.01" />
+        <span class="number fz-8">0.01</span>
+      </mat-button>
+      <mat-button mat-button-icon class="control-icon" fontSet="material-icons-round" *ngIf="!isPlay && isShowPlayButton" (click)="changePlay($event, true)">
+        <img class="image-width" src="../../../../../assets/icons/play_circle_filled_1.svg" alt="play" />
+      </mat-button>
+      <mat-button mat-button-icon class="control-icon" fontSet="material-icons-round" *ngIf="isPlay && isShowPlayButton" (click)="changePlay($event, false)">
+        <img class="image-width" src="../../../../../assets/icons/pause.png" alt="pause" />
+      </mat-button>
+<!--      <mat-icon fontSet="material-icons-round" *ngIf="isPlay && isShowPlayButton" (click)="changePlay($event, false)" class="control-icon"-->
+<!--        >pause-->
+<!--      </mat-icon>-->
+      <mat-button mat-button-icon class="control-icon" (click)="changeTime($event, 1 / 100)">
+        <img class="image-width" src="../../../../../assets/icons/Forward_0.01.svg" alt="Forward_0.01" />
+        <span class="number fz-8">0.01</span>
+      </mat-button>
+      <mat-button mat-button-icon class="control-icon" (click)="changeTime($event, 1)">
+        <img class="image-width" src="../../../../../assets/icons/Forward_1.svg" alt="Forward_1" />
+        <span class="number">1</span>
+      </mat-button>
+    </div>
+  </div>
+</mat-toolbar>

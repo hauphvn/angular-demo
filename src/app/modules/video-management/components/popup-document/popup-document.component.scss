@@ -1,0 +1,154 @@
+@import '../../../../../assets/scss/mixin';
+
+.document-modal-block {
+  &.container-custom {
+    background-color: $color-white;
+  }
+  .modal-content {
+    background-color: $color-white;
+  }
+
+  ::ng-deep {
+    .mat-dialog-title {
+      margin-bottom: 0;
+    }
+  }
+  
+  .document-footer {
+    border: none;
+    padding: 0;
+  }
+  
+  .document-modal-header {
+    border-bottom: 1px solid $color-border1;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .document-modal-title {
+    @include sizeTitleModal;
+    background-color: transparent;
+  }
+  
+  .close-button {
+    top: 10px;
+    right: 0;
+  }
+  .document-modal-body {
+    overflow: hidden;
+
+    .document-item {
+      border: 1px solid $color-border1;
+      box-sizing: border-box;
+      border-radius: 8px;
+      padding: 10px;
+      gap: 30px;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .document-content {
+      gap: 10px;
+      .document-name {        
+        h5 {
+          max-width: 215px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          @include size12;
+          color: $color-grey;
+          line-height: 15px;
+        }
+      }
+
+      .document-text {
+        margin: 0;
+        @include size12;
+        line-height: 15px;
+        color: $color-border1;
+
+      }
+    }
+
+    .document-btn {
+      gap: 10px;
+      button {
+        background: $color-white;
+        border-radius: 4px;
+        width: 24px;
+        height: 24px;
+        @include flex-center;
+        border: 1px solid $color-border1;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+    }
+  }
+  
+  .button-document.active {
+    border: 1px solid #8f8f8f !important;
+  }
+  
+  .mat-dialog-actions.popup-document-action {
+    margin-bottom: unset !important;
+    padding: 10px 0 0 0;
+  }
+  
+  .btn-upload {
+    background-color: #FFF2C7;
+    @include flex-center;
+    gap: 10px;
+    @include size12;
+    font-weight: bold;
+    padding: 30px 0;
+    border: none;
+    box-shadow: none;
+    color: $color-black1;
+  }
+  .upload-document {
+    margin-left: 0;
+    max-width: 368px;
+    max-height: 89px;
+    background-color: #E5E5E5;
+    border: 1px dashed #FABE00;
+    box-sizing: border-box;
+    border-radius: 8px;
+    overflow: hidden;
+    button {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+  
+  .modal-footer {
+    flex-wrap: inherit;
+  }
+  
+  .input-upload {
+    display: none;
+  }
+
+  .wrap-model-footer{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+
+    > div {
+      margin: 0;
+    }
+
+    button {
+      @include  buttonModal;
+      background-color: $color-white;
+    }
+  }
+  
+  @media screen and (max-width: 1000px) {
+    .document-img {
+      width: 33% !important;
+    }
+    .mat-dialog-actions.popup-document-action {
+      padding-bottom: 0 !important;
+    }
+  }
+  
+}

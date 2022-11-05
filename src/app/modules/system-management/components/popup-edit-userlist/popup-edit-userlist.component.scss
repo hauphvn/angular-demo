@@ -1,0 +1,108 @@
+@import '../../../../../assets/scss/common';
+
+.edit-userlist-container {
+  background-color: $color-white;
+  .mat-dialog-actions {
+    margin-bottom: -20px;
+    padding: 0;
+  }
+  .dialog-title {
+    @include sizeTitleModal;
+    border-bottom: 1px solid $color-border1;
+  }
+
+  .dialog-label {
+    padding-bottom: 20px !important;
+    label, span {
+      font-size: 14px;
+      line-height: 18px;
+      color: $color-grey;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  }
+
+  @extend .input-field-chips;
+  .chips-list {
+    padding: 0 0 20px 0;
+  }
+
+  .dialog-content {
+    .dialog-row {
+      min-height: 71px;
+    }
+    .table-container {
+      height: 78%;
+      overflow-y: auto;
+    }
+    .middle-title {
+      font-size: 1.2em;
+    }
+    .form-control {
+      display: block;
+      background: #FDFDFD !important;
+      border: 1px solid $color-border1 !important;
+      box-sizing: border-box;
+      border-radius: 8px;
+      height: 40px;
+      color: $color-black1;
+      width: 100%;
+      &:focus {
+        box-shadow: unset !important;
+      }
+    }
+    
+    textarea {
+      height: 80px !important;
+    }
+    .form-control:disabled {
+      background-color: #e9ecef !important;
+    }
+  }
+
+  .btn-block {
+    border-top: none;
+    margin: 0px !important;
+    padding: 0;
+    button {
+      @include buttonModal;
+      &.btn--primary {
+        background-color: $color-yellow;
+      }
+      &.btn--tertiary {
+        background-color: $color-white;
+      }
+    }
+  }
+  mat-error {
+    font-size: 0.8em;
+  }
+  td.td-table-assign {
+    padding-left: 20%;
+  }
+
+  ::ng-deep {
+    .ui-dropdown {
+      border-radius: 8px !important;
+      border: 1px solid $color-border1;
+      height: 40px;
+
+      .ui-dropdown-label {
+        padding: 8.4px !important;
+      }
+    }
+  }
+}
+
+label {
+  font-weight: bold;
+}
+
+.user-group-label {
+  margin-top: -11px;
+}
+.input-multi-select {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}

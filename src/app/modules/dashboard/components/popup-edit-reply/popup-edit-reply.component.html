@@ -1,0 +1,50 @@
+<div class="popup-edit-reply-comment">
+  <h1 mat-dialog-title class="dialog-title">
+    Edit Comment
+  </h1>
+  <div mat-dialog-content>
+    <div class="modal-body comment-modal-body" [formGroup]="replyForm">
+      <div class="col-12 px-0">
+        <div class="form-group row m-0 comment-row">
+          <div class="col-6 pdr-10">
+            <label class="comment-label w-100">
+              <strong class="comment-text">Time:<span class="text-danger">*</span></strong>
+            </label>
+            <mat-form-field class="w-100 custom-input ">
+              <input [textMask]="timeFormatOption" matInput formControlName="time"
+                class="form-control w-100 bg-white bd" />
+            </mat-form-field>
+          </div>
+          <div class="col-6 pdf-10 comment-label">
+            <label class="w-100"><strong class="comment-text">Scene:</strong></label>
+            <mat-form-field class="w-100 custom-input ">
+              <input matInput formControlName="sceneName" class="form-control w-100 bg-white bd" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row m-0 comment-row">
+        <label class="col-12 comment-label p-0">
+          <strong class="comment-text">Comment:<span class="text-danger">*</span></strong>
+        </label>
+        <div class="col-12 px-0">
+          <mat-form-field class="w-100 custom-input ">
+            <textarea class="bg-white w-100" matInput rows="3" cols="30" formControlName="reply"></textarea>
+            <mat-error>{{ replyForm.controls.reply.errors?.message }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex">
+    <div class="modal-footer comment-modal-footer d-flex justify-content-center w-100">
+      <button type="button" class="btn btn-cancel w-equal" [mat-dialog-close]="false" matRipple>
+        Cancel
+      </button>
+      <button type="button" class="btn btn-save w-equal" [disabled]="disableSaveButton"
+        (click)="handleSaveEditComment()" matRipple>
+        Save
+      </button>
+    </div>
+  </div>
+</div>

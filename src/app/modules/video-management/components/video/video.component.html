@@ -1,0 +1,35 @@
+<div class="folder-content__wrapper w-100">
+  <div class="folder-body d-flex mt-3">
+    <div class=" width-custom-10 folder-table-row" *ngIf="scaleWidth && scaleHeight">
+      <img *ngIf="scaleWidth && scaleHeight" class="d-flex align-items-center justify-content-around"
+        [ngStyle]="{ width: scaleWidth, height: scaleHeight }" [src]="video.thumbnail" alt="video thumbnail"
+        (click)="(!this.video.thumbnail || this.video.thumbnail !== this.imageNoVideo) ? goToDashboard() : false"
+        [ngClass]="(!this.video.thumbnail || this.video.thumbnail !== this.imageNoVideo) ? 'cursor-pointer' : ''"
+      />
+    </div>
+    <div class="video-title width-custom-30 folder-table-row">
+      <span class="title-text"
+        (click)="(!this.video.thumbnail || this.video.thumbnail !== this.imageNoVideo) ? goToDashboard() : false"
+        [ngClass]="(!this.video.thumbnail || this.video.thumbnail !== this.imageNoVideo) ? 'cursor-pointer' : ''"
+      > {{ video.title }}</span>
+    </div>
+    <div class="video-time width-custom-15 folder-table-row">
+      <span class="time-text">{{ video.additionalDate ? (video.additionalDate | date: 'yyyy-MM-dd') : (date | date:
+        'yyyy-MM-dd') }}</span>
+    </div>
+    <div class="video-actions width-custom-20 folder-table-row btn-center">
+      <button type="button" class="btn btn-primary" matRipple (click)="goToDashboard()"
+        *ngIf="!this.video.thumbnail || this.video.thumbnail !== this.imageNoVideo">
+        <img class="img" src="../../../../../assets/images/icon_dashboard.png" alt="Dashboard" title="Dashboard"/>
+      </button>
+    </div>
+    <div class="video-detail-actions width-custom-20 folder-table-row btn-center">
+      <button type="button" class="btn btn-primary" matRipple (click)="openDialog()">
+        <img class="img" src="../../../../../assets/images/icon_detail.png" alt="Detail" title="Detail"/>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <span class="position-absolute label-comment badge badge-success"
+  *ngIf="video.isComment && !!this.video.thumbnail && this.video.thumbnail !== this.imageNoVideo">Comment</span> -->

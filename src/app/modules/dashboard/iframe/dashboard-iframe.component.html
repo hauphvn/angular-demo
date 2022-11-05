@@ -1,0 +1,31 @@
+<mat-toolbar class="d-flex justify-content-between align-items-center headerbar px-3">
+  <div class="d-flex flex-row align-items-center">
+    <div class="logo"></div>
+    <span class="ml-2 font-weight-bold f-26">{{ TITLE }}</span>
+  </div>
+  <div class="d-flex controls">
+  </div>
+</mat-toolbar>
+<div id="dashboard-section" class="d-flex flex-column">
+  <as-split direction="vertical">
+    <as-split-area>
+      <div class="videos-area d-flex justify-content-start">
+        <div class="video-box px-1" *ngFor="let video of videoList; let i = index">
+          <app-dashboard-video [idVid]="i" [videoConfig]="video" [videoList]="videoList"></app-dashboard-video>
+        </div>
+      </div>
+      <app-controll-bar></app-controll-bar>
+    </as-split-area>
+    <as-split-area>
+      <mat-drawer-container>
+        <mat-drawer opened mode="side" class="dashboard-leftnav" disableClose>
+          <app-left-side [listXML]="listXML" [scenes]="scenes" [tags]="tags" [(scenesFilter)]="scenesFilter"
+            [(scenesFilter)]="scenesFilter" (dataClick)="handleDataClick($event)" [videoTitle]="videoTitle">
+          </app-left-side>
+        </mat-drawer>
+        <app-gantt-chart [taskTypes]="taskTypes" [tasksFormated]="tasksFormated" [numTypeOfXML]="numTypeOfXML">
+        </app-gantt-chart>
+      </mat-drawer-container>
+    </as-split-area>
+  </as-split>
+</div>

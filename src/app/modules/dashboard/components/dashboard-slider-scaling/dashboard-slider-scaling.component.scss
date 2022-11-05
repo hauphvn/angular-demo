@@ -1,0 +1,42 @@
+#dashboard-slider-scaling {
+  width: 100%;
+  padding: 0;
+  background-color: #c5c5c5;
+
+  #mySVG {
+    height: 10px;
+    width: 100%;
+    margin-top: -42px;
+  }
+
+  .btn-wrap {
+    text-align: center;
+    height: 14px;
+    margin-top: -6px;
+    display: block;
+    position: absolute;
+    width: calc(100% - 438px);
+    top: 49%;
+
+    .icon {
+      margin-right: 1%;
+    }
+
+    .enable-icon {
+      color: white;
+      cursor: pointer;
+
+      &:hover {
+        color: #ffc107;
+      }
+    }
+
+    .disable-icon {
+      color: #303030;
+      cursor: auto;
+    }
+  }
+  .dashboard-slider {
+    height: 10px;
+  }
+}

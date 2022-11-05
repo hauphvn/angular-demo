@@ -1,0 +1,251 @@
+<div
+  id="dashboard-section"
+  class="d-flex flex-column"
+  *ngIf="isRoleAdmin || isRoleUserPro || isRoleUserUploader || isRoleUserStandar || isRoleUserMinimum"
+>
+  <div class="dashboard-header">
+    <div class="header-back" (click)="onGoBack()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+      <span>Back</span>
+    </div>
+    <h2>{{folderName}}/{{videoName}}</h2>
+    <div class="btn-block">
+      <button *ngIf="isRoleAdmin || isRoleUserXMLEdit" (click)="handleEditingXMLClick()" class="btn" matTooltip="Editing XML">
+        <img src="../../../assets/icons/edit-xml.svg" alt="edit-xml" />
+        <span>Edit XML</span>
+      </button>
+      <button (click)="handleCutVideoClick()" class="btn" *ngIf="isRoleAdmin || isRoleUserPro || isRoleUserUploader">
+        <img src="../../../assets/icons/cutting.svg" alt="Cutting Image" />
+        <span>Video Cutting</span>
+      </button>
+      <button (click)="handleDashboardSettingClick()" class="btn" matTooltip="Dashboard setting">
+        <img src="../../../assets/icons/dashboard-setting.svg" alt="Dashboard setting" />
+        <span>Dashboard Settings</span>
+      </button>
+    </div>
+  </div>
+  <as-split direction="vertical">
+    <as-split-area>
+      <div class="videos-area d-flex justify-content-start">
+        <div class="video-box px-1" *ngFor="let video of videoList; let i = index">
+          <app-dashboard-video [idVid]="i" [videoConfig]="video" [videoList]="videoList"></app-dashboard-video>
+        </div>
+      </div>
+      <app-controll-bar #controlBarComponent [isEditXML]="false"></app-controll-bar>
+    </as-split-area>
+    <as-split-area style="position: relative;">
+      <div [class]="drawerLeft.opened ? 'double-arrow left active' : 'double-arrow left'" (click)="close(drawerLeft.opened,'left')"></div>
+      <div [class]="drawerRight.opened ? 'double-arrow right active' : 'double-arrow right'" (click)="close(drawerRight.opened,'right')"></div>
+      <mat-drawer-container class="dashboard-main-content">
+        <mat-drawer opened mode="side" class="dashboard-leftnav" #drawerLeft disableClose>
+          <app-left-side
+            [listXML]="listXML"
+            [listTimeSeries]="listTimeSeriesData"
+            [scenes]="scenes"
+            [tags]="tags"
+            [(scenesFilter)]="scenesFilter"
+            (dataClick)="handleDataClick($event)"
+            (timeSeriesClick)="handleTimeSeriesClick($event)"
+            [videoTitle]="videoTitle"
+          ></app-left-side>
+        </mat-drawer>
+        <mat-drawer opened mode="side" class="dashboard-rightnav" position="end"  #drawerRight disableClose>
+          <app-dashboard-comment [commentItem]="commentItem"></app-dashboard-comment>
+        </mat-drawer>
+        <!-- XML group first -->
+        <div class="gantt-chart__group" *ngIf="isXMLFirst">
+          <div class="gantt-chart__filter-control d-flex w-100 justify-content-between" *ngIf="listXML.length > 0">
+            <div class="scene-setting">
+              <button mat-icon-button [matMenuTriggerFor]="menuSceneSetting"><mat-icon>settings</mat-icon></button>
+              <mat-menu #menuSceneSetting="matMenu">
+                <button
+                  mat-menu-item
+                  *ngFor="let item of scenseFilterSettingOptions"
+                  (click)="handleFilterSettingScene(item)"
+                >
+                  {{ item.title }}
+                </button>
+              </mat-menu>
+              <span>{{ currentSceneSetting.title }}</span>
+              <ng-container>
+                <mat-menu #menuSceneFilter="matMenu" class="custom-menu">
+                  <div fxLayout="row" (click)="$event.stopPropagation()">
+                    <div fxLayout="column">
+                      <p-tree
+                        [value]="listSceneForFilter"
+                        selectionMode="single"
+                        propagateSelectionUp="false"
+                        propagateSelectionDown="false"
+                        [(selection)]="selectedScene"
+                        selectionMode="checkbox"
+                      >
+                      </p-tree>
+                    </div>
+                  </div>
+                </mat-menu>
+                <button
+                  type="button"
+                  mat-icon-button
+                  (menuClosed)="handleFilterScene()"
+                  [matMenuTriggerFor]="menuSceneFilter"
+                >
+                  <i class="pi pi-sort"></i>
+                </button>
+              </ng-container>
+            </div>
+
+            <div class="chart-zoom d-flex align-items-center">
+              <span class="zoom-icon noselect material-icons mr-2" (click)="handleZoomClick(-1)">
+                zoom_out
+              </span>
+              <div class="zoom-slider-container position-relative">
+                <div class="input-wrapper w-100 position-relative">
+                  <!-- <input
+                    type="range"
+                    class="zoom-input w-100"
+                    [min]="ZOOM_OPTIONS.MIN_ZOOM"
+                    [max]="ZOOM_OPTIONS.MAX_ZOOM"
+                    [step]="ZOOM_OPTIONS.STEP_ZOOM"
+                    [(ngModel)]="currentZoom"
+                    (mouseup)="handleZoom($event)"
+                    (mousedown)="showValueZoom = true"
+                    (mousemove)="handleUpdateValueLeftPos($event)"
+                  /> -->
+                  <mat-slider #zoomSlider
+                    class="zoom-input w-100"
+                    [invert]="false"
+                    [max]="ZOOM_OPTIONS.MAX_ZOOM"
+                    [min]="ZOOM_OPTIONS.MIN_ZOOM"
+                    [step]="ZOOM_OPTIONS.STEP_ZOOM"
+                    [thumbLabel]="false"
+                    [(ngModel)]="currentZoom"
+                    [vertical]="false"
+                    aria-labelledby="example-name-label"
+                    (mousedown)="showValueZoom = true"
+                    (mousemove)="handleUpdateValueLeftPos($event)">
+                  </mat-slider>
+                </div>
+              </div>
+              <span class="zoom-icon noselect material-icons ml-2" (click)="handleZoomClick(1)">
+                zoom_in
+              </span>
+            </div>
+          </div>
+          <app-gantt-chart
+            [taskTypes]="taskTypes"
+            [tasksFormated]="tasksFormated"
+            [numTypeOfXML]="numTypeOfXML"
+            (currentTimeChange)="currentTime($event)">
+          </app-gantt-chart>
+        </div>
+        <!-- End XML group first -->
+
+        <div class="line-chart__group">
+          <app-line-chart #applinechart
+            [id]="line.id"
+            [data]="line.data"
+            *ngFor="let line of listTimeSeriesShowing; let i = index; trackBy: trackByFunction"
+            [bufferTimeLine]="line.bufferTime"
+          ></app-line-chart>
+        </div>
+
+        <!-- Timeseries group first -->
+        <div class="gantt-chart__group" *ngIf="!isXMLFirst">
+          <div class="gantt-chart__filter-control d-flex w-100 justify-content-between" *ngIf="listXML.length > 0">
+            <div class="scene-setting">
+              <button mat-icon-button [matMenuTriggerFor]="menuSceneSetting"><mat-icon>settings</mat-icon></button>
+              <mat-menu #menuSceneSetting="matMenu">
+                <button
+                  mat-menu-item
+                  *ngFor="let item of scenseFilterSettingOptions"
+                  (click)="handleFilterSettingScene(item)"
+                >
+                  {{ item.title }}
+                </button>
+              </mat-menu>
+              <span>{{ currentSceneSetting.title }}</span>
+              <ng-container>
+                <mat-menu #menuSceneFilter="matMenu" class="custom-menu">
+                  <div fxLayout="row" (click)="$event.stopPropagation()">
+                    <div fxLayout="column">
+                      <p-tree
+                        [value]="listSceneForFilter"
+                        selectionMode="single"
+                        propagateSelectionUp="false"
+                        propagateSelectionDown="false"
+                        [(selection)]="selectedScene"
+                        selectionMode="checkbox"
+                      >
+                      </p-tree>
+                    </div>
+                  </div>
+                </mat-menu>
+                <button
+                  type="button"
+                  mat-icon-button
+                  (menuClosed)="handleFilterScene()"
+                  [matMenuTriggerFor]="menuSceneFilter"
+                >
+                  <i class="pi pi-sort"></i>
+                </button>
+              </ng-container>
+            </div>
+
+            <div class="chart-zoom d-flex align-items-center">
+              <span class="zoom-icon noselect material-icons mr-2" (click)="handleZoomClick(-1)">
+                zoom_out
+              </span>
+              <div class="zoom-slider-container position-relative">
+                <div class="input-wrapper w-100 position-relative">
+                  <!-- <input
+                    type="range"
+                    class="zoom-input w-100"
+                    [min]="ZOOM_OPTIONS.MIN_ZOOM"
+                    [max]="ZOOM_OPTIONS.MAX_ZOOM"
+                    [step]="ZOOM_OPTIONS.STEP_ZOOM"
+                    [(ngModel)]="currentZoom"
+                    (mouseup)="handleZoom($event)"
+                    (mousedown)="showValueZoom = true"
+                    (mousemove)="handleUpdateValueLeftPos($event)"
+                  /> -->
+                  <mat-slider #zoomSlider
+                    class="zoom-input w-100"
+                    [invert]="false"
+                    [max]="ZOOM_OPTIONS.MAX_ZOOM"
+                    [min]="ZOOM_OPTIONS.MIN_ZOOM"
+                    [step]="ZOOM_OPTIONS.STEP_ZOOM"
+                    [thumbLabel]="false"
+                    [(ngModel)]="currentZoom"
+                    [vertical]="false"
+                    aria-labelledby="example-name-label"
+                    (mousedown)="showValueZoom = true"
+                    (mousemove)="handleUpdateValueLeftPos($event)">
+                  </mat-slider>
+                </div>
+              </div>
+              <span class="zoom-icon noselect material-icons ml-2" (click)="handleZoomClick(1)">
+                zoom_in
+              </span>
+            </div>
+          </div>
+          <app-gantt-chart
+            [taskTypes]="taskTypes"
+            [tasksFormated]="tasksFormated"
+            [numTypeOfXML]="numTypeOfXML"
+            (currentTimeChange)="currentTime($event)">
+          </app-gantt-chart>
+        </div>
+        <!-- End timeseries group first -->
+      </mat-drawer-container>
+    </as-split-area>
+  </as-split>
+</div>
+<app-popup-dashboard-setting
+  #dashboardSettingRef
+  [listXML]="listXML"
+  [listTimeSeries]="listTimeSeriesData"
+  [listXMLSelected]="listXMLSelectedId"
+  [listTimeseriesSelected]="listTimeseriesSelectedId"
+  (saveSetting)="handleSettingChange($event)"
+></app-popup-dashboard-setting>
+

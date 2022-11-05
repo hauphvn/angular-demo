@@ -1,0 +1,75 @@
+<section *ngIf="sceneInfoGroup" id="dashboard-rightside"
+  class="w-100 d-flex flex-column position-relative dashboard-rightside-edit-xml">
+  <div class="title d-flex align-items-center mb-1">
+    <span>Edit scene</span>
+  </div>
+  <form [formGroup]="sceneInfoGroup" id="form-scene-info" onkeydown="return event.key != 'Enter';">
+    <div class="form-group group-space-around">
+      <label for="fromTime" class="color-white">From</label>
+      <input [textMask]="maskTime" (keyup)="onHandleChangingForm($event, editType.SCENE_BAR)"
+        [style.color]="!isFromStatus ? 'grey' : 'white'" [attr.disabled]="(!isFromStatus) ? '' : null" id="fromTime"
+        type="text" class="form-control" formControlName="fromTime">
+    </div>
+
+    <div class="form-group group-space-around bd-bt">
+      <label class="color-white" for="toTime">To</label>
+      <input [textMask]="maskTime" (keyup)="onHandleChangingForm($event, editType.SCENE_BAR)"
+        [style.color]="!isToStatus ? 'grey' : 'white'" [attr.disabled]="(!isToStatus) ? '' : null" id="toTime"
+        type="text" class="form-control" formControlName="toTime">
+    </div>
+
+    <div class="form-group group-space-around mt-2">
+      <label class="color-white" for="sceneName">Scene name</label>
+      <input (keyup)="onHandleChangingForm($event, editType.SCENE)"
+        [style.color]="!isSceneNameStatus ? 'grey' : 'white'" [attr.disabled]="(!isSceneNameStatus) ? '' : null"
+        id="sceneName" type="text" class="form-control" formControlName="sceneName">
+    </div>
+
+    <div class="form-group group-space-around mt-2">
+      <label class="color-white" for="tagName">Tag name</label>
+      <datalist id="idHintTagList">
+        <option *ngFor="let tag of hintTags" class="scene-tag-item tag-item disabled"
+          [ngStyle]="{ 'background-color': tag.color }">
+          {{ tag ? tag : '&nbsp;' }}
+        </option>
+      </datalist>
+      <input list="idHintTagList" autocomplete="off" (blur)="addTag($event)"
+        (keyup)="onHandleChangingForm($event, editType.SCENE_BAR)" (keyup.enter)="addTag($event)"
+        [style.color]="!isTagNameStatus ? 'grey' : 'white'" [attr.disabled]="(!isTagNameStatus) ? '' : null"
+        id="tagName" type="text" class="form-control" formControlName="tagName">
+    </div>
+    <div class="chips-list" *ngIf="sceneBarTags.length > 0">
+      <ng-container *ngFor="let tag of sceneBarTags">
+        <mat-chip *ngIf="(!tag.willBeDeleted)" selectable="true" removable="true"
+          (removed)="removeTag(tag);onHandleChangingForm($event, editType.SCENE_BAR)">
+          <span *ngIf="(!tag.willBeDeleted)" class="ellipsis-text" [matTooltip]="tag.name"
+            matTooltipClass="tooltip-confirm">
+            {{ tag.name }}
+          </span>
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </ng-container>
+    </div>
+
+    <div class="form-group mt-2 mb-2">
+      <label class="color-white" for="favColor">Color</label>
+      <label *ngIf="hintColors.size>0" [ngStyle]="{margin:'0px 0px 0px 57px'}" class="color-white" for="favColor">Scene
+        color list</label>
+      <div class="editColorPicker">
+        <input (click)="onHandleChangingForm($event, editType.SCENE)" [attr.disabled]="(!isColorStatus) ? '' : null"
+          type="color" id="favColor" formControlName="sceneColor" class="form-control" value="rgb(0,0,0)">
+        <color-github *ngIf="hintColors.size>0" [attr.disabled]="(!isColorStatus) ? '' : null" [colors]="hintColors"
+          width="50px" (onChangeComplete)="handleChangeComplete($event); onHandleChangingForm($event, editType.SCENE)">
+        </color-github>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button [ngClass]="(isModifyForm)?'btn-cancel':'btn-disable'" type="button"
+        (click)="cancelChanges()">Cancel</button>
+      <button id="btnSave" [ngClass]="(isModifyForm)?'btn-save':'btn-disable'" (click)='onSaveTemp()'
+        [disabled]="!isModifyForm">
+        Save</button>
+    </div>
+  </form>
+</section>

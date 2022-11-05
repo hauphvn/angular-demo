@@ -1,0 +1,46 @@
+.wrap-folder-reporting {
+  .font-report {
+    font-size: 14px;
+    line-height: 15px;
+    color: #5C5C5C;
+  }
+  .scrollVideoSet {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-form-field-flex {
+    background-color: #f5f5f5;
+    border-radius: 10em;
+    mat-icon {
+      vertical-align: super;
+      padding-left: 6px;
+    }
+    .mat-form-field-infix {
+      padding: 0;
+      width: 100%;
+    }
+    input {
+      margin-bottom: 5px;
+    }
+  }
+  .text-wrapper {
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .reporting-text {
+    @extend .font-report;
+  }
+
+  .select-all {
+
+    ::ng-deep {
+      mat-checkbox .mat-checkbox-layout {
+        .mat-checkbox-label {
+          @extend .font-report;
+        }
+      }
+    }
+  }
+}

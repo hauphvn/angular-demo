@@ -1,0 +1,132 @@
+<div id="wrap-cut-video-section">
+  <div class="nav-header">
+    <div
+      (click)="handleCancelClick()"
+      class="back-icon">
+      <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color"
+                role="img"
+                aria-hidden="true">keyboard_arrow_left
+      </mat-icon>
+      <span>Back</span>
+    </div>
+    <div>
+      <button
+        [disabled]="!isCutting"
+        type="button"
+        class="btn btn-primary color-base w-equal"
+        (click)="handleSaveClick()"
+        matRipple
+      >
+        Save
+      </button>
+    </div>
+  </div>
+  <div class="content-section">
+    <p class="card-title">Video Cutting</p>
+    <div class="card card-section card-videos-section">
+      <div class="card-body">
+        <div class="video-items">
+          <div class="item videos-area d-flex justify-content-start">
+            <div class="video-box px-1" *ngFor="let video of videoList; let i = index">
+              <div
+                matTooltip="{{video.title}}"
+                class="video-title">{{video.title}}</div>
+              <app-cutvideo-videobox
+                (isEditing)="onEditing()"
+                [videoInfo]="video"
+                (bufferTimeChange)="handleBufferVideoTimeChange($event)"
+                [isCutting]="isCutting"
+              >
+              </app-cutvideo-videobox>
+            </div>
+            <!--            <app-cutvideo-videobox-->
+<!--              (isEditing)="onEditing()"-->
+<!--              [videoInfo]="video"-->
+<!--              (bufferTimeChange)="handleBufferVideoTimeChange($event)">-->
+<!--            </app-cutvideo-videobox>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-line"></div>
+    <p class="card-title">Label</p>
+    <div class="wrap-card-body">
+      <div class="card-header-section">
+        <span>Data</span>
+        <button
+          mat-button
+          class="btn-menu-options"
+          [matMenuTriggerFor]="menuSelectXML">
+          <span
+            matTooltip="{{xmlChosen}}"
+            class="btn-value">{{xmlChosen || 'Choose data to display'}}</span>
+          <mat-icon>expand_more</mat-icon>
+        </button>
+        <mat-menu #menuSelectXML="matMenu"
+                  class="cut-menu-select">
+          <button
+            mat-menu-item
+            *ngFor="let xml of listXML"
+            (click)="handleSelectXML(xml.id)"
+            [disabled]="xmlData && xmlData.id === xml.id">
+            {{ xml.name }}
+          </button>
+        </mat-menu>
+      </div>
+      <div class="card card-section">
+        <div class="card-body">
+          <div class="xml-csv-items">
+            <div class="item" *ngIf="xmlData">
+              <app-cutganttchart-chartbox
+                (isEditing)="onEditing()"
+                [xmlInfo]="xmlData"
+                (bufferTimeChange)="handleBufferXmlTimeChange($event)"
+                class="cutvideo-box ng-star-inserted">
+              </app-cutganttchart-chartbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-line"></div>
+    <p class="card-title">Time Series</p>
+    <div class="wrap-card-body">
+      <div class="card-header-section">
+        <span>Data</span>
+        <button
+          mat-button
+          class="btn-menu-options"
+          [matMenuTriggerFor]="menuSelectTimeseries">
+          <span
+            matTooltip="{{csvChosen}}"
+            class="btn-value">{{csvChosen || 'Choose data to display'}}</span>
+          <mat-icon>expand_more</mat-icon>
+        </button>
+        <mat-menu #menuSelectTimeseries="matMenu"
+                  class="cut-menu-select">
+          <button
+            mat-menu-item
+            *ngFor="let csv of listTimeseries"
+            (click)="handleSelectTimeseries(csv.id)"
+            [disabled]="timeSeriesData && timeSeriesData.id === csv.id"
+          >{{ csv.name }}
+          </button>
+        </mat-menu>
+      </div>
+      <div class="card card-section">
+        <div class="card-body">
+          <div class="csv-items">
+            <div class="item" *ngIf="timeSeriesData">
+              <app-cutlinechart-chartbox
+                (isEditing)="onEditing()"
+                [lineInfo]="timeSeriesData"
+                (bufferTimeChange)="handleBufferTimeseriesTimeChange($event)"
+                class="cutvideo-box ng-star-inserted">
+              </app-cutlinechart-chartbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,219 @@
+@import "../../../../../assets/scss/mixin";
+@import '../../../../../assets/scss/common';
+
+.export-data-modal-block {
+  &.container-custom {
+    background-color: $color-white;
+  }
+
+  ::ng-deep {
+    .mat-dialog-title {
+      margin-bottom: 0;
+    }
+  }
+
+  .export-data-modal-header {
+    border-bottom: 1px solid #e5e5e5;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .export-data-modal-title {
+    @include sizeTitleModal;
+    background-color: transparent;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .title-text {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 15px;
+    color: #5c5c5c;
+  }
+
+  .export-data-content {
+    overflow-x: unset !important;
+    padding: 24px !important;
+  }
+
+  .export-data-modal-body {
+    .export-data-width-form-field {
+      width: 100%;
+    }
+
+    .body-export-data {
+      margin-bottom: 1rem;
+    }
+
+    .mat-dialog-actions.popup-upload-video-action {
+      margin-bottom: unset !important;
+      padding: 5px 0 0 0;
+      // padding-top: 0px !important;
+    }
+    .btn-upload {
+      background-color: #fff2c7;
+      @include flex-center;
+      gap: 10px;
+      @include size12;
+      font-weight: bold;
+      padding: 30px 0;
+      border: none;
+      box-shadow: none;
+      color: $color-black1;
+    }
+    
+    .action-btn {
+      gap: 10px;
+      button {
+        background: $color-white;
+        border-radius: 4px;
+        width: 24px;
+        height: 24px;
+        @include flex-center;
+        border: 1px solid #c2c2c2;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+    }
+
+    .title_content {
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .input-group {
+      @extend .select-common;
+      select {
+        height: 48px;
+        padding: 13px 10px;
+        @include size16;
+        background: url('../../../../../assets/icons/arrow.svg') no-repeat right #FDFDFD;
+        -webkit-appearance: none;
+        background-position-x: calc(100% - 17px);
+        border: 1px solid $color-border1;
+        box-sizing: border-box;
+        border-radius: 8px;
+        overflow: hidden;
+  
+        &[ng-reflect-model="-1"] {
+          color: $color-border;
+          background-color: #F9F9F9;
+        }
+      }
+    }
+
+    hr {
+      border: 0.2px solid #ede9e9 !important;
+      width: 100%;
+      margin-top: 1.3rem !important;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0 0 0 10px !important;
+      margin: 0 !important;
+    }
+
+    .input-multi-select {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      width: 10px;
+      flex: 1 0 10px;
+    }
+  }
+
+  .pd-7 {
+    padding-top: 7% !important;
+  }
+
+  .pd-14 {
+    padding-top: 14% !important;
+  }
+
+  .wrap-model-footer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    > div {
+      margin: 0;
+    }
+
+    button {
+      @include buttonModal;
+
+      &.btn-primary {
+        background-color: $color-yellow;
+      }
+      &.btn-secondary {
+        background-color: $color-white;
+      }
+    }
+  }
+
+  .mat-select {
+    background: #F9F9F9 !important;
+  }
+
+  .mat-select-placeholder {
+    color: #1f1c1c !important;
+  }
+
+  .mat-select-arrow {
+    color: black !important;
+  }
+
+  .mat-form-field-underline {
+    height: 0px !important;
+  }
+
+  .mat-form-field-wrapper {
+    padding-bottom: 15px !important;
+  }
+
+  .mat-form-field-infix {
+    padding: 0px !important;
+    border: none !important;
+    width: 100%;
+  }
+
+  .mat-chip-list-wrapper {
+    border-radius: 8px !important;
+    height: auto !important;
+    align-items: flex-start;
+    margin: 0;
+  }
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-chip {
+    font-size: 14px !important;
+    min-height: 28px !important;
+    &.mat-standard-chip {
+      background-color: #FFE8C2 !important;
+      color: #F39800 !important;
+    }
+  }
+
+  .mat-option-text {
+    font-size: 14px !important;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: white !important;
+  }
+  /* Font color */
+  input.mat-input-element {
+    color: white !important;
+  }
+
+  .mat-chip-remove {
+    color: #F39800 !important;
+  }
+
+}

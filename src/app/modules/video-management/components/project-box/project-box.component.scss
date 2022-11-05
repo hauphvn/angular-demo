@@ -1,0 +1,49 @@
+@import "../../../../../assets/scss/mixin";
+
+.box-project {
+  padding: 10px 10px 10px 10px;
+  height: 240px;
+  width: 100%;
+  max-width: 350px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 15px;
+
+  cursor: pointer;
+  height: calc(20vw * 0.72);
+  overflow: hidden;
+
+  .w-20 {
+    width: 20%;
+  }
+  .project-image-box {
+    width: 100%;
+    height: 100%;
+    .project-image {
+      border-radius: 8px;
+      border: none;
+      // padding: 5.6rem;
+      width: 100%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+  }
+  .project-title {
+    text-align: left;
+    @include sizeDefault;
+    color: #5c5c5c;
+    span {
+      max-width: 12%;
+      position: absolute;
+    }
+  }
+
+  &:hover, &.active {
+    box-shadow: 2px 2px 2px rgb(76 76 76 / 35%);
+    .project-title {
+      color: #181818 !important;
+    }
+  }
+}

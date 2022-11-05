@@ -1,0 +1,140 @@
+<div class="edit-userlist-container h-100">
+  <h2 mat-dialog-title class="dialog-title">
+    Edit User
+  </h2>
+  <div mat-dialog-content class="dialog-content" [formGroup]="editForm">
+    <div class="col-12 p-0 dialog-label">
+      <label class="px-0">Email</label>
+      <span class="text-danger">*</span>
+      <div class="col-12 p-0">
+        <input
+          (ngModelChange)="this.reloadButtonSave()"
+          #nameInput
+          matInput
+          id="email"
+          class="form-control"
+          disabled
+          value="{{ this.data.email }}"
+        />
+      </div>
+    </div>
+    <div class="col-12 p-0 dialog-label">
+      <label class="px-0">Password</label>
+      <span class="text-danger">*</span>
+      <div class="col-12 p-0">
+        <input
+          type="password"
+          (ngModelChange)="this.reloadButtonSave()"
+          #nameInput
+          matInput
+          autocomplete="new-password"
+          placeholder="••••••••"
+          id="password"
+          class="form-control"
+          formControlName="password"
+        />
+        <mat-error>{{ editForm.controls.password.errors?.message }}</mat-error>
+      </div>
+    </div>
+    <div class="col-12 p-0 dialog-label">
+      <label class="px-0">Name</label>
+      <span class="text-danger">*</span>
+      <div class="col-12 p-0">
+        <input
+          (ngModelChange)="this.reloadButtonSave()"
+          #nameInput
+          matInput
+          class="form-control"
+          formControlName="name"
+        />
+        <mat-error>{{ editForm.controls.name.errors?.message }}</mat-error>
+      </div>
+    </div>
+    <!-- <div class="form-group row mb-4">
+      <label class="col-3 "><strong class="pull-right">User Role&nbsp;</strong></label>
+      <div class="col-6">
+        <mat-radio-group
+          aria-label="Select an option"
+          color="primary"
+          formControlName="userRole"
+          (change)="reloadButtonSave()"
+        >
+          <mat-radio-button value="1" class="mr-4">User</mat-radio-button>
+          <mat-radio-button value="2">Admin</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div> -->
+    <div class="col-12 p-0 dialog-label user-dropdown">
+      <label class="px-0">User Role</label>
+      <div class="col-12 p-0">
+          <p-dropdown
+            [options]="userRoleOptions"
+            class="options"
+            formControlName="userRole"
+            optionLabel="value"
+            (onChange)="reloadButtonSave()"
+        ></p-dropdown>
+      </div>
+    </div>
+    <div class="col-12 p-0 dialog-label">
+      <label class="px-0"><strong class="pull-right group-label">User Group&nbsp;</strong></label>
+      <div class="col-12 p-0">
+        <mat-form-field class="w-100 chip-list-wrapper user-group">
+          <mat-chip-list #chipList>
+            <input
+              formControlName="userGroup"
+              class="form-control input-multi-select"
+              #fruitInput
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              matChipInputAddOnBlur="false"
+              (matChipInputTokenEnd)="add($event)"
+            />
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let userGroup of fullUserGroupList | async" [value]="userGroup.name" [id]="userGroup.id">
+              {{ userGroup.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <div class="chips-list">
+          <mat-chip
+            *ngFor="let userGroup of userGroupSelected"
+            selectable="true"
+            removable="true"
+            (removed)="remove(userGroup)"
+          >
+            <span class="ellipsis-text" [matTooltip]="userGroup.name" matTooltipClass="tooltip-confirm">
+              {{ userGroup.name }}
+            </span>
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 p-0 dialog-label">
+      <label class="px-0"><strong class="pull-right">Comment&nbsp;</strong></label>
+      <div class="col-12 p-0">
+        <textarea
+          cols="30"
+          rows="4"
+          (ngModelChange)="this.reloadButtonSave()"
+          matInput
+          id="comment"
+          class="form-control"
+          formControlName="comment"
+        ></textarea>
+        <mat-error>{{ editForm.controls.comment.errors?.message }}</mat-error>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex btn-block">
+    <button mat-button class="btn btn--tertiary w-equal" [mat-dialog-close]="false">
+      Cancel
+    </button>
+    <button mat-button class="btn btn--primary w-equal" (click)="onSaveClick()" [disabled]="!enableSaveButton">
+      Save
+    </button>
+  </div>
+</div>

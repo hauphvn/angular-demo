@@ -1,0 +1,74 @@
+<div class="addproject-container h-100">
+  <h2 mat-dialog-title class="dialog-title">
+    {{ popupTitle }}
+  </h2>
+  <div mat-dialog-content class="dialog-content py-2" [formGroup]="addProjectForm">
+    <div class="row dialog-row m-0 custom-mat-form-field p-0">
+      <div class="col-12 p-0 dialog-label">
+        <label for="name">Name:</label>
+        <span class="text-danger">*</span>
+      </div>
+      <div class="col-12 p-0 dialog-input">
+        <input #nameInput matInput id="name" class="form-control" formControlName="name" />
+        <mat-error style="height: 20px; display: block; margin-bottom: 10px;">
+          <span *ngIf="addProjectForm.get('name').dirty || addProjectForm.get('name').touched">
+            {{addProjectForm.controls.name.errors?.message}}
+          </span>
+        </mat-error>
+      </div>
+    </div>
+    <div class="row dialog-row m-0 custom-mat-form-field">
+      <div class="col-12 p-0 dialog-label">
+        <label class="label-thumbnail" for="image">Project Thumbnail</label>
+      </div>
+      <div class="col-12 p-0 dialog-input">
+        <div *ngIf="!!thumbnailUrl" class="image-area d-inline-block mr-0 position-relative">
+          <img [src]="thumbnailUrl" alt="Project thumbnail" class="project-thumbnail" />
+          <button
+            mat-icon-button
+            aria-label="Remove icon button"
+            class="button-remove-thumbnail position-absolute"
+            (click)="handleRemoveThumbnailClick(thumbnailInput)"
+          >
+            <mat-icon mat-mini-fab>cancel</mat-icon>
+          </button>
+        </div>
+        <input
+          [style.visibility]="'hidden'"
+          #thumbnailInput
+          type="file"
+          accept="image/*"
+          id="thumbnail"
+          class="form-control input-thumbnail d-inline"
+          (change)="handleFileChange($event)"
+        />
+        <div *ngIf="!thumbnailUrl" class="upload-thumbnail">
+          <button mat-raised-button (click)="handleChooseThumbnailClick(thumbnailInput)">
+            <img src="../../../../../assets/icons/upload_document_yellow.svg" alt="icon document"/>
+            <span>Upload Thumbnail</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row dialog-row m-0 custom-mat-form-field">
+      <div class="col-12 p-0 dialog-label">
+        <label for="comment">Comment:</label>
+      </div>
+      <div class="col-12 p-0 dialog-input">
+        <textarea matInput id="comment" class="form-control" formControlName="comment"></textarea>
+        <mat-error *ngIf="addProjectForm.get('comment').dirty || addProjectForm.get('comment').touched">{{
+          addProjectForm.controls.comment.errors?.message
+        }}</mat-error>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-end align-items-center dialog-controlls">
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button class="btn btn--tertiary w-equal" [mat-dialog-close]="false">
+      Cancel
+    </button>
+    <button mat-button [disabled]="disableSaveButton" class="btn btn--primary w-equal" (click)="onSaveClick()">
+      Save
+    </button>
+  </div>
+</div>

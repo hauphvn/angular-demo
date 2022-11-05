@@ -1,0 +1,53 @@
+@import '../../../../assets/scss/mixin';
+.dialog-service-container {
+  background-color: $color-white;
+  .dialog-service-title {
+    @include sizeTitleModal;
+    color: $color-black1 !important;
+    border-bottom: 1px solid $color-border1;
+  }
+
+  .dialog-service-message {
+    margin: 30px auto;
+    white-space: pre-line;
+  }
+
+  .dialog-service-controlls {
+    margin: 0px !important;
+    margin-top: 10px !important;
+    padding: 0 !important;
+    min-height: unset !important;
+    button {
+      @include buttonModal;
+      margin: 0 auto;
+      &.btn--primary {
+        background-color: $color-yellow;
+      }
+      &.btn--tertiary {
+        background-color: $color-white;
+      }
+    }
+  }
+  .addnew-label {
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    color: #000000;
+    margin: 0;
+    padding-left: 9.5px;
+  }
+  .input-addnew {
+    border: 0.5px solid #8E8E8E;
+    box-sizing: border-box;
+    border-radius: 5px;
+    max-height: 30px;
+    width: 274px;
+    &:active, &:focus, &:focus-visible {
+      border: 0.5px solid #8E8E8E;
+      outline: none;
+    }
+  }
+  .btn--delete {
+    background-color: #F95151;
+  }
+}

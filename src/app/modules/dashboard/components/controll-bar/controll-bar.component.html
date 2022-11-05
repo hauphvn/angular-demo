@@ -1,0 +1,129 @@
+<mat-toolbar id="wrap-control-bar-dashboard-video" class="flex-column align-items-end">
+  <app-dashboard-slider
+    *ngIf="!isEditXML; else hasEditXML"
+    class="w-100"
+    min="0"
+    [max]="maxTime"
+    [value]="current"
+    (valueChange)="sliderMoveFormat($event)">
+  </app-dashboard-slider>
+
+  <ng-template #hasEditXML>
+    <app-dashboard-slider-scaling
+      class="w-100"
+      [maxTimeSliderScale]="maxTime"
+      [currentTimeSliderScale]="current"
+      (outHandleOnSave)="handleSaveSliderScaling($event)"
+      (outScalingTime)="handleScalingTime($event)"
+      (outIdRemovingNewScene)="handleRemovingNewSceneScalingTime($event)"
+      (outEventHandleNewSceneGanttChart)="onHandleNewSceneGanttChart($event)"
+      (outPreLeftSubRightScene)="onHandlePreLeftSubRightScene($event)"
+      (outEventIsScalingLeftRight)="onHandleIsScalingLeftRight($event)"
+      (valueChange)="sliderMoveFormat($event)">
+    </app-dashboard-slider-scaling>
+  </ng-template>
+  <div id="wrap-dashboard-control">
+    <div id="wrap-record-new-scene-bar"
+         *ngIf="isEditXML"
+         class="wrap-btn-scaling-time">
+      <button
+        id="btnStartNewScene"
+        [ngClass]="(isEnablePlaySceneBarBtn && !isEnablePauseSceneBarBtn) ? 'Rec' :
+                   (!isEnablePlaySceneBarBtn && isEnablePauseSceneBarBtn)  ? 'Recording' : 'notRec'"
+        class="ellipse-button"
+        (click)="onStart()">
+      </button>
+      <!-- <mat-icon
+        id="btnPauseNewScene"
+        class="icon control-icon"
+        [ngClass]="(isEnablePauseSceneBarBtn) ? 'enable-icon' : 'disable-icon'"
+        *ngIf="isEnablePauseSceneBarBtn"
+        (click)="onStop()"
+      >pause
+      </mat-icon> -->
+      <!-- <mat-icon
+        id="btnUndoNewScene"
+        [ngClass]="(isEnableUndoSceneBarBtn) ? 'enable-icon' : 'disable-icon'"
+        *ngIf="isEnableUndoSceneBarBtn"
+        class="icon disable-icon"
+        (click)="onUndoNewScene()"
+      >undo
+      </mat-icon> -->
+      <!-- <mat-icon
+        id="btnSaveNewScene"
+        [ngClass]="(isShowSaveButton) ? 'enable-icon' : 'disable-icon'"
+        class="icon"
+        (click)="onSave()"
+      >save
+      </mat-icon>
+      <mat-icon
+        id="btnDeleteSceneBar"
+        [ngClass]="(isShowRemoveAllButton) ? 'enable-icon' : 'disable-icon'"
+        class="icon"
+        (click)="onRemoveAll()"
+      >delete_sweep
+      </mat-icon> -->
+    </div>
+    <div id="wrap-play-time">
+      <span class="time-view">{{ currentString }}/</span>
+      <span>{{ maxTimeString }}</span>
+    </div>
+    <div id="wrap-media-control">
+      <mat-icon
+        fontSet="material-icons-round"
+        class="controll-icon noselect"
+        (click)="changeScene($event, -1)">skip_previous
+      </mat-icon>
+      <mat-icon
+        fontSet="material-icons-round"
+        class="controll-icon noselect icon-reply-forward"
+        (click)="seekTime($event, -5)">replay_5
+      </mat-icon>
+      <mat-icon
+        fontSet="material-icons-round"
+        *ngIf="!isPlay"
+        (click)="changePlay($event, true)"
+        class="controll-icon noselect"
+      >play_circle_filled
+      </mat-icon>
+      <mat-icon
+        fontSet="material-icons-round"
+        *ngIf="isPlay"
+        (click)="changePlay($event, false)"
+        class="controll-icon noselect"
+      >pause
+      </mat-icon
+      >
+      <mat-icon
+        fontSet="material-icons-round"
+        class="controll-icon noselect icon-reply-forward"
+        (click)="seekTime($event, 5)"
+      >forward_5
+      </mat-icon
+      >
+      <mat-icon fontSet="material-icons-round" class="controll-icon noselect" (click)="changeScene($event, 1)"
+      >skip_next
+      </mat-icon
+      >
+    </div>
+    <div id="wrap-play-back-speed">
+      <span class="title">Playback speed</span>
+      <div class="wrap-add-sub-speed">
+        <mat-icon fontSet="material-icons-round"
+                  class="noselect ml-4 icon"
+                  (click)="changeSpeed($event, -1)">remove
+        </mat-icon>
+        <span class="mx-1 speed-view">{{ speed }}x</span>
+        <mat-icon
+          fontSet="material-icons-round"
+          class="noselect mr-4 icon"
+          (click)="changeSpeed($event, 1)">add
+        </mat-icon>
+      </div>
+    </div>
+    <!--    <div class="timer-area d-flex align-items-center">-->
+    <!--    -->
+    <!--    </div>-->
+  </div>
+</mat-toolbar>
+

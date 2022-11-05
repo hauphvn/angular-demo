@@ -1,0 +1,8 @@
+<div class="box-project d-flex flex-column" [ngClass]="(project.id === projectId) ? 'active' : ''">
+  <div class="project-title mb-4">
+    <span class="ellipsis-text" [matTooltip]="project.name" matTooltipClass="tooltip-confirm">{{ project.name }}</span>
+  </div>
+  <div class="project-image-box mt-3">
+    <div class="project-image" [ngStyle]="{'background-image': 'url(' + project.thumbnail + ')'}"></div>
+  </div>
+</div>

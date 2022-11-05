@@ -1,0 +1,36 @@
+<div class="line-chart-container">
+  <div class="line-chart__filter-control">
+    <div class="scene-setting">
+      <ng-container>
+        <mat-menu #menuLineOptions="matMenu" class="custom-menu">
+          <div fxLayout="row" (click)="$event.stopPropagation()">
+            <div fxLayout="column">
+              <p-tree
+                [value]="listDataOption"
+                selectionMode="single"
+                propagateSelectionUp="false"
+                propagateSelectionDown="false"
+                [(selection)]="selectedOptions"
+                selectionMode="checkbox"
+                (onNodeSelect)="updateListOption($event.node, true)"
+                (onNodeUnselect)="updateListOption($event.node, false)"
+              >
+              </p-tree>
+            </div>
+          </div>
+        </mat-menu>
+        <span style="padding-left: 12px;">Display settings</span>
+        <button
+          class="btn-menu-options"
+          mat-button
+          [matMenuTriggerFor]="menuLineOptions"
+          (menuClosed)="handleFilterChart()">
+          Choose data to display
+          <mat-icon>expand_more</mat-icon>
+        </button>
+
+      </ng-container>
+    </div>
+  </div>
+  <div #lineChartArea class="d-flex flex-wrap position-relative" [id]="'line-chart-' + id"></div>
+</div>

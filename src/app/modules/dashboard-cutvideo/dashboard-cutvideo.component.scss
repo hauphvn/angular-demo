@@ -1,0 +1,164 @@
+@import '../../../assets/scss/common';
+@import "../../../assets/scss/mixin";
+
+#wrap-cut-video-section {
+  padding: 20px;
+  margin: auto;
+  border-radius: 5px;
+  background-color: $color-white;
+  overflow: hidden;
+
+  vg-player {
+    video {
+      //height: 319px;
+    }
+  }
+
+  & .bottom-line {
+    border-bottom: 0.5px solid $color-border1;
+    padding-top: 20px;
+    margin-bottom: 14px;
+    width: 110%;
+    margin-left: -20px;
+  }
+
+  .content-section {
+    .wrap-card-body {
+      .card-header-section {
+        text-align: right;
+        padding: 12px;
+        border-top: 1px solid #ccc;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ccc;
+        border-radius: 8px 8px 0px 0px;
+
+        .btn-menu-options {
+          @include buttonMenuOptions;
+          width: 100%;
+
+          .btn-value {
+            max-width: calc(100% - 26px) !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+            padding: 0 !important;
+          }
+        }
+        span {
+          @include size12;
+          font-weight: bold;
+          line-height: 28px;
+          padding: 10px 0 10px 0;
+          color: #292929;
+        }
+      }
+    }
+    .card-title {
+      @include sizeTitleModal;
+      text-align: left;
+    }
+
+    .card-section {
+      border-radius: 5px;
+      .csv-items .scene-setting {
+        text-align: right;
+      }
+      .card-body {
+        padding: 0;
+        text-align: center;
+        .video-items {
+          background-color: black;
+          padding: 6px 6px 21px 12px;
+          border-radius: 16px 16px 8px 8px;
+          overflow: hidden;
+          .videos-area {
+            height: calc(100% - 64px);
+          }
+
+          .video-box {
+            flex-grow: 1;
+            flex-basis: 0;
+            .video-title {
+              color: $color_grey_1;
+              text-align: left;
+              max-height: 24px;
+              width: 100%;
+              text-overflow: ellipsis;
+              margin-bottom: 10px;
+              overflow: hidden;
+            }
+          }
+
+          .item {
+          }
+        }
+
+        .xml-csv-items {
+          border: none;
+          border-top: 1px solid $color-grey;
+
+          .item {
+          }
+        }
+      }
+
+      .card-footer {
+        background-color: $color-black;
+      }
+    }
+    .card-videos-section {
+      border: none;
+    }
+  }
+
+  .nav-header {
+    button {
+      @include buttonModal;
+
+      &.btn-primary {
+        background-color: $color-yellow;
+      }
+
+      &.btn-secondary {
+        background-color: $color-white;
+      }
+    }
+  }
+  button {
+    max-width: 214px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .nav-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    span {
+      @include size12;
+      font-weight: bold;
+    }
+
+    .back-icon {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+
+  .box-wrapper {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .edit-section {
+    margin: 1rem 12rem 2rem 9rem;
+  }
+}

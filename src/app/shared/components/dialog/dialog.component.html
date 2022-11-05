@@ -1,0 +1,73 @@
+<div class="dialog-service-container">
+  <h2 mat-dialog-title *ngIf="type === 'confirm' || type === 'input' || type ==='validationOnSaveXML' || type === 'addNewLable' || type === 'delete'"
+    [class.text-info]="type === 'confirm' || type === 'input'" class="dialog-service-title">
+    {{ title }}
+  </h2>
+  <h2 mat-dialog-title *ngIf="type === 'error'" [class.text-danger]="type === 'error'" class="dialog-service-title">
+    {{ title }}
+  </h2>
+  <h2 mat-dialog-title *ngIf="type === 'info'" [class.text-info]="type === 'info'" class="dialog-service-title">
+    {{ title }}
+  </h2>
+  <h2 mat-dialog-title *ngIf="type === 'success'" [class.text-success]="type === 'success'"
+    class="dialog-service-title">
+    {{ title }}
+  </h2>
+  <h2 mat-dialog-title *ngIf="type === 'confirm-with-warning'" [class.text-warning]="type === 'confirm-with-warning'"
+    class="dialog-service-title">
+    <img src="../../../../../../assets/images/action/warning.svg" style="width: 25px;margin-right: 5px;" alt="image" />
+    {{ title }}
+  </h2>
+  <div mat-dialog-content *ngIf="type !== 'input'" class="dialog-service-message text-center">
+    {{ message }}
+  </div>
+  <div mat-dialog-content *ngIf="type === 'input'" style="margin-bottom: 20px;">
+    <mat-form-field>
+      <input matInput [(ngModel)]="inputField" [maxlength]="maxLenghtInputField" />
+    </mat-form-field>
+  </div>
+  <div class="d-flex align-items-center" *ngIf="type === 'addNewLable'" style="margin-bottom: 45px; gap: 29px; margin-top: -30px">
+    <label class="addnew-label">
+      Label Name
+    </label>
+    <input matInput [(ngModel)]="inputLabelField" class="input-addnew"/>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-end align-items-center dialog-service-controlls">
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button *ngIf="type === 'confirm' || type === 'confirm-with-warning'" class="btn btn--tertiary"
+      [mat-dialog-close]="false">
+      {{ 'No' }}
+    </button>
+    <button mat-button *ngIf="type === 'confirm' || type === 'confirm-with-warning'" class="btn btn--primary"
+      [mat-dialog-close]="true" cdkFocusInitial>
+      {{ 'Yes' }}
+    </button>
+    <button mat-button *ngIf="type === 'input'" class="btn btn--primary" [mat-dialog-close]="inputField">
+      {{ 'OK' }}
+    </button>
+    <button mat-button
+      *ngIf="type !== 'confirm' && type !== 'input' && type !== 'expired' && type !== 'confirm-with-warning' && type !=='validationOnSaveXML' && type !== 'addNewLable' && type !== 'delete'"
+      class="btn btn--primary" [mat-dialog-close]="true">
+      {{ 'OK' }}
+    </button>
+    <button mat-button type="button" *ngIf="type === 'expired'" class="btn btn--primary" [mat-dialog-close]="true">
+      {{ 'OK' }}
+    </button>
+    <button mat-button *ngIf="type === 'input' || type === 'addNewLable' || type === 'delete'" class="btn btn--tertiary" [mat-dialog-close]="false">
+      {{ 'Cancel' }}
+    </button>
+    <button mat-button *ngIf="type === 'validationOnSaveXML'" class="btn btn--primary" [mat-dialog-close]="true">
+      {{ 'Save' }}
+    </button>
+    <button mat-button *ngIf="type === 'validationOnSaveXML' " class="btn btn--tertiary" [mat-dialog-close]="false">
+      {{ 'Save as' }}
+    </button>
+    <button mat-button *ngIf="type === 'addNewLable'" class="btn btn--primary" [mat-dialog-close]="inputLabelField" [disabled]="!(inputLabelField && inputLabelField.trim().length > 0)">
+      {{ 'Add new' }}
+    </button>
+    <button mat-button *ngIf="type === 'delete'" class="btn btn--delete" [mat-dialog-close]="true">
+      {{ 'Delete' }}
+    </button>
+
+  </div>
+</div>

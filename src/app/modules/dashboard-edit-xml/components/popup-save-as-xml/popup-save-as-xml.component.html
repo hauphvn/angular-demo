@@ -1,0 +1,26 @@
+<div class="wrap-save-as-xml h-100">
+  <h2 mat-dialog-title class="dialog-title">
+    XML Name
+  </h2>
+  <div mat-dialog-content class="dialog-content py-2">
+    <div class="row m-0 wrap-form-input flex-nowrap dialog-input">
+      <label for="xmlName">XML Name: </label>
+      <input
+        (keyup)="onEnterNameXML($event.target)"
+        class="xml-name"
+        id="xmlName"
+        type="text">
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-center align-items-center btn-block dialog-controlls">
+    <button mat-button class="btn btn--tertiary w-equal" (click)="closeModal()">
+      Cancel
+    </button>
+    <button mat-button
+            class="btn btn--primary w-equal"
+            (click)="onSave()"
+            [disabled]="(!!newNameXML) ? null : true">
+      Save
+    </button>
+  </div>
+</div>

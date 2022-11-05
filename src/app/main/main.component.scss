@@ -1,0 +1,8 @@
+// File for main style
+.main-page {
+    height: 100vh;
+
+    &.show-header {
+        padding-top: 60px;
+    }
+}

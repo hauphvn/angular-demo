@@ -1,0 +1,153 @@
+<div class="container-custom export-data-modal-block">
+  <h1 mat-dialog-title class="mb-0">
+    <div class="export-data-modal-header position-relative">
+      <div class="d-flex justify-content-center">
+        <span class="badge badge-primary export-data-modal-title">{{ this.header }}</span>
+      </div>
+    </div>
+  </h1>
+  <div mat-dialog-content class="export-data-content">
+    <div class="export-data-modal-body">
+      <div class="export-data-header">
+        <div class="d-flex flex-column flex-wrap justify-content-between export-data-header">
+          <div class="div-title export-data-custom-input">
+            <div class="d-flex title_content">
+              <span class="title-text mb-2">Download partern</span>
+            </div>
+            <!--Dropdown 1-->
+            <div class="input-group">
+              <mat-form-field>
+                <mat-select [(ngModel)]="selectedOptionPattern" (selectionChange)="getDownloadPattern($event)">
+                  <div class="option-wrapper">
+                    <mat-option *ngFor="let option of exportPatternOptions" [value]="option.key">
+                      {{option.value}}
+                    </mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <hr />
+          <div class="export-data-custom-select">
+            <span class="title-text">Folder</span>
+            <!--Dropdown 2-->
+            <mat-form-field class="w-100 mt-2" *ngIf="dropdownListFolder.length > 0">
+              <mat-chip-list #chipFolder>
+                <mat-chip *ngFor="let folder of folders" [selectable]="selectable" [removable]="removable"
+                  (removed)="removeFolder(folder)">
+                  {{ folder.name }}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input #folderInput [formControl]="projectCtrl" [matAutocomplete]="auto"
+                  class="form-control input-multi-select" [matChipInputFor]="chipFolder"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="addFolder($event)" />
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedFolder($event)" isOpen="false">
+                <mat-option *ngFor="let folder of filteredFolders | async" [value]="folder.name" [id]="folder.id">
+                  {{ folder.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="body-midle" *ngIf="selectedOptionPattern === 2 && dropdownListVideoSets.length > 0">
+        <div class="d-flex title_content">
+          <span class="title-text">Video set</span>
+        </div>
+        <div class="export-data-action">
+          <!--Dropdown 3-->
+          <mat-form-field class="w-100 mt-2">
+            <mat-chip-list #chipVideo>
+              <mat-chip *ngFor="let video of videos" [selectable]="selectable" [removable]="removable"
+                (removed)="removeVideo(video)">
+                {{ video.name }}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input #videoInput [formControl]="videoCtrl" [matAutocomplete]="auto"
+                class="form-control input-multi-select" [matChipInputFor]="chipVideo"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addVideo($event)" />
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedVideo($event)" isOpen="false">
+              <mat-option *ngFor="let video of filteredVideos | async" [value]="video.name" [id]="video.id">
+                {{ video.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="body-export-data">
+        <div class="d-flex title_content">
+          <span class="title-text">Time format</span>
+        </div>
+        <div mat-dialog-actions class="export-data-action">
+          <!--Dropdown 4-->
+          <div class="input-group">
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedTimeOption" (selectionChange)="getDownloadPattern($event)">
+                <div class="option-wrapper">
+                  <mat-option *ngFor="let timeOption of timeOptions" [value]="timeOption.key">
+                    {{timeOption.value}}
+                  </mat-option>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-export-data">
+        <div class="d-flex title_content">
+          <span class="title-text">Aggregation method</span>
+        </div>
+        <div mat-dialog-actions class="export-data-action">
+          <div class="input-group">
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedAggregation" (selectionChange)="getDownloadPattern($event)">
+                <div class="option-wrapper">
+                  <mat-option *ngFor="let aggregationOption of aggregationOptions" [value]="aggregationOption.key">
+                    {{aggregationOption.value}}
+                  </mat-option>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-export-data">
+        <div class="d-flex title_content">
+          <span class="title-text">File type</span>
+        </div>
+        <div mat-dialog-actions class="export-data-action">
+          <div class="input-group">
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedFileTypeOption" (selectionChange)="getDownloadPattern($event)">
+                <div class="option-wrapper">
+                  <mat-option *ngFor="let fileTypeOption of fileTypeOptions" [value]="fileTypeOption.key">
+                    {{fileTypeOption.value}}
+                  </mat-option>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-column">
+    <div class="wrap-model-footer">
+      <div>
+        <button type="button" class="btn btn-secondary m-0 w-equal" (click)="closeModal()" matRipple>Cancel</button>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary color-base w-equal" [disabled]="!validated" matRipple
+          (click)="handleExportData()">
+          Export
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

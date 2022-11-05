@@ -1,0 +1,64 @@
+#dashboard-section {
+  width: 100%;
+  height: calc(100% - 69px);
+  overflow-y: auto;
+  .video-box {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+  .videos-area {
+    height: calc(100% - 64px);
+  }
+}
+
+mat-drawer-container {
+  flex: 1 1 auto;
+  height: 100%;
+  .dashboard-leftnav,
+  .dashboard-rightnav {
+    width: 19%;
+    min-width: 19%;
+    max-width: 19%;
+    overflow-y: auto;
+    background-color: #363636;
+    color: white;
+  }
+  .dashboard-leftnav * {
+    background-color: #363636;
+    color: white;
+  }
+  .mat-drawer-content {
+    overflow: hidden;
+  }
+}
+
+
+.logo {
+  width: 230px;
+  height: 50px;
+  background: url("../../../../assets/images/Logo.svg");
+  background-repeat: no-repeat;
+  background-size: auto 50px;
+  cursor: pointer;
+}
+
+.header-button {
+  min-width: unset;
+  line-height: unset;
+}
+
+mat-toolbar.headerbar {
+  background: white;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  margin-bottom: 5px;
+  color: black
+}
+
+.f-26{
+  font-size: 26px;
+  font-family: 'Montserrat', sans-serif;
+  color: black !important;
+}

@@ -1,0 +1,33 @@
+<section class="login-container d-flex w-100 align-items-center justify-content-center">
+  <form class="login-form d-flex flex-column" [formGroup]="loginForm">
+    <div class="login-title-area d-flex align-items-center flex-column">
+      <img class="logo-img-main" src="../../../assets/images/Logo_login.svg" alt="Intage logo" />
+      <img class="mt-4 logo-img" src="../../../assets/images/new-logo.svg" alt="Intage logo" />
+    </div>
+    <hr/>
+    <div class="login-body-area form-body">
+      <mat-form-field class="w-100 custom-mat-form-field dialog-input">
+        <label for="email">Email address</label>
+        <div>
+          <input matInput type="email" id="email" class="w-100 form-control" formControlName="email" />
+        </div>
+        <mat-error>{{ loginForm.controls.email.errors?.message }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100 custom-mat-form-field dialog-input">
+        <label for="password">Password</label>
+        <div>
+          <img [src]="isShowPassword ? '../../../assets/icons/eye-non-active.svg' : '../../../assets/icons/eye-active.svg'" alt="icon eye" [class]="isShowPassword ? 'active' : 'non-active'" (click)="eyeClick()"/>
+          <input matInput [type]="isShowPassword ? 'text' : 'password'" id="password" class="w-100 form-control" formControlName="password" />
+        </div>
+        <mat-error>{{ loginForm.controls.password.errors?.message }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="login-footer-area d-flex justify-content-center flex-wrap">
+      <button class="login-button btn btn-lg w-100 form-submit-button" (click)="onSubmit()" matRipple>Log In</button>
+      <span class="login-contact-text mt-3">*Contact your admin if you forgot your password</span>
+    </div>
+  </form>
+</section>
+<span class="copy-right">
+  Copyright (c) INTAGE TECHNOSPHERE Inc. All Rights Reserved.
+</span>

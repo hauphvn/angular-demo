@@ -1,0 +1,151 @@
+@import "../../../assets/scss/mixin";
+
+.main-content {
+  padding: 0;
+
+  &__project {
+    padding: 10px 40px;
+  }
+
+  .projects-sort_section {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0.5rem;
+    .sort-label {
+      @include sizeSmall;
+      font-weight: bold !important;
+      align-self: center;
+    }
+  }
+
+  .pagination-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 25px;
+  }
+
+  .custom-paginator {
+    margin: 0.5rem 1rem 0 0;
+  }
+}
+.title-page {
+  @include sizeTitle;
+  color: black !important;
+}
+.project-list {
+  width: 100%;
+  min-height: 190px;
+  .no-data {
+    height: 248px;
+    color: #afafaf;
+    font-size: 2em;
+  }
+  .project-row {
+    min-height: 150px;
+    gap: 15px;
+  }
+  .project-item {
+    width: calc(20% - 12px) !important;
+  }
+}
+hr {
+  border-top: 2px solid #949494;
+  width: 100%;
+  margin-top: 0;
+}
+.w-20 {
+  width: 20%;
+}
+.navigation {
+  padding-right: 60px;
+}
+
+::ng-deep .ui-paginator {
+  border: none !important;
+}
+
+@media screen and (max-width: 768px) {
+  .project-list {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    min-height: 200px;
+  }
+}
+
+.sorting-project {
+  top: 10px;
+  right: 10px;
+}
+
+.options {
+  align-self: center;
+  border-radius: 5px;
+  ::ng-deep {
+    .ui-dropdown label.ui-dropdown-label {
+      font-size: 14px;
+      color: $color-grey;
+      line-height: 12px;
+    }
+  }
+}
+
+::ng-deep {
+  .mat-dialog-container {
+    @include modalWrapper;
+  }
+
+  .document-dialog-class,
+  .upload-dialog-class,
+  .video-detail-dialog-class,
+  .export-data-dialog-class {
+    margin: 0 auto !important;
+  }
+
+  .ui-corner-all,
+  .ui-dropdown-trigger {
+    @include customDropdown;
+  }
+
+  .ui-dropdown {
+    min-width: 9.5rem;
+  }
+
+  .ui-dropdown-items-wrapper {
+    padding: 2px;
+  }
+
+  .ui-dropdown-trigger-icon {
+    color: black;
+  }
+
+  .ui-paginator {
+    background-color: white !important;
+  }
+  .ui-paginator-page {
+    border-radius: 0px !important;
+    border: 1px solid #e2e2e2 !important;
+  }
+  .ui-paginator-pages > .ui-paginator-page:first-child {
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 0px !important;
+  }
+  .ui-paginator-pages > .ui-paginator-page:last-child {
+    border-top-right-radius: 8px !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 8px !important;
+  }
+
+  .ui-state-active {
+    background-color: #fabe00 !important;
+    color: black !important;
+    font-weight: bold !important;
+    border: 1px solid #fabe00 !important;
+  }
+
+  .ui-inputtext {
+    padding: 0.7em !important;
+  }
+}

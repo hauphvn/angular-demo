@@ -1,0 +1,79 @@
+@import '../../../../../assets/scss/mixin';
+
+.popup-edit-reply-comment {
+  .comment-modal-body  {
+    padding: 0 20px;
+  }
+  .dialog-title {
+    @include sizeTitleModal;
+    border-bottom: 1px solid $color-border1;
+    background-color: transparent;
+  }
+  .comment-text {
+    font-size: 16px;
+    line-height: 15px;
+    color: #5C5C5C;
+  }
+
+  .comment-label {
+    height: 22px;
+
+    label {
+      max-height: 22px;
+    }
+  }
+
+  ::ng-deep {
+    .mat-form-field-infix {
+      padding: 0;
+    }
+    .mat-form-field-flex {
+      background-color: transparent !important;
+    }
+    .mat-form-field-infix input, .custom-input .mat-form-field-infix {
+      input, textarea {
+        border: 1px solid $color-border1;
+        border-radius: 8px;
+        color: #5C5C5C;
+        height: 40px;
+
+        &:disabled {
+          opacity: 0.5;
+        }
+      }
+
+      textarea {
+        height: 96px;
+      }
+    }
+  }
+
+  .pdf-10 {
+    padding: 0 0 0 10px;
+  }
+
+  .pdr-10 {
+    padding: 0 10px 0 0;
+  }
+
+  .comment-modal-footer {
+    gap: 10px;
+    border-top: 0;
+    padding-top: 0;
+    padding-bottom: 20px;
+
+    button {
+      @include buttonModal;
+      margin: 0;
+
+      &.btn-save {
+        background-color: $color-yellow;
+      }
+
+      &.btn-cancel {
+        background-color: $color-white;
+      }
+    }
+  }
+
+}

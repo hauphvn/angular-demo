@@ -1,0 +1,20 @@
+<div class="export-reporting-modal-block">
+    <h1 mat-dialog-title class="dialog-title">
+        Notification
+    </h1>
+    <div class="dialog-label">You don't have permision to download folder
+        <span *ngFor="let itemInvalidVideos of invalidateVideoDetails"> {{ itemInvalidVideos.title }}</span>.
+        <span *ngIf="validateVideoDetails && validateVideoDetails.length > 0">
+            <span *ngIf="validateVideoDetails && validateVideoDetails.length && validateVideoDetails.length === 1"> Only</span> folder
+            <span *ngFor="let itemValidVideos of validateVideoDetails"> {{itemValidVideos.title}}</span> will be download
+        </span>
+    </div>
+    <div class="btn-block">
+        <button mat-button class="btn cancel" (click)="closePopup()">
+            Cancel
+          </button>
+          <button *ngIf="validateVideoDetails && validateVideoDetails.length > 0" mat-button class="btn btn-save" (click)="handleSave()">
+            OK
+          </button>
+    </div>
+</div>

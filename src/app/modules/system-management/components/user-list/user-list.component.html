@@ -1,0 +1,61 @@
+<!-- Table user list -->
+<div class="user-list-container">
+  <div class="d-flex justify-content-between">
+    <div class="title">
+      <strong><span class="fs-24-px"> User List</span> </strong>
+    </div>
+    <div class="control-buttons d-flex align-items-center justify-content-between">
+      <div class="form-group d-flex align-items-center justify-content-start text-muted">
+        <input
+          class="search-input input-group-text"
+          #inputSearch
+          placeholder="Type here to search for user"
+          (keyup.enter)="keySearch = inputSearch.value"
+        />
+        <button
+          type="button"
+          class="btn btn-primary btn-primary-unfocus btn-custom"
+          (click)="keySearch = inputSearch.value"
+          matRipple
+        >
+          <mat-icon>search</mat-icon>
+          <span>Search</span>
+        </button>
+      </div>
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-add"
+          (click)="openPopupAddUserList()"
+          *ngIf="!deleteMode && isRoleAdmin"
+          matRipple
+        >
+          <img src="../../../../../assets/icons/add_user.svg" alt="add user"/>
+          Add User
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="border table-borderless border-dark clearfix system-user-list">
+    <div
+      class="no-data d-flex align-items-center justify-content-center"
+      *ngIf="!this.userList || this.userList.length === 0"
+    >
+      <h1>No availble data in table</h1>
+    </div>
+    <app-table
+      *ngIf="this.userList && this.userList.length > 0"
+      [tableConfig]="tableConfig"
+      [cols]="this.cols"
+      [(data)]="this.userList"
+      (selectedItem)="handleSelectItem($event)"
+      (editClick)="handlEditClick($event)"
+      (delete)="handleDeleteItem($event)"
+      [keySearch]="keySearch"
+      [isShowBtnEdit]="isRoleAdmin"
+      [isShowBtnDelete]="isRoleAdmin"
+      [countPagination]="10"
+    ></app-table>
+  </div>
+</div>

@@ -1,0 +1,186 @@
+<p-dialog
+  [(visible)]="isDisplay"
+  [responsive]="true"
+  [style]="{ width: '90vw', 'max-height': '90vh', 'max-width': '628px' }"
+  [minY]="70"
+  [baseZIndex]="10000"
+  [closable]="false"
+  class="dialog-dashboard-setting"
+>
+  <p-header>
+    <h1 mat-dialog-title class="dialog-title">
+      Dashboard View Settings
+    </h1>
+  </p-header>
+  <div class="dashboard-setting-container">
+    <div class="ui-g dashboard-setting-wrapper">
+      <div class="column-side ui-g-nopad">
+        <div class="ui-g-12 list-box-first h-60">
+          <p-listbox [options]="listXML" [listStyle]="{ 'max-height': '32vh' }" [checkbox]="true">
+            <p-header>
+              <span>Label List</span>
+            </p-header>
+            <ng-template let-xml pTemplate="item">
+              <div class="ui-helper-clearfix">
+                <div class="ui-g-12 p-0 d-flex align-items-center">
+                  <img src="../../../../../assets/icons/document.svg" alt="icon document" />
+                  <p-checkbox
+                    class="w-100 d-flex align-items-center checkbox-item"
+                    name="groupXML"
+                    value="{{ xml.id }}"
+                    label="{{ xml.name }}"
+                    [(ngModel)]="listXMLSelected"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+            </ng-template>
+          </p-listbox>
+        </div>
+        <div class="ui-g-12 list-box-second h-40">
+          <p-listbox [options]="listTimeSeries" [listStyle]="{ 'max-height': '32vh' }" [checkbox]="true">
+            <p-header>
+              <span>Time Series List</span>
+            </p-header>
+            <ng-template let-csv pTemplate="item">
+              <div class="ui-helper-clearfix">
+                <div class="ui-g-12 p-0 d-flex align-items-center">
+                  <img src="../../../../../assets/icons/document.svg" alt="icon document" />
+                  <p-checkbox
+                    class="w-100 d-flex align-items-center checkbox-item"
+                    name="groupTimeseries"
+                    value="{{ csv.id }}"
+                    label="{{ csv.name }}"
+                    [(ngModel)]="listTimeseriesSelected"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+            </ng-template>
+          </p-listbox>
+        </div>
+      </div>
+      <div class="button-assign d-flex align-items-center justify-content-center">
+        <img src="../../../../../assets/icons/arrow-right-orange.svg" alt="icon arrow" (click)="assignList()" />
+      </div>
+      <div class="column-side ui-g-nopad column-side-right">
+        <div class="ui-g-12 ui-md-12 ui-g-nopad drag-column list-box-third">
+          <div class="column__list">
+            <div class="result-box" *ngIf="isXMLGroupFirst">
+              <span>Label Chart</span>
+              <p-listbox [options]="listXMLDragable" [readonly]="true" [checkbox]="true">
+                <ng-template let-index="index" let-xml pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <div class="ui-g-12 p-0">
+                      <ul class="p-0">
+                        <div
+                          pDraggable="xml"
+                          pDroppable="xml"
+                          (onDragStart)="onDragStart($event, index)"
+                          (onDrop)="onDropXML($event, index)"
+                          class="drag-drop-item"
+                        >
+                          <img src="../../../../../assets/icons/document.svg" alt="icon document" />
+                          <span>{{ xml.name }}</span>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-listbox>
+            </div>
+            <div class="result-box result-box__last" *ngIf="!isXMLGroupFirst">
+              <span>Time Series Chart</span>
+              <p-listbox [options]="listTimeseriesDragable" [readonly]="true" [checkbox]="true">
+                <ng-template let-index="index" let-csv pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <div class="ui-g-12 p-0">
+                      <ul class="p-0">
+                        <div
+                          pDraggable="timeseries"
+                          pDroppable="timeseries"
+                          (onDragStart)="onDragStart($event, index)"
+                          (onDrop)="onDropTimeseries($event, index)"
+                          class="drag-drop-item"
+                        >
+                          <img src="../../../../../assets/icons/document.svg" alt="icon document" />
+                          <span>{{ csv.name }}</span>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-listbox>
+            </div>
+            <div class="icon-swap d-flex w-100 align-items-center justify-content-center">
+              <img src="../../../../../assets/icons/sort.svg" alt="icon sort"
+                   (click)="isXMLGroupFirst = !isXMLGroupFirst" />
+            </div>
+            <div class="result-box result-box__last" *ngIf="isXMLGroupFirst">
+              <span>Time Series Chart</span>
+              <p-listbox [options]="listTimeseriesDragable" [readonly]="true" [checkbox]="true">
+                <ng-template let-index="index" let-csv pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <div class="ui-g-12 p-0">
+                      <ul class="p-0">
+                        <div
+                          pDraggable="timeseries"
+                          pDroppable="timeseries"
+                          (onDragStart)="onDragStart($event, index)"
+                          (onDrop)="onDropTimeseries($event, index)"
+                          class="drag-drop-item"
+                        >
+                          <img src="../../../../../assets/icons/document.svg" alt="icon document" />
+                          <span>{{ csv.name }}</span>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-listbox>
+            </div>
+            <div class="result-box" *ngIf="!isXMLGroupFirst">
+              <span>Label Chart</span>
+              <p-listbox [options]="listXMLDragable" [readonly]="true" [checkbox]="true">
+                <ng-template let-index="index" let-xml pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <div class="ui-g-12 p-0">
+                      <ul class="p-0">
+                        <div
+                          pDraggable="xml"
+                          pDroppable="xml"
+                          (onDragStart)="onDragStart($event, index)"
+                          (onDrop)="onDropXML($event, index)"
+                          class="drag-drop-item"
+                        >
+                          <img src="../../../../../assets/icons/document.svg" alt="icon document" />
+                          <span>{{ xml.name }}</span>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-listbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="d-flex justify-content-center w-100 btn-block">
+      <button type="button" class="btn btn-cancel" (click)="onClose()" matRipple>
+        Cancel
+      </button>
+      <button
+        [disabled]="listXMLDragable.length < 1 || listTimeseriesDragable.length < 1"
+        type="button"
+        class="btn btn-save"
+        (click)="onSave()"
+        matRipple
+      >
+        Save
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>

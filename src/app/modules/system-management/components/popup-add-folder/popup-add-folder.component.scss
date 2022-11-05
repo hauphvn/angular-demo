@@ -1,0 +1,75 @@
+@import '../../../../../assets/scss/mixin';
+.wrap-add-new-folder {
+  background-color: $color-white;
+  .dialog-title {
+    @include sizeTitleModal;
+    border-bottom: 1px solid $color-border1;
+  }
+
+  .dialog-content {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    .dialog-row {
+      padding-bottom: 20px;
+    }
+
+    .dialog-label {
+      label, span {
+        font-size: 14px;
+        line-height: 15px;
+        color: $color-grey;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+    }
+
+    .dialog-input {
+      input {
+        background: white !important;
+        border: 1px solid $color-border1 !important;
+        box-sizing: border-box;
+        border-radius: 8px;
+        color: $color-black1;
+        &:focus {
+          box-shadow: unset !important;
+        }
+      }
+
+      input {
+        height: 40px;
+      }
+    }
+  }
+
+  .dialog-controlls {
+    margin: 0px !important;
+    padding: 10px 0 0 0;
+    gap: 10px;
+    button {
+      @include buttonModal;
+      &.btn--primary {
+        background-color: $color-yellow;
+      }
+      &.btn--tertiary {
+        background-color: $color-white;
+      }
+    }
+  }
+  mat-error {
+    font-size: 0.8em;
+  }
+  button.button-remove-thumbnail {
+    top: -14px;
+    right: -14px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    & * {
+      line-height: 24px;
+    }
+    mat-icon {
+      font-size: 120%;
+    }
+  }
+}

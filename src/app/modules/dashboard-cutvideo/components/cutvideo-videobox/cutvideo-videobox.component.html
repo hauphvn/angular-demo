@@ -1,0 +1,35 @@
+<div id="cut-box-area" [formGroup]="formStartTime">
+  <div class="cut-box-body">
+    <vg-player (onPlayerReady)="onPlayerReady($event)">
+      <video  #videoElement (loadedmetadata)="onVideoMetaData(videoElement)"
+              [vgMedia]="media" #media id="singleVideo" preload="auto">
+        <source [src]="videoInfo.url" type="video/mp4" />
+        <track label="English" kind="subtitles" />
+      </video>
+      <vg-controls>
+        <div id="mb-wrap-current-time" class="wrap-current-time">
+          <div *ngIf="isMobileDevice; else mobileDevice" class="time time-mobile"><span class="current">{{currentTimeOnPlayer}}</span>/{{totalTime}}</div>
+          <ng-template #mobileDevice>
+            <div class="time"><span class="current">{{currentTimeOnPlayer}}</span>/{{totalTime}}</div>
+          </ng-template>
+          <div class="wrap-time-start">Start <span class="text">{{formStartTime.controls.startTime.value}}</span></div>
+        </div>
+        <vg-scrub-bar>
+          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+          <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+      </vg-controls>
+      <vg-buffering></vg-buffering>
+    </vg-player>
+  </div>
+  <div class="cut-box-footer">
+    <app-cutvideo-controll-bar
+      [videoTitle] = "videoInfo.title || 'Undefined'"
+      [isEnded]="isEnded"
+      [stringStartTime]="formStartTime.controls.startTime.value"
+      [isShowPlayButton]='true'
+      (changePlayClick)="handleChangePlayClick($event)"
+      (nextBackClick)="handleNextBackClick($event)"
+    ></app-cutvideo-controll-bar>
+  </div>
+</div>

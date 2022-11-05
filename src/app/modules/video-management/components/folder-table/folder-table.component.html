@@ -1,0 +1,79 @@
+<div class="table-list" [ngClass]="{ 'dark-theme': isDarkTheme }">
+  <div class="row align-items-center justify-content-between m-0 table-row">
+    <span class="title-page ellipsis-text" [matTooltip]="projectName" matTooltipClass="tooltip-confirm">
+      {{ projectName }}
+    </span>
+    <div class="control align-items-center" *ngIf="projectId">
+      <button
+        *ngIf="isRoleAdmin
+        || isRoleUserDataDl"
+        class="btn btn-export btn-custom"
+        (click)="openPopupExport()"
+        matRipple
+      >
+        <img src="../../../../../assets/icons/export_raw_data.svg" alt="icon raw"/>
+        <span>Export Raw data</span>
+      </button>
+      <button
+        *ngIf="isRoleAdmin
+        || isRoleUserUploader
+        || isRoleUserPro"
+        class="btn btn-document
+        btn-custom"
+        (click)="openPopupCopyVideoModal()"
+        matRipple
+      >
+        <img src="../../../../../assets/icons/coppy-video-icon.svg" alt="icon coppy video"/>
+        <span>Copy Video</span>
+      </button>
+      <button
+        *ngIf="isRoleAdmin
+        || isRoleUserUploader
+        || isRoleUserPro
+        || isRoleUserStandar"
+        class="btn btn-document btn-custom"
+        (click)="getDocument()"
+        matRipple
+      >
+        <img src="../../../../../assets/icons/document.svg" alt="icon document"/>
+        <span>Document</span>
+      </button>
+      <button
+        *ngIf="isRoleAdmin
+        || isRoleUserUploader
+        || isRoleUserPro"
+        class="btn btn-custom"
+        (click)="openPopupModal(true)"
+        matRipple
+      >
+        <img src="../../../../../assets/icons/upload.svg" alt="icon upload"/>
+        <span>Upload</span>
+      </button>
+      <p-dropdown
+        [options]="sortingOptions"
+        [dropdownIcon]="'pi pi-caret-down'"
+        [(ngModel)]="sortingConditionFolder"
+        optionLabel="value"
+        (onChange)="changeSortOption()"
+        class="dropdown"
+      ></p-dropdown>
+    </div>
+  </div>
+  <div class="folder-table" *ngIf="listFolder">
+    <div *ngIf="!listFolder || listFolder.length === 0" class="no-data d-flex align-items-center justify-content-center">
+      No folder found
+    </div>
+    <div *ngIf="listFolder && listFolder.length > 0">
+      <app-folder-list
+        *ngFor="let folder of listFolder"
+        [proActId] = projectId
+        [folder]="folder"
+        (loadMore)="loadMore($event)"
+        (currentPage)="changeShowMoreCurrentPage($event)"
+        (deleteVideoDetailPopup)="this.deleteVideoDetail($event)"
+        (currentSortTypeVideo)="getCurrentSortTypeVideo($event)"
+      >
+      </app-folder-list>
+    </div>
+  </div>
+</div>

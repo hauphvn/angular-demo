@@ -1,0 +1,76 @@
+<div class="wrap-scene-tag-reporting">
+  <div class="col-6 wrap-scene overflow-auto">
+    <div class="w-100 d-flex align-items-center justify-content-between select-all">
+      <div class="text-wrapper">
+        <span class="reporting-text">Scene</span>
+        <!-- <img src="../../../../../assets/icons/sort.svg" alt="icon sort" /> -->
+      </div>
+      <div>
+        <section>
+          <mat-checkbox
+            color="primary"
+            [checked]="sceneCheckAll"
+            (change)="setSceneAll($event.checked)"
+          >
+            Select All
+          </mat-checkbox>
+        </section>
+      </div>
+    </div>
+    <div #divScene class="scene-block">
+      <div class="checkbox-item" *ngFor="let scene of scenes">
+        <section>
+          <mat-checkbox
+            class="sceneSelected"
+            color="primary"
+            [matTooltip]="scene"
+            (change)="sceneChange($event)"
+            [value]="scene"
+            [(ngModel)]="selectedSceneOptions[scene]"
+          >
+            <span class="d-block text-truncate">
+              {{ scene }}
+            </span>
+          </mat-checkbox>
+        </section>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 wrap-tag overflow-auto">
+    <div class="w-100 d-flex align-items-center justify-content-between select-all">
+      <div class="text-wrapper">
+        <span class="reporting-text">Tag</span>
+        <!-- <img src="../../../../../assets/icons/sort.svg" alt="icon sort" /> -->
+      </div>
+      <div>
+        <section>
+          <mat-checkbox
+            color="primary"
+            [checked]="tagCheckAll"
+            (change)="setTagAll($event.checked)"
+          >
+            Select All
+          </mat-checkbox>
+        </section>
+      </div>
+    </div>
+    <div #divTag class="tag-block">
+      <div class="checkbox-item" *ngFor="let tag of tags">
+        <section>
+          <mat-checkbox
+            class="tagSelected"
+            color="primary"
+            [matTooltip]="tag"
+            [value]="tag"
+            (change)="tagChange($event)"
+            [(ngModel)]="selectedTagsOptions[tag]"
+          >
+            <span class="d-block text-truncate">
+              {{ tag }}
+            </span>
+          </mat-checkbox>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

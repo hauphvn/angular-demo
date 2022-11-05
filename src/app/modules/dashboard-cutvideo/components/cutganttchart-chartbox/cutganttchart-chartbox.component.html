@@ -1,0 +1,24 @@
+<as-split direction="vertical">
+  <as-split-area>
+    <mat-drawer-container>
+      <app-gantt-chart
+        [taskTypes]="taskTypes"
+        [tasksFormated]="tasksFormated"
+        [numTypeOfXML]="numTypeOfXML"
+        [isDragDivision]='false'
+        (currentTimeChange)="syncCurrentTime($event)"
+      >
+      </app-gantt-chart>
+    </mat-drawer-container>
+  </as-split-area>
+</as-split>
+<div>
+  <div [formGroup]="formStartTime">
+    <app-cutvideo-controll-bar
+      [stringStartTime]="formStartTime.controls.startTime.value"
+      [isShowPlayButton]='false'
+      [showTextTimeStart]="true"
+      (nextBackClick)="handleNextBackClick($event)">
+    </app-cutvideo-controll-bar>
+  </div>
+</div>

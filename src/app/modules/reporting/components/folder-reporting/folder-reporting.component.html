@@ -1,0 +1,28 @@
+<div class="d-flex flex-column wrap-folder-reporting">
+  <div class="w-100 d-flex align-items-center justify-content-between select-all">
+    <div class="text-wrapper">
+      <span class="reporting-text">Video set</span>
+      <!-- <img src="../../../../../assets/icons/sort.svg" alt="icon sort" /> -->
+    </div>
+    <div>
+      <section>
+        <mat-checkbox
+          color="primary"
+          [checked]="videoCheckAll"
+          (change)="setAll($event.checked)"
+        >
+          Select All
+        </mat-checkbox>
+      </section>
+    </div>
+  </div>
+  <div class="w-100">
+    <div class="d-flex flex-column scrollVideoSet">
+      <section *ngFor="let video of allVideoListMerge">
+        <mat-checkbox color="primary" [value]="video" (change)="change($event)" [(ngModel)]="video.checked">
+          {{ video.name }}
+        </mat-checkbox>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<p-table
+  #dt
+  [columns]="cols"
+  [value]="data"
+  [paginator]="true"
+  [rows]="countPagination"
+  editMode="row"
+  (onPage)="handleOnPageChange($event)"
+  [dataKey]="tableConfig.key"
+  [selectionMode]="tableConfig.selection && 'single'"
+  [(selection)]="selectItem"
+  [metaKeySelection]="true"
+  (onRowSelect)="onRowSelect($event)"
+  pageLinks="3"
+  class="table-block"
+>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        <!--columns variable from line 2-->
+        {{ col.header }}
+      </th>
+      <th class="last-column">Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data let-columns="columns" let-rowIndex="rowIndex" let-editing="editing">
+    <tr
+      [pEditableRow]="data"
+      [pSelectableRow]="tableConfig.selection && data"
+      [ngClass]="{ 'custom-table-select': tableConfig.selection && rowIndex === rowSelectInit && autoSelect }"
+    >
+      <td *ngFor="let col of columns; let columnIndex = index">
+        <p-cellEditor *ngIf="tableConfig.rowConfigs[col.field].editable && isInline">
+          <ng-template
+            *ngIf="!tableConfig.rowConfigs[col.field].type || tableConfig.rowConfigs[col.field].type === 'input'"
+            pTemplate="input"
+          >
+            <input
+              pInputText
+              type="text"
+              [(ngModel)]="data[col.field]"
+              [maxLength]="tableConfig.rowConfigs[col.field].maxLength"
+              class="w-75"
+            />
+          </ng-template>
+          <ng-template
+            *ngIf="tableConfig.rowConfigs[col.field].type && tableConfig.rowConfigs[col.field].type === 'dropdown'"
+            pTemplate="input"
+          >
+            <p-dropdown
+              [options]="tableConfig.rowConfigs[col.field].options"
+              [(ngModel)]="data[col.field]"
+              [style]="{ width: '100%' }"
+            ></p-dropdown>
+          </ng-template>
+          <ng-template pTemplate="output">
+            <span class="data-output" [ngClass]="makeClass(data[col.field], col.field)">{{ data[col.field] }}</span>
+          </ng-template>
+        </p-cellEditor>
+        <span
+          class="data-output"
+          [ngClass]="makeClass(data[col.field], col.field)"
+          *ngIf="!tableConfig.rowConfigs[col.field].editable || !isInline"
+          >{{ data[col.field] }}</span
+        >
+      </td>
+      <td style="text-align:center" class="button-controll" [ngClass]="(editing && isInline) ? 'btn-table-edit' : ''">
+        <ng-container *ngFor="let function of tableConfig.functions">
+          <button
+            *ngIf="(!editing || !isInline) && function === 'edit' && isShowBtnEdit"
+            pButton
+            type="button"
+            pInitEditableRow
+            icon="pi pi-pencil"
+            class="ui-button-info"
+            (click)="onRowEditInit(data, rowIndex)"
+          ></button>
+          <button
+            *ngIf="editing && function === 'edit' && isInline"
+            pButton
+            type="button"
+            pSaveEditableRow
+            icon="pi pi-check"
+            class="ui-button-success"
+            style="margin-right: .5em"
+            (click)="onRowEditSave(data, rowIndex)"
+          ></button>
+          <button
+            *ngIf="editing && function === 'edit' && isInline"
+            [id]="'cancel-' + data.id"
+            pButton
+            type="button"
+            pCancelEditableRow
+            icon="pi pi-times"
+            class="ui-button-cancel"
+            (click)="onRowEditCancel(data, rowIndex)"
+          ></button>
+          <button
+            *ngIf="(!editing || !isInline) && function === 'delete' && isShowBtnDelete"
+            pButton
+            type="button"
+            class="ui-button-danger"
+            (click)="onDelete(data, rowIndex)"
+          >
+            <img src="../../../../assets/icons/delete.svg" alt="icon delete"/>
+          </button
+        ></ng-container>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="paginatorright"> </ng-template>
+</p-table>

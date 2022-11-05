@@ -1,0 +1,87 @@
+@import '../../../../../assets/scss/common';
+
+#wrap-cut-video-control-bar {
+  background-color: $color-black;
+  padding: 0;
+  border-radius: 0px 0px 8px 8px ;
+  margin-bottom: -1px;
+
+  .wrap-dashboard {
+    width: 100%;
+
+    & * {
+      color: white;
+    }
+
+    .wrap-current-time {
+      @include size16;
+      font-size: 14px;
+      line-height: 2;
+      color: $color-white;
+      text-align: center;
+      position: relative;
+
+      .wrap-time-start {
+        display: inline-block;
+        position: absolute;
+        right: 20px;
+        top: 0.7em;
+
+        .text {
+          background-color: $color-white;
+          width: 100px;
+          color: $color-black;
+          border-radius: 5px;
+          padding: 4px 13px;
+          margin-left: 7px;
+        }
+      }
+
+      .time-current {
+        display: inline-block;
+      }
+    }
+    .wrap-video-control {
+      padding: 5px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+
+      span.number {
+        position: absolute;
+        top: 57%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        font-size: 11px;
+
+        &.fz-8 {
+          font-size: 10px;
+        }
+      }
+
+      .image-width {
+        width: 35px;
+      }
+
+      .control-icon {
+        margin: 0px 3px;
+        position: relative;
+
+        img {
+          width: 46px;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 739px) {
+    #wrap-cut-video-control-bar #mb-wrap-current-time {
+      font-size: 14px;
+    }
+  }
+}

@@ -1,0 +1,68 @@
+@import '../../../../../assets/scss/mixin';
+
+.wrap-confirm-assign-group-user {
+  background-color: $color-white;
+
+  .dialog-title {
+    @include sizeTitleModal;
+    border-bottom: 1px solid $color-border1;
+  }
+
+  .dialog-content {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    .dialog-row {
+      padding-bottom: 20px;
+    }
+
+    .dialog-label {
+      label {
+        font-size: 14px;
+        line-height: 15px;
+        color: $color-grey;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+    }
+
+    .dialog-input {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: white !important;
+      border: 1px solid $color-border1 !important;
+      box-sizing: border-box;
+      border-radius: 8px;
+      color: $color-black1;
+      height: 40px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .dialog-controlls {
+    margin: 0px !important;
+    padding: 10px 0 0 0;
+    gap: 10px;
+
+    button {
+      @include buttonModal;
+
+      &.btn--primary {
+        background-color: $color-yellow;
+      }
+
+      &.btn--tertiary {
+        background-color: $color-white;
+      }
+    }
+  }
+
+  .label-thumbnail {
+    margin-top: 0.3rem;
+  }
+
+  .image-area {
+    width: 96%;
+  }
+}

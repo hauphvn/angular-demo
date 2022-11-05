@@ -1,0 +1,134 @@
+@import '../../../assets/scss/common';
+#dashboard-section {
+  width: 100%;
+  height: calc(100%);
+  overflow-y: auto;
+  .video-box {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+  .videos-area {
+    height: calc(100% - 50px);
+  }
+
+  .chart-zoom {
+    margin-right:35px;
+    .zoom-slider-container {
+      width: 250px;
+
+      .input-wrapper {
+        .zoom-input {
+          width: 100%;
+          @extend .input-range-slider;
+        }
+      }
+    }
+
+    .zoom-text {
+      min-width: 50px;
+    }
+
+    .zoom-icon {
+      cursor: pointer;
+    }
+  }
+  .flex-item-center {
+    display: flex;
+    align-items: center;
+  }
+  .dashboard-header {
+    @extend .flex-item-center;
+    background-color: $color-white;
+    gap: 20px;
+    padding: 20px 40px;
+
+    .header-back {
+      @extend .flex-item-center;
+      gap: 5px;
+      cursor: pointer;
+
+      span {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 15px;
+        color: $color-grey;
+      }
+    }
+
+    h2 {
+      @include size24;
+      margin: 0;
+    }
+
+    .btn-block {
+      @extend .flex-item-center;
+      justify-content: flex-end;
+      gap: 10px;
+      width: 50%;
+      margin-left: auto;
+
+      .btn {
+        @extend .flex-item-center;
+        box-sizing: border-box;
+        border-radius: 8px;
+        gap: 5px;
+        border: 1px solid $color-border1;
+        padding: 10px;
+        @include sizeSmall;
+        color: $color-grey;
+      }
+    }
+  }
+
+  .double-arrow {
+    display: block;
+    top: 0;
+    background-color: #8E8E8E;
+    background-image: url('../../../assets/icons/double-arrow-right.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    @include flex-center;
+    z-index: 999;
+    position: absolute;
+
+    &.left {
+      border-radius: 0px 0px 4px 0px;
+      left: 0;
+      &.active {
+        left: 19%;
+      }
+    }
+  }
+}
+ 
+mat-drawer-container {
+  flex: 1 1 auto;
+  height: 100%;
+  .dashboard-leftnav,
+  .dashboard-rightnav {
+    width: 19%;
+    min-width: 19%;
+    max-width: 19%;
+    overflow-y: auto;
+    background-color: #8E8E8E;
+    color: white;
+  }
+  .dashboard-leftnav * {
+    background-color: #8E8E8E;
+    color: white;
+  }
+  .mat-drawer-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+.ui-tree {
+  width: 20em;
+  max-height: 330px;
+  max-width: auto;
+  overflow: auto;
+}

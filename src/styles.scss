@@ -1,0 +1,313 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+@import './assets/scss/bootstrap.scss';
+@import './assets/scss/variables.scss';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+@import '~ngx-toastr/toastr';
+@import '../node_modules/c3/c3.min.css';
+
+body, html {
+  margin: 0;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+* {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.undisplayed {
+  display: none;
+}
+
+vg-player {
+  // width: 32% !important;
+  display: inline-block !important;
+}
+
+.scene-tag-item:hover {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+// Custom mat-form-field material
+.custom-mat-form-field {
+  .mat-form-field-flex {
+    background-color: white !important;
+  }
+  .mat-form-field-infix {
+    border-top: none;
+    input {
+      border: 1px solid #d6d6d6;
+      border-radius: 5px;
+      padding: 0.5em 0.5em !important;
+    }
+  }
+  .mat-form-field-underline {
+    display: none;
+  }
+  .mat-form-field-subscript-wrapper {
+    margin-top: 0 !important;
+  }
+}
+
+.custom-input {
+  .mat-form-field-flex {
+    background-color: whitesmoke !important;
+  }
+  .mat-form-field-infix {
+    border-top: none;
+    input,
+    textarea {
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      padding: 0.5em 0.5em !important;
+    }
+    :focus {
+      background-color: whitesmoke;
+      box-shadow: none;
+    }
+  }
+  .mat-form-field-underline {
+    display: none;
+  }
+  .mat-form-field-subscript-wrapper {
+    margin-top: 0 !important;
+  }
+}
+
+input:not([type='range']),
+textarea {
+  padding: 0.5em 0.5em !important;
+}
+
+// Custom toart
+.toast-container.toast-top-full-width .ngx-toastr {
+  width: 50% !important;
+}
+
+/// Custom css list
+
+// border login - forgot password
+.form-container {
+  border: 2px solid #b3b3b3;
+  background: white;
+  filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.42));
+  border-radius: 5px;
+  .form-title {
+    font-size: $title-login-fontsize;
+    font-style: italic;
+    color: $title-login-color;
+    font-weight: bold;
+    border-bottom: 2px dashed $title-login-color;
+  }
+  .form-submit-button {
+    background-color: $button-login-color;
+    color: white;
+  }
+}
+
+// Custom paginator
+.ui-paginator {
+  border-radius: 5px;
+}
+// input comment
+input.custom-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+input.custom-input:focus {
+  color: white;
+  box-shadow: 0 0 0 0.2rem rgba(59, 160, 160, 0.25);
+  border-color: unset;
+  background-color: unset !important;
+}
+
+// custom timebar (videogular2 lib) click
+vg-scrub-bar .scrubBar:focus,
+button:focus {
+  outline: none;
+}
+
+/// Z-index
+// .cdk-overlay-container {
+//   z-index: 10000;
+// }
+
+mat-dialog-container {
+  padding-top: 0 !important;
+  overflow: unset !important;
+  background-color: #f3f3f3 !important;
+}
+
+.custom-dropdown {
+  .mat-form-field-flex {
+    background-color: whitesmoke !important;
+    margin-top: 0.91rem;
+  }
+  .mat-form-field-infix {
+    border-top: none;
+    select {
+      border: 1px solid black;
+      border-radius: 5px;
+      padding: 0.5em 0.5em !important;
+      height: 38px;
+    }
+    ::after {
+      top: 25% !important;
+      margin-top: 0 !important;
+    }
+  }
+  .mat-form-field-underline {
+    display: none;
+  }
+  .mat-form-field-subscript-wrapper {
+    margin-top: 0 !important;
+  }
+}
+.mat-form-field-type-mat-native-select .mat-form-field-infix::after {
+  top: 30% !important;
+  right: 10px !important;
+}
+
+// Tooltip
+.tooltip-confirm {
+  background: white;
+  color: black !important;
+  font-size: 0.8em;
+  max-width: unset !important;
+}
+
+// Dialog
+
+.ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight,
+.ui-table .ui-table-tbody > tr.ui-state-highlight {
+  color: #007ad9 !important;
+}
+.mat-chip-list-wrapper {
+  background-color: white;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+hr {
+  background-color: rgb(158, 158, 158) !important;
+}
+button.btn.btn-primary.btn-primary-unfocus:focus {
+  box-shadow: none !important;
+}
+.ellipsis-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.w-equal {
+  width: 97px !important;
+}
+.user-group {
+  .mat-form-field-underline {
+    display: none;
+  }
+  .mat-form-field-infix {
+    padding: 0 4px 0 4px !important;
+    border-top: none;
+  }
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
+
+.form-control {
+  padding: 0.375rem 0.75rem !important;
+}
+
+.btn-custom {
+  background-color: #3f51b5;
+  box-shadow: unset !important;
+  color: white;
+  border-color: unset !important;
+  &:hover {
+    color: white;
+    background-color: #3f51b5;
+  }
+}
+
+html.cdk-global-scrollblock {
+  top: 0px !important;
+}
+
+.mat-menu-panel.custom-menu {
+  min-width: 320px;
+  // height: vh !important;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.multiselect-dropdown .dropdown-btn .selected-item{
+	border-radius: 15px !important;
+	background-color: #e0e0e0 !important;
+    color: rgba(0,0,0,.87) !important;
+	padding: 2px 12px !important;
+	border: 1px solid #e0e0e0 !important;
+	font-weight: 500 !important;
+	max-width: 100% !important;
+	align-items: center !important;
+}
+
+.multiselect-dropdown .dropdown-btn .selected-item:hover{
+	background-color: #ddd !important;
+	box-shadow: unset !important;
+}
+
+.multiselect-dropdown .dropdown-btn .selected-item a{
+	background-color: rgba(0,0,0,.87);
+    opacity: 0.4;
+    margin-left: 6px;
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    padding-bottom: 4px;
+	padding-left: 0 !important;
+}

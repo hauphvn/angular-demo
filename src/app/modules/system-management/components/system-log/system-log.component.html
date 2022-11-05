@@ -1,0 +1,69 @@
+<div class="system-log-management" *ngIf="isRoleAdmin">
+    <div class="title">Download</div>
+    <div class="system-row">
+        <div class="system-content">
+            <div class="date-block">
+                <span>From</span>
+                <div class="date-wrapper">
+                    <p-calendar
+                        appendTo="body"
+                        [(ngModel)]="fromValue"
+                        inputId="icon datefrom min-max"
+                        dateFormat="yy/mm/dd"
+                        [readonlyInput]="true"
+                        [minDate]="minDateFromValue"
+                        [maxDate]="maxDateFromValue"
+                        (onSelect)="onBlurDate($event)"
+                    ></p-calendar>
+                    <label for="icon datefrom min-max">
+                        <img src="../../../../../assets/images/calendar.png" alt="icon calendar"/>
+                    </label>
+                </div>
+            </div>
+            <div class="date-block">
+                <span>To</span>
+                <div class="date-wrapper">
+                    <p-calendar
+                        appendTo="body"
+                        [(ngModel)]="toValue"
+                        inputId="icon dateto"
+                        dateFormat="yy/mm/dd"
+                        [readonlyInput]="true"
+                        [maxDate]="maxDateToValue"
+                        (onSelect)="onBlurDate($event)"
+                    ></p-calendar>
+                    <label for="icon dateto">
+                        <img src="../../../../../assets/images/calendar.png" alt="icon calendar"/>
+                    </label>
+                </div>
+            </div>
+            <button
+                type="button"
+                class="align-items-center d-flex btn btn-export"
+                (click)="exportDataLogging()"
+                matRipple
+                [disabled]="disabled"
+            >
+                <img src="../../../../../assets/images/export.png" alt="icon export"/>
+                <span>Export</span>
+            </button>
+        </div>
+        <p class="system-text">Selectable time range is 360 days</p>
+    </div>
+    <div class="title">File storage</div>
+    <div class="system-row stogare-block">
+        <div class="d-flex align-items-center justify-content-between" *ngIf="fileStorage">
+            <p class="system-text">Click delete button to delete record over {{fileStorage.value}} days</p>
+            <button
+                type="button"
+                class="btn d-flex align-items-center btn-delete"
+                matRipple
+                (click)="onDeleteLogging(fileStorage.records)"
+            >
+                <img src="../../../../../assets/images/delete.png" alt="icon delete"/>
+                <span>Delete</span>
+            </button>
+        </div>
+        <p class="system-text" *ngIf="fileStorage">※{{fileStorage.records}} record has been over {{fileStorage.value}}days</p>
+    </div>
+</div>

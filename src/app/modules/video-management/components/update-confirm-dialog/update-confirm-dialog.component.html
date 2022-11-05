@@ -1,0 +1,38 @@
+<div class="update-confirm-container">
+  <h1 mat-dialog-title class="dialog-title">
+    Edit confirm
+  </h1>
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">Action</th>
+      <th scope="col">Data name</th>
+      <th scope="col">Alias will be Deleted</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of data">
+      <td>{{ item.type }}</td>
+      <td>{{ item.action }}</td>
+      <td>{{ item.dataName }}</td>
+      <td>
+        <div class ="wrapper-sub-td" *ngIf="item.aliasBeDeleted && item.aliasBeDeleted.length > 0">
+          <tr *ngFor="let itemAlias of item.aliasBeDeleted" class="alias-item">
+            <td>{{ itemAlias.folder_name }} {{ itemAlias.video_detail_name }}</td>
+          </tr>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div mat-dialog-actions class="d-flex justify-content-center">
+    <div class="upload-video-footer">
+      <button type="button" class="btn btn-secondary m-0 mr-3 w-equal" (click)="closeModal()" matRipple>Cancel</button>
+      <button (click)="handleSaveClick()" type="submit" class="btn btn-primary w-100 my-0 w-equal" matRipple>
+        Save
+      </button>
+    </div>
+  </div>
+</div>

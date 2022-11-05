@@ -1,0 +1,76 @@
+<div class="d-flex flex-column wrap-project-reporting">
+  <div class="report-main">
+    <mat-accordion class="w-100">
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{project.name}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="folder-header">
+          <div class="folder-text">Folder</div>
+          <mat-form-field *ngIf="allFolder.length > 0">
+            <mat-chip-list #chipFolder>
+              <input #folderInput [formControl]="folderCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipFolder"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)"
+                placeholder="Choose folder"
+              />
+              <mat-icon>search</mat-icon>
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete"
+                              (optionSelected)="selected($event)">
+              <mat-option *ngFor="let folder of filteredFolders | async"
+                          [value]="folder.name" [id]="folder.id">
+                {{ folder.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div *ngIf="folders.length > 0" class="chips-list">
+          <div class="chips-list__text">Selected Project</div>
+          <mat-chip-list>
+            <div class="chips-list__item">
+              <mat-chip
+                *ngFor="let folder of folders"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(folder)"
+              >
+                {{ folder.name }}
+                <mat-icon matChipRemove *ngIf="removable">close</mat-icon>
+              </mat-chip>
+            </div>
+          </mat-chip-list>
+        </div>
+        <div class="list-video-scene-tag" *ngIf="folders.length > 0">
+          <div class="wrap-folder-list p-0">
+            <div class="col-4 wrap-folder-detail-selected" *ngFor="let folder of folders" [class.d-none]="folders[0].id !== folder.id">
+              <app-folder-reporting
+                (listObjVideoSets)="getListObjVideoSets($event)"
+                [folder]="folder"
+                [allVideoListMerge]="allVideoListMerge"
+                (optionsSelect)="videoSetSelected($event)"
+                (addVideoSetListMerge)="getVideoListMerge($event)"
+                (folderIdMerge)="folderIdMerge($event)"
+              >
+              </app-folder-reporting>
+            </div>
+          </div>
+          <div class="col-8 report-sence-tag-block m-0 p-0">
+            <app-scene-tag-reporting [videoSets]="videoSets"
+                                     [projectId] = "project.id"
+                                     (tagSelect)="tagSelects($event)"
+                                     (objSceneTagFolderRemoved) = "getObjSceneTagFolderRemoved($event)"
+                                     (sceneTagAfterChangeVideoSet) = "getSceneTagAfterChangeVideoSet($event)"
+                                     (sceneSelect)="sceneSelects($event)">
+            </app-scene-tag-reporting>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

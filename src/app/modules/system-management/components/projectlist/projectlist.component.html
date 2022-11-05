@@ -1,0 +1,49 @@
+<div class="project-list-container">
+  <div class="d-flex justify-content-between">
+    <div class="title">
+      <strong><span class="fs-24-px">Project List</span> </strong>
+    </div>
+    <div class="control-buttons d-flex align-items-center justify-content-between">
+      <div class="form-group w-75 d-flex align-items-center justify-content-start text-muted">
+        <input
+          #inputSearch
+          class="search-input input-group-text"
+          placeholder="Type here to search for project"
+          (keyup.enter)="keySearch = inputSearch.value"
+        />
+        <button type="button" class="btn btn-primary" (click)="keySearch = inputSearch.value" matRipple>
+          <mat-icon>search</mat-icon>
+          <span>Search</span>
+        </button>
+      </div>
+      <div class="form-group">
+        <button *ngIf="isRoleAdmin" type="button" class="btn btn-add" (click)="openPopupAddProjectList()" matRipple>
+          <i class="fa fa-plus"></i>
+          Add Project
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-list">
+    <div class="no-data d-flex align-items-center justify-content-center" *ngIf="!data || data.length === 0">
+      No project found
+    </div>
+    <app-table
+      #projectTable
+      *ngIf="!!data && data.length > 0"
+      [tableConfig]="tableConfig"
+      [cols]="cols"
+      [(data)]="data"
+      (selectedItem)="handleSelectItem($event)"
+      (delete)="handleDeleteItem($event)"
+      (editClick)="handleEditClick($event)"
+      [keySearch]="keySearch"
+      [rowSelectInit]="rowSelectInit"
+      [isShowBtnEdit]="isRoleAdmin"
+      [isShowBtnDelete]="isRoleAdmin"
+      [countPagination]="4"
+    ></app-table>
+  </div>
+</div>
+

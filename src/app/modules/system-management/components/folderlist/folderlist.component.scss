@@ -1,0 +1,76 @@
+@import '../../../../../assets/scss/mixin';
+
+.border.folder-list {
+  background: $color-white;
+  box-shadow: 0px 4px 15px rgba(24, 24, 24, 0.1);
+  border-radius: 8px;
+  border: none !important;
+  padding-bottom: 20px;
+  .no-data {
+    height: 275px;
+    color: #afafaf;
+    font-size: 2em;
+  }
+}
+
+.fs-30-px {
+  font-size: 30px;
+}
+
+.folder-list-container {
+  .title {
+    .fs-24-px {
+      @include size24;
+    }
+  }
+
+  .btn-add {
+    @include buttonAddUser;
+    height: 32px;
+    font-weight: normal;
+  }
+
+  .btn-block {
+    padding-bottom: 33px;
+    padding-top: 20px;
+  }
+
+  .btn-create__fordel {
+    @include flex-center;
+    width: 100%;
+    background: #FFF2C7;
+    border: 1px dashed $color-yellow;
+    box-sizing: border-box;
+    border-radius: 8px;
+    height: 89px;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: bold;
+    color: $color-black1;
+
+    .fa-plus:before {
+      color: $color-yellow;
+      font-size: 17px;
+    }
+  }
+
+  ::ng-deep {
+    .ui-dropdown {
+      min-width: 100px !important;
+    }
+  }
+
+  .control-buttons {
+    .bg-cancel, .bg-save {
+      @include buttonModal;
+    }
+    .bg-save {
+      background-color: $color-yellow;
+    }
+    .bg-cancel {
+      background-color: $color-white;
+    }
+  }
+
+}

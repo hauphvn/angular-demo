@@ -1,0 +1,97 @@
+@import '../../../../../assets/scss/common';
+
+.user-group-list {
+  padding-bottom: 30px;
+  .btn-add {
+    @include buttonAddUser;
+  }
+
+  .title {
+    .fs-24-px {
+      @include size24;
+    }
+  }
+
+  .btn-primary {
+    @extend .btn-search;
+  }
+
+  .btn-add {
+    @include buttonAddUser;
+    height: 32px;
+    font-weight: normal;
+  }
+}
+
+.control-buttons {
+  width: 85%;
+}
+
+/* .active {
+    background-color: rgb(104, 120, 165);
+  } */
+
+.border.system-usergroup-list {
+  border: none !important;
+  background-color: $color-white;
+  box-shadow: 0px 4px 15px rgba(24, 24, 24, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  padding-bottom: 20px;
+  .no-data {
+    height: 228px;
+    color: #afafaf;
+    font-size: 30px;
+  }
+}
+
+hr {
+  background-color: rgb(158, 158, 158) !important;
+}
+
+.search-input {
+  @extend .input-search;
+}
+
+.btn-primary:hover {
+  background-color: #3f51b5 !important;
+  border-color: #3f51b5 !important;
+}
+.fs-30-px {
+  font-size: 30px;
+}
+.btn-primary:focus {
+  background-color: #3f51b5 !important;
+  border-color: #3f51b5 !important;
+}
+
+.text-muted {
+  width: 75%;
+}
+
+@media screen and (max-width: 1400px) {
+  .control-buttons {
+    width: 75%;
+  }
+  .search-input {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .text-muted {
+    width: 70%;
+  }
+  .search-input {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .control-buttons {
+    width: 65%;
+  }
+  .text-muted {
+    width: 60%;
+  }
+}

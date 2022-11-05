@@ -1,0 +1,267 @@
+@import '../../../../../assets/scss/common';
+
+.add-user-group {
+  background-color: $color-white;
+  .mat-dialog-actions {
+    margin-bottom: -20px;
+    padding: 0;
+  }
+
+  .dialog-title {
+    @include sizeTitleModal;
+    border-bottom: 1px solid $color-border1;
+  }
+
+  .dialog-label {
+    label, span {
+      font-size: 14px;
+      line-height: 15px;
+      color: $color-grey;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  }
+
+  @extend .input-field-chips;
+
+.chips-list {
+    padding: 0 0 20px 0;
+  }
+
+  ::ng-deep {
+    .ui-dropdown {
+      border-radius: 8px !important;
+      border: 1px solid $color-border1;
+
+      height: 40px;
+
+      .ui-dropdown-label {
+        padding: 8.4px !important;
+      }
+    }
+    .mat-chip-list-wrapper{
+      margin-bottom: 0px;
+    }
+  }
+
+}
+
+
+
+.table-content {
+  width: 450px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+td {
+  width: 100px;
+}
+.edit {
+  color: white;
+  background-color: #0a87db;
+  border: none;
+  border-radius: 3px;
+  margin: 0 2px;
+  width: 28px;
+  height: 28px;
+}
+.btn-red {
+  background-color: rgb(172, 32, 27);
+}
+.text1 {
+  font-weight: bold;
+  font-size: 22px;
+  margin-left: 20px;
+}
+
+.nav-container {
+  border-bottom: 3px solid black;
+}
+.main-content .container .nav-container {
+  margin-bottom: 80px;
+}
+
+.form-control {
+  width: 60%;
+}
+.form-control-custom:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.control-buttons {
+  width: 85%;
+}
+
+.unradius {
+  font-size: 100%;
+  font-weight: 100;
+  line-height: 1.1;
+  width: 40%;
+  border-radius: 0px !important;
+}
+/* .active {
+    background-color: rgb(104, 120, 165);
+  } */
+.nav-link {
+  color: black;
+  font-size: 25px;
+  font-weight: bold;
+}
+.nav-item .active {
+  background-color: rgb(104, 120, 165);
+  color: white;
+}
+.border {
+  background-color: whitesmoke;
+  border: 1px solid rgb(158, 158, 158) !important;
+}
+.column-name {
+  font-size: 25px;
+}
+.column-custom {
+  width: 15%;
+}
+.w-94 {
+  width: 94%;
+}
+hr {
+  background-color: rgb(158, 158, 158) !important;
+}
+
+.search-input {
+  border: 1px solid rgb(158, 158, 158);
+  width: 50%;
+  margin-right: 5px;
+  height: 25%;
+}
+
+.custom-modal-boddy {
+  padding: 0;
+}
+.custom-modal-boddy input {
+  width: 100%;
+}
+.modal-dialog {
+  max-width: 620px;
+}
+
+.custom-modal-footer {
+  border-top: none;
+  margin: 0px !important;
+  padding: 0 0 20px 0;
+  button {
+    @include buttonModal;
+    &.btn--primary {
+      background-color: $color-yellow;
+    }
+    &.btn--tertiary {
+      background-color: $color-white;
+    }
+  }
+}
+.main-cont .modal-content {
+  background-color: whitesmoke;
+}
+
+.member-label {
+  margin-top: -11px;
+}
+
+@media (max-width: 1440px) and (min-width: 1024px) {
+  .first-column {
+    width: 15%;
+  }
+  .unradius {
+    width: 50%;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .first-column {
+    width: 17%;
+  }
+  .unradius {
+    width: 85%;
+  }
+  .main-content {
+    margin-top: 10%;
+  }
+}
+.table-scroll {
+  border-radius: 5px;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.none {
+  background-color: gray;
+  color: white;
+  height: 24px;
+  width: 75px;
+  text-align: center;
+}
+.editor {
+  background-color: red;
+  color: white;
+  height: 24px;
+  width: 75px;
+  text-align: center;
+}
+.viewer {
+  background-color: rgb(50, 117, 252);
+  color: white;
+  height: 24px;
+  width: 75px;
+  text-align: center;
+}
+.w-30 {
+  width: 30%;
+}
+
+.w-33 {
+  width: 33%;
+}
+.w-53 {
+  width: 53%;
+}
+.w-64 {
+  width: 64%;
+}
+.btn-search {
+  height: 10%;
+}
+.text-required {
+  color: red;
+}
+.badge {
+  padding: 0.6em 0.4em;
+}
+.col-3 {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+.col-6 {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+.bg-white {
+  background-color: white;
+}
+.bd {
+  border: 1px solid #ced4da !important;
+}
+.p-t-5-px {
+  padding-top: 5px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.role_checkbox {
+  gap: 20px;
+  display: flex;
+}

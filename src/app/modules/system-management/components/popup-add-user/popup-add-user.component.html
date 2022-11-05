@@ -1,0 +1,137 @@
+<div class="container-custom add-user-list">
+  <h1 mat-dialog-title class="dialog-title">
+    Add User
+  </h1>
+  <div mat-dialog-content>
+    <div class="modal-body custom-modal-boddy" [formGroup]="form">
+      <div class="col-12 p-0 dialog-label">
+          <label class="px-0">Email</label>
+          <span class="text-danger">*</span>
+        <div class="col-12 p-0">
+          <mat-form-field class="w-100 custom-input">
+            <input
+              (ngModelChange)="reloadButtonSave()"
+              value="{{ email }}"
+              matInput
+              autocomplete="new-email"
+              class="form-control w-100 bg-white bd"
+              formControlName="email"
+            />
+            <mat-error>{{ form.controls.email.errors?.message }} </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-12 p-0 dialog-label">
+        <label class="px-0">Password</label>
+        <span class="text-danger">*</span>
+        <div class="col-12 p-0">
+          <mat-form-field class="w-100 custom-input">
+            <input
+              type="password"
+              matInput
+              autocomplete="new-password"
+              (ngModelChange)="reloadButtonSave()"
+              formControlName="password"
+              class="form-control w-100 bg-white bd"
+              value="{{ password }}"
+            />
+            <mat-error>{{ form.controls.password.errors?.message }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-12 p-0 dialog-label">
+        <label class="px-0">Name</label>
+        <span class="text-danger">*</span>
+        <div class="col-12 p-0">
+          <mat-form-field class="w-100 custom-input ">
+            <input
+              matInput
+              (ngModelChange)="reloadButtonSave()"
+              formControlName="name"
+              class="form-control w-100 bg-white bd"
+              value="{{ name }}"
+            />
+            <mat-error>{{ form.controls.name.errors?.message }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-12 p-0 dialog-label user-dropdown">
+        <label class="px-0">User Role</label>
+        <div class="col-12 p-0">
+            <p-dropdown
+              [options]="userRoleOptions"
+              class="options"
+              formControlName="userRole"
+              optionLabel="value"
+          ></p-dropdown>
+        </div>
+      </div>
+      <div class="col-12 p-0 dialog-label">
+        <label class="px-0"><strong class="pull-right group-label">User Group&nbsp;</strong></label>
+        <div class="col-12 p-0">
+          <mat-form-field class="w-100 chip-list-wrapper user-group">
+            <mat-chip-list #chipList>
+              <input
+                formControlName="userGroup"
+                class="form-control input-multi-select"
+                #fruitInput
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="false"
+                (matChipInputTokenEnd)="add($event)"
+              />
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let userGroup of filteredOptions | async" [value]="userGroup.name" [id]="userGroup.id">
+                {{ userGroup.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <div class="chips-list">
+            <mat-chip
+              *ngFor="let userGroup of userGroupSelected"
+              selectable="true"
+              removable="true"
+              (removed)="remove(userGroup)"
+            >
+              <span class="ellipsis-text" [matTooltip]="userGroup.name" matTooltipClass="tooltip-confirm">
+                {{ userGroup.name }}
+              </span>
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 p-0 dialog-label">
+        <label class="px-0"><strong class="pull-right">Comment&nbsp;</strong></label>
+        <div class="col-12 p-0">
+          <mat-form-field class="w-100 custom-input ">
+            <textarea
+              (ngModelChange)="reloadButtonSave()"
+              matInput
+              formControlName="description"
+              type="text"
+              cols="30"
+              rows="5"
+              class="form-control w-100 bg-white bd"
+              style="min-height: 60px;"
+            ></textarea>
+            <mat-error>{{ form.controls.description.errors?.message }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex">
+    <div class="modal-footer btn-block d-flex justify-content-between w-100">
+      <button type="button" class="btn btn--tertiary w-equal" (click)="closePopup()" matRipple>
+        Cancel
+      </button>
+      <button type="button" class="btn btn--primary w-equal" [disabled]="!enableSave" (click)="saveUser()" matRipple>
+        Save
+      </button>
+    </div>
+  </div>
+</div>

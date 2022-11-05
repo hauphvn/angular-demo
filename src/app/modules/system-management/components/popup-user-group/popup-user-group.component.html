@@ -1,0 +1,115 @@
+<div class="container-custom add-user-group">
+  <h1 mat-dialog-title class="dialog-title">
+    {{ titleHeader }}
+  </h1>
+  <div mat-dialog-content>
+    <div class="modal-body custom-modal-boddy" [formGroup]="form">
+      <div class="col-12 p-0 dialog-label">
+        <label class="px-0">Group Name</label>
+        <span class="text-danger">*</span>
+        <div class="col-12 px-0">
+          <mat-form-field class="w-100 custom-input ">
+            <input
+              matInput
+              (ngModelChange)="reloadButtonSave()"
+              formControlName="groupName"
+              class="form-control w-100 bg-white bd"
+              value="{{ name }}"
+            />
+            <mat-error>{{ form.controls.groupName.errors?.message }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-12 p-0 dialog-label">
+        <label class="px-0">Member</label>
+        <div class="col-12 px-0 mt-2">
+          <mat-form-field class="w-100 chip-list-wrapper user-group">
+            <mat-chip-list #chipList>
+              <input
+                formControlName="member"
+                class="form-control form-control-custom"
+                #fruitInput
+                [formControl]="userGroupCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)"
+              />
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let user of filteredUser | async" [value]="user.fullName" [id]="user.id">
+                {{ user.fullName }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error>{{ form.controls.member.errors?.message }}</mat-error>
+          </mat-form-field>
+          <div class="chips-list" *ngIf="userSelected && userSelected.length > 0">
+            <mat-chip
+            *ngFor="let user of userSelected"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(user)"
+            >
+              <span class="ellipsis-text" [matTooltip]="user.fullName" matTooltipClass="tooltip-confirm">
+                {{ user.fullName }}
+              </span>
+              <mat-icon matChipRemove *ngIf="removable">close</mat-icon>
+            </mat-chip>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 p-0 dialog-label">
+        <label class="px-0">Base role</label>
+        <div class="sorting-role col-12 px-0">
+          <div class="mb-20">
+            <p-dropdown
+              [options]="baseRoleOptions"
+              class="options"
+              formControlName="selectedBaseRole"
+              optionLabel="value"
+              (onChange)="reloadButtonSave()"
+          ></p-dropdown>
+          </div>
+          <div class="mb-20 role_checkbox">
+            <p-checkbox
+              *ngFor="let item of baseRoleCheckBoxOptions"
+              [formControlName]="item.text"
+              [value]="item.key"
+              [label]="item.value"
+              (onChange)="reloadButtonSave()"
+            ></p-checkbox> 
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-12 p-0 dialog-label">
+        <label class="px-0">Comment</label>
+        <div class="col-12 px-0">
+          <mat-form-field class="w-100 custom-input ">
+            <textarea
+              (ngModelChange)="reloadButtonSave()"
+              class="bg-white bd w-100"
+              matInput
+              rows="3"
+              cols="30"
+              formControlName="description"
+              value="{{ description }}"
+            ></textarea>
+            <mat-error>{{ form.controls.description.errors?.message }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex">
+    <div class="modal-footer custom-modal-footer d-flex justify-content-end w-100">
+      <button type="button" class="btn btn--tertiary w-equal" (click)="closePopup()" matRipple>
+        Cancel
+      </button>
+      <button type="button" class="btn btn--primary w-equal" [disabled]="!enableButton" (click)="save()" matRipple>
+        Save
+      </button>
+    </div>
+  </div>
+</div>

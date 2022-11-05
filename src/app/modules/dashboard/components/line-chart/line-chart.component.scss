@@ -1,0 +1,31 @@
+@import '../../../../../assets/scss/mixin';
+.line-chart-container {
+  ::ng-deep .line-chart__tooltip {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 300px;
+
+    .tooltip__row {
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 10px;
+    }
+  }
+
+  .scene-setting {
+    padding: 12px;
+
+    .btn-menu-options {
+      @include buttonMenuOptions;
+    }
+  }
+}
+::ng-deep .line-chart_filter-node {
+  .ui-treenode-label.ui-corner-all.ui-state-highlight {
+    background-color: white !important;
+    color: #333 !important;
+  }
+}

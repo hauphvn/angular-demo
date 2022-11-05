@@ -1,0 +1,22 @@
+<div class="main-content">
+  <div class="project-list">
+    <!-- Start tab content -->
+    <div class="tab-content">
+      <div class="user-management">
+        <app-user-list
+          [userList]="this.userList"
+          (reloadUserList)="this.getUserList()"
+          (reloadUserGroupList)="this.getUserGroupList()"
+        ></app-user-list>
+        <hr class="mrt-30" />
+        <app-user-group-list
+          [userGroupList]="this.userGroupList"
+          (reloadUserList)="this.getUserList()"
+          (reloadUserGroupList)="this.getUserGroupList()"
+        >
+        </app-user-group-list>
+      </div>
+    </div>
+    <!-- End tab content -->
+  </div>
+</div>

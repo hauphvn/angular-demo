@@ -1,0 +1,77 @@
+.chart {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis:hover,
+rect.rect-drag,
+rect.drag-axis,
+text.text-fill {
+  cursor: pointer;
+}
+
+.bar-active {
+  stroke: #000;
+  stroke-width: 0.5;
+}
+
+.text-fill {
+  fill: black;
+}
+
+.opacity {
+  opacity: 0.2;
+}
+
+#gantt-chart-area {
+  width: 100%;
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+#gantt-xaxix {
+  background-color: #6b6b6b;
+}
+
+.xaxisColor {
+  line,
+  path {
+    stroke: white;
+  }
+  text {
+    fill: white;
+  }
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  font: 12px sans-serif;
+  background: white;
+  border: 0px;
+  border-radius: 3px;
+  pointer-events: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+}
+ //Edit XML
+.bar-active-edit-xml {
+  stroke: transparent;
+  stroke-width: 0;
+}

@@ -1,0 +1,299 @@
+<div class="container-custom video-detail-modal-block">
+  <h1 mat-dialog-title>
+    <div class="video-detail-modal-header position-relative">
+      <div class="d-flex justify-content-center">
+        <span class="badge badge-primary video-detail-modal-title">{{ this.header }}</span>
+      </div>
+    </div>
+  </h1>
+  <div mat-dialog-content class="video-title-content">
+    <div class="video-detail-modal-body">
+      <div class="upload-header">
+        <div class="d-flex flex-column flex-wrap justify-content-between upload-header" [formGroup]="titleForm">
+          <div class="div-title popup-detail-custom-input">
+            <div class="d-flex title_content">
+              <span class="title-text">Video title <span class="text-danger">*</span></span>
+            </div>
+            <mat-form-field class="popup-detail-width-form-field input-group" appearance="outline">
+              <input autocomplete="off" matInput formControlName="titleName" value="{{ title }}"
+                (ngModelChange)="reloadEnableButton()" class="custom-mat-input"
+                [readonly]="isRoleUserMinimum || isRoleUserStandar"
+              />
+              <mat-error>{{ titleForm.controls.titleName.errors?.message }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="popup-detail-custom-select" *ngIf="listFolder">
+            <span class="title-text">Folder <span class="text-danger">*</span></span>
+            <div class="container choose-source">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="input-group">
+                    <mat-form-field>
+                      <mat-select
+                        formControlName="folderName"
+                        (selectionChange)="onChangeFolder($event)"
+                        placeholder="Choose source"
+                        [ngClass]="(titleForm.controls.folderName.touched && titleForm.controls.folderName.errors) ? 'border-error' : ''"
+                      >
+                        <div class="option-wrapper">
+                          <mat-option *ngFor="let folder of listFolderFilter" [value]="folder.id">
+                            {{folder.name}}
+                          </mat-option>
+                        </div>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="titleForm.controls.folderName.touched">{{ titleForm.controls.folderName.errors?.message }}</mat-error>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body-midle">
+        <div class="d-flex title_content">
+          <span class="title-text">Video <span class="text-danger">*</span></span>
+          <div class="d-flex" *ngIf="!isUploadMode">
+            <img src="../../../../../assets/icons/alias-iconsvg.svg" alt="alias" />
+            <span class="title-text ml-2">Alisas</span>
+          </div>
+        </div>
+        <div class="popup-upload-video-action">
+          <div class="d-flex w-100 flex-column" *ngIf="this.fileVideos.length > 0" cdkDropList
+            [cdkDropListData]="fileVideos" (cdkDropListDropped)="dropVideos($event)">
+            <div class="d-flex video-detail justify-content-start w-100 text-center mt-2"
+              *ngFor="let file of this.fileVideos" cdkDrag>
+              <div class="video-detail__thumbnail">
+                <div class="thumbnail-display" [ngStyle]="{'background-image': 'url(' + file.thumbnail + ')'}">
+                  <div class="title-alias-badged" *ngIf="file.isAlias">
+                    <img src="../../../../../assets/icons/alias-badge.svg" class="title-alias" alt="alias" />
+                  </div>
+                </div>
+              </div>
+              <div class="video-detail__title d-flex flex-column controls__box">
+                <span class="title-upload-by">Uploaded by</span>
+                <span class="upload-owner text-overflow">{{ file.owner }}</span>
+                <span class="title-upload-date">Upload date</span>
+                <span class="upload-date text-overflow">{{ file.uploadDate | date: 'yyyy-MM-dd HH:mm' }}
+                </span>
+              </div>
+              <div class="video-detail__controls action-btn d-flex">
+                <button
+                  class="btn button-delete"
+                  matRipple
+                  *ngIf="file.isUploaded && (isRoleAdmin
+                       || isRoleUserUploader
+                       || isRoleUserPro
+                       || isRoleUserStandar)"
+                  (click)="downloadFileVideo(file)"
+                >
+                  <img src="../../../../../assets/icons/download.svg" alt="download icon" />
+                </button>
+                <button class="btn button-delete" matRipple
+                  (click)="removeVideo(file)"
+                  *ngIf="isRoleAdmin
+                    || isRoleUserUploader
+                    || isRoleUserPro"
+                >
+                  <img src="../../../../../assets/icons/delete.svg" alt="delete icon" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex w-100 mt-2">
+            <div appDragDropFile (fileDropped)="onFileVideo($event)"
+              class="d-flex upload-video justify-content-start w-100 text-center"
+              *ngIf="isRoleAdmin
+              || isRoleUserUploader
+              || isRoleUserPro"
+            >
+              <button class="btn-upload w-100" matRipple
+                [ngStyle]="{ cursor: this.fileVideos.length >= 3 ? 'not-allowed' : 'pointer' }"
+                (click)="chooseFileVideo()"
+                >
+                <img src="../../../../../assets/icons/upload_document_yellow.svg" alt="icon document" />
+                <span>Upload Video</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="body-xml mt-4">
+        <div class="d-flex title_content">
+          <span class="title-text">Label</span>
+          <div class="d-flex" *ngIf="!isUploadMode">
+            <img src="../../../../../assets/icons/alias-iconsvg.svg" alt="alias" />
+            <span class="title-text ml-2">Alisas</span>
+          </div>
+        </div>
+        <div mat-dialog-actions class="popup-upload-video-action">
+          <div class="d-flex w-100 flex-column" *ngIf="fileXmls.length > 0" cdkDropList [cdkDropListData]="fileXmls"
+            (cdkDropListDropped)="dropXMLs($event)">
+            <div class="d-flex video-detail justify-content-start w-100 text-center mt-2" *ngFor="let xml of fileXmls"
+              cdkDrag>
+              <div class="video-detail__title">
+                <div class="d-flex flex-column title-name__box controls__box">
+                  <span class="title-upload-by">File name</span>
+                  <span class="upload-owner text-overflow" [matTooltip]="xml.name" matTooltipClass="tooltip-confirm">{{ xml.name
+                    }}</span>
+                </div>
+                <div class="d-flex flex-column mt-2 controls__box" *ngIf="!isUploadMode">
+                  <span class="title-upload-by">Uploaded by</span>
+                  <span class="upload-owner text-overflow">{{ xml.owner }}</span>
+                  <div class="title-alias-badged text-left mt-1" *ngIf="xml.isAlias">
+                    <img src="../../../../../assets/icons/alias-badge.svg" class="title-alias" alt="alias" />
+                  </div>
+                </div>
+              </div>
+              <div class="video-detail__title d-flex flex-column justify-content-center controls__box"
+              [ngClass]="{ 'pd-7': !isUploadMode && xml.isAlias, 'pd-14': !isUploadMode && !xml.isAlias }">
+                <span class="title-upload-date">Upload date</span>
+                <span class="upload-date text-overflow">
+                  {{ xml.uploadDate | date: 'yyyy-MM-dd HH:mm' }}
+                </span>
+              </div>
+              <div class="video-detail__controls action-btn d-flex align-items-center align-self-start">
+                <button
+                  class="btn button-delete"
+                  matRipple
+                  *ngIf="isRoleAdmin
+                  || isRoleUserUploader
+                  || isRoleUserPro
+                  || isRoleUserStandar"
+                  (click)="downloadFileXml(xml)"
+                >
+                  <img src="../../../../../assets/icons/download.svg" alt="download icon" />
+                </button>
+                <button
+                  class="btn button-delete"
+                  matRipple
+                  (click)="removeXml(xml)"
+                  *ngIf="isRoleAdmin
+                       || isRoleUserUploader
+                       || isRoleUserPro"
+                >
+                  <img src="../../../../../assets/icons/delete.svg" alt="delete icon" />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex w-100 mt-2" appDragDropFile (fileDropped)="onFileXML($event)">
+            <div class="d-flex upload-video justify-content-start w-100 text-center"
+              *ngIf="isRoleAdmin
+              || isRoleUserUploader
+              || isRoleUserPro"
+            >
+              <button
+                class="btn-upload w-100"
+                matRipple
+                (click)="chooseFileXml()"
+              >
+                <img src="../../../../../assets/icons/upload_document_yellow.svg" alt="icon document" />
+                <span>Upload Label</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-time-series mt-4">
+        <div class="d-flex title_content">
+          <span class="title-text">Time Series</span>
+          <div class="d-flex" *ngIf="!isUploadMode">
+            <img src="../../../../../assets/icons/alias-iconsvg.svg" alt="alias" />
+            <span class="title-text ml-2">Alisas</span>
+          </div>
+        </div>
+        <div mat-dialog-actions class="popup-upload-video-action">
+          <div class="d-flex w-100 flex-column" *ngIf="fileTimeSeries.length > 0" cdkDropList
+            [cdkDropListData]="fileTimeSeries" (cdkDropListDropped)="dropTimeSeries($event)">
+            <div class="d-flex video-detail justify-content-start w-100 text-center mt-2"
+              *ngFor="let timeSeries of fileTimeSeries" cdkDrag>
+              <div class="video-detail__title">
+                <div class="d-flex flex-column controls__box">
+                  <span class="title-upload-by">File name</span>
+                  <span class="upload-owner text-overflow" [matTooltip]="timeSeries.name" matTooltipClass="tooltip-confirm">{{
+                    timeSeries.name }}</span>
+                </div>
+                <div class="d-flex flex-column mt-2 controls__box" *ngIf="!isUploadMode">
+                  <span class="title-upload-by">Uploaded by</span>
+                  <span class="upload-owner text-overflow">{{ timeSeries.owner }}</span>
+                  <div class="title-alias-badged text-left mt-1" *ngIf="timeSeries.isAlias">
+                    <img src="../../../../../assets/icons/alias-badge.svg" class="title-alias" alt="alias" />
+                  </div>
+                </div>
+              </div>
+              <div class="video-detail__title d-flex flex-column justify-content-center controls__box"
+                [ngClass]="{ 'pd-7': !isUploadMode && timeSeries.isAlias, 'pd-14': !isUploadMode && !timeSeries.isAlias }">
+                <span class="title-upload-date">Upload date</span>
+                <span class="upload-date text-overflow">{{ timeSeries.uploadDate | date: 'yyyy-MM-dd HH:mm' }}
+                </span>
+              </div>
+              <div class="video-detail__controls action-btn d-flex align-items-center align-self-start">
+                <button
+                  class="btn button-delete"
+                  matRipple
+                  *ngIf="isRoleAdmin
+                    || isRoleUserUploader
+                    || isRoleUserPro
+                    || isRoleUserStandar"
+                  (click)="downloadTimeSeries(timeSeries)"
+                >
+                  <img src="../../../../../assets/icons/download.svg" alt="download icon" />
+                </button>
+                <button
+                  class="btn button-delete"
+                  matRipple
+                  (click)="removeTimeSeries(timeSeries)"
+                  *ngIf="isRoleAdmin
+                       || isRoleUserUploader
+                       || isRoleUserPro"
+                >
+                  <img src="../../../../../assets/icons/delete.svg" alt="delete icon" />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex w-100 mt-2" appDragDropFile (fileDropped)="onFileCSV($event)">
+            <div class="d-flex upload-video justify-content-start w-100 text-center"
+              *ngIf="isRoleAdmin
+              || isRoleUserUploader
+              || isRoleUserPro"
+            >
+              <button
+                class="btn-upload w-100"
+                matRipple
+                (click)="chooseFileTimeSeries()"
+              >
+                <img src="../../../../../assets/icons/upload_document_yellow.svg" alt="icon document" />
+                <span>Upload Time Series</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-column">
+    <div class="wrap-model-footer">
+      <div>
+        <button type="button" class="btn btn-secondary m-0 w-equal" (click)="closeModal()" matRipple>Cancel</button>
+      </div>
+      <div *ngIf="(isRoleAdmin || isRoleUserPro || isRoleUserUploader)">
+        <button type="submit" class="btn btn-primary color-base w-equal" [disabled]="!hasChange" matRipple
+          (click)="handleSaveClick()" *ngIf="isUploadMode || !isViewer">
+          Save
+        </button>
+      </div>
+    </div>
+    <div>
+      <button *ngIf="isRoleAdmin && !isUploadMode" (click)="deleteVideoDetail()" type="submit"
+        class="btn btn-delete color-base w-equal w-100 mt-2" matRipple>
+        <img src="../../../../../assets/icons/delete_white.svg" alt="icon document" class="mr-2" />
+        <span>Delete</span>
+      </button>
+    </div>
+  </div>
+</div>

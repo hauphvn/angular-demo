@@ -1,0 +1,11 @@
+<vg-player (onPlayerReady)="onPlayerReady($event)">
+  <vg-controls class="custom-control d-flex justify-content-end pr-2">
+    <vg-mute vgFor="singleVideo" ></vg-mute>
+    <vg-volume vgFor="singleVideo"></vg-volume>
+  </vg-controls>
+  
+  <video [vgMedia]="media" #media id="singleVideo" preload="auto">
+    <source [src]="videoConfig.url" type="video/mp4" />
+    <track label="English" kind="subtitles" />
+  </video>
+</vg-player>

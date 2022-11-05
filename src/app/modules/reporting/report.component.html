@@ -1,0 +1,399 @@
+<mat-drawer-container class="side-container wrap-reporting" hasBackdrop="true">
+  <mat-drawer #drawer position="end" mode="over" class="w-50 report-project" autoFocus="false">
+    <div class="d-flex flex-column px-0">
+      <div class="d-flex align-items-center custom-header w-100 justify-content-between">
+        <div class="d-flex align-items-center p-0 custom-header__project">
+          <div class="p-0 project-title">
+            <span>Project</span>
+          </div>
+          <div class="p-0">
+            <mat-form-field class="w-100 user-group" *ngIf="allProject.length > 0">
+              <mat-chip-list #chipProject>
+                <input
+                  #projectInput
+                  [formControl]="projectCtrl"
+                  [matAutocomplete]="auto"
+                  [matChipInputFor]="chipProject"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)"
+                />
+                <mat-icon>search</mat-icon>
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" isOpen="false">
+                <mat-option *ngFor="let project of filteredProjects | async" [value]="project.name" [id]="project.id">
+                  {{ project.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="p-0 project-text d-flex align-items-center" (click)="drawer.toggle(false)">
+          <span>Hide</span>
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </div>
+      </div>
+      <div *ngIf="projects.length > 0" class="chips-list">
+        <div class="chips-list__text">Selected Project</div>
+        <mat-chip-list>
+          <div class="chips-list__item">
+            <mat-chip
+              *ngFor="let project of projects"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(project)"
+            >
+              {{ project.name }}
+              <mat-icon matChipRemove *ngIf="removable">close</mat-icon>
+            </mat-chip>
+          </div>
+        </mat-chip-list>
+      </div>
+      <div class="line-row"></div>
+      <div *ngIf="projects.length > 0">
+        <app-project-reporting
+          *ngFor="let project of projects"
+          [project]="project"
+          (listObjProjects)="getListObjProjects($event)"
+          (sceneTagChangeVideoSet)="getSceneTagChangeVideoSet($event)"
+          (sceneSelect)="sceneSelect($event)"
+          (tagSelect)="tagSelect($event)"
+          (videoSelect)="videoSelect($event)"
+        >
+        </app-project-reporting>
+      </div>
+      <div class="wrap-btn-show">
+        <button
+          mat-raised-button
+          (click)="drawer.toggle()"
+          [disabled]="!(sceneTagSelected.scenes.length > 0 || sceneTagSelected.tags.length > 0)" 
+          (click)="showData()">SHOW</button>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="d-flex flex-row bd-highlight justify-content-end w-100">
+      <div>
+        <div class="report-header">
+          <div class="report-icon report-back" (click)="onGobackClicked()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+            <span>Back</span>
+          </div>
+          <div class="report-filter report-icon">
+            <span>Filter</span>
+            <img src="../../../assets/icons/filter.svg" alt="icon filter" (click)="drawer.toggle(true)" />
+          </div>
+        </div>
+        
+        <div class="report-image" *ngIf="tableData.length === 0">
+          <img src="../../../assets/images/report.png"/>
+          <p>Please filter to see your report</p>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-right" *ngIf="tableData.length > 0">
+      <!-- <div class="tag">
+        <p>Tag Showing</p>
+        <mat-radio-group aria-label="Select an option" (change)="tagShowingChange($event)">
+          <mat-radio-button [value]="REPORTING_FORMAT.TAG.YES" checked>Yes</mat-radio-button>
+          <mat-radio-button [value]="REPORTING_FORMAT.TAG.NO">No</mat-radio-button>
+        </mat-radio-group>
+      </div> -->
+      <div class="time">
+        <p>Time Format</p>
+        <mat-radio-group aria-label="Select an option" (change)="timeFormatChange($event)">
+          <mat-radio-button [value]="REPORTING_FORMAT.TIME_FORMAT.SEC" checked>Sec</mat-radio-button>
+          <mat-radio-button [value]="REPORTING_FORMAT.TIME_FORMAT.FULL_TIME">hh:mm:ss.ff</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      
+      <button class="btn btn-export" (click)="handleValidateExport()" *ngIf="isRoleUserDataDl || isRoleAdmin">
+        <img src="../../../assets/icons/upload.svg" alt="icon upload"/>
+        <span>Export report</span>
+      </button>
+    </div>
+    <mat-tab-group
+      (selectedIndexChange)="selectedTab($event)"
+      *ngIf="tableData.length > 0 && (isRoleAdmin || isRoleUserPro || isRoleUserUploader || isRoleUserStandar || isRoleUserMinimum)"
+      class="w-100 tabel-group-list"
+    >
+      <mat-tab label="Count">
+        <div class="mt-4 px-2">
+          <p-table
+            [columns]="headerTable"
+            [value]="tableData"
+            [scrollable]="true"
+            scrollHeight="250px"
+            frozenWidth="300px"
+            [style]="getStyle()"
+          >
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <col *ngFor="let col of columns" class="custom-column-width" />
+              </colgroup>
+            </ng-template>
+            <ng-template pTemplate="frozenheader">
+              <tr>
+                <th class="custom-column-width height-77px border-right-none"></th>
+                <th class="custom-column-width height-77px"></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="frozenbody" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+              <tr>
+                <td
+                  class="cursor-pointer custom-column-width text-truncate td-text-bold"
+                  *ngIf="rowData.indexRow === rowIndex"
+                  [attr.rowspan]="rowData.totalRow"
+                  (click)="handleClickScene(rowData.scene, rowData)"
+                >
+                  <u>{{ rowData.scene ? rowData.scene : '&nbsp;'}}</u>
+                </td>
+                <td class="custom-column-width">{{ rowData.tag ? rowData.tag : '&nbsp;'}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of headerVideo" [attr.colspan]="col.colspan" class="text-center height-50px">
+                  <div class="ellipsis-text">{{ col.header }}</div>
+                  Total time : {{ col.total === 0 ? '&nbsp;' : isNum(col.total) ? (col.total | number: '0.1-1') : col.total }}
+                </th>
+              </tr>
+              <tr>
+                <th *ngFor="let col of columns" class="scene-tag-name text-center height-50px">{{ col.header }}</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+              <tr>
+                <ng-template ngFor let-col [ngForOf]="columns">
+                  <ng-template [ngIf]="!col.merge">
+                    <td class="text-right custom-column-width">
+                      {{ rowData[col.field].count }}
+                    </td>
+                  </ng-template>
+                  <ng-template [ngIf]="col.merge">
+                    <td
+                      *ngIf="rowData.indexRow === rowIndex"
+                      [attr.rowspan]="rowData.totalRow"
+                      class="text-right custom-column-width"
+                    >
+                      {{ rowData[col.field].count }}
+                    </td>
+                  </ng-template>
+                </ng-template>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div id="count-chart" class="mr-5 mt-4 px-2 d-flex"></div>
+      </mat-tab>
+      <mat-tab label="Time">
+        <div class="mt-4 px-2">
+          <p-table
+            [columns]="headerTable"
+            [value]="tableData"
+            [scrollable]="true"
+            scrollHeight="250px"
+            frozenWidth="300px"
+            [style]="getStyle()"
+          >
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <col *ngFor="let col of columns" class="custom-column-width" />
+              </colgroup>
+            </ng-template>
+            <ng-template pTemplate="frozenheader">
+              <tr>
+                <th class="custom-column-width height-77px border-right-none"></th>
+                <th class="custom-column-width height-77px"></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="frozenbody" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+              <tr>
+                <td
+                  class="cursor-pointer custom-column-width text-truncate td-text-bold"
+                  *ngIf="rowData.indexRow === rowIndex"
+                  [attr.rowspan]="rowData.totalRow"
+                  (click)="handleClickScene(rowData.scene, rowData)"
+                >
+                  <u>{{ rowData.scene ? rowData.scene : '&nbsp;'}}</u>
+                </td>
+                <td class="custom-column-width">{{ rowData.tag ? rowData.tag : '&nbsp;'}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of headerVideo" [attr.colspan]="col.colspan" class="text-center height-50px">
+                  <div class="ellipsis-text">{{ col.header }}</div>
+                  Total time : {{ col.total === 0 ? '&nbsp;' : isNum(col.total) ? (col.total | number: '0.1-1') : col.total }}
+                </th>
+              </tr>
+              <tr>
+                <th *ngFor="let col of columns" class="scene-tag-name text-center height-50px">{{ col.header }}</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+              <tr>
+                <ng-template ngFor let-col [ngForOf]="columns">
+                  <ng-template [ngIf]="!col.merge">
+                    <td class="text-right custom-column-width">
+                      {{ isNum(rowData[col.field].time) ? (rowData[col.field].time | number: '0.1-1') : rowData[col.field].time }}
+                    </td>
+                  </ng-template>
+                  <ng-template [ngIf]="col.merge">
+                    <td
+                      *ngIf="rowData.indexRow === rowIndex"
+                      [attr.rowspan]="rowData.totalRow"
+                      class="text-right custom-column-width"
+                    >
+                      {{ isNum(rowData[col.field].time) ? (rowData[col.field].time | number: '0.1-1') : rowData[col.field].time }}
+                    </td>
+                  </ng-template>
+                </ng-template>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div id="time-chart" class="mr-5 mt-4 px-2 d-flex"></div>
+      </mat-tab>
+      <mat-tab label="Average">
+        <div class="mt-4 px-2">
+          <p-table
+            [columns]="headerTable"
+            [value]="tableData"
+            [scrollable]="true"
+            scrollHeight="250px"
+            frozenWidth="300px"
+            [style]="getStyle()"
+          >
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <col *ngFor="let col of columns" class="custom-column-width" />
+              </colgroup>
+            </ng-template>
+            <ng-template pTemplate="frozenheader">
+              <tr>
+                <th class="custom-column-width height-77px border-right-none"></th>
+                <th class="custom-column-width height-77px"></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="frozenbody" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+              <tr>
+                <td
+                  class="cursor-pointer custom-column-width text-truncate td-text-bold"
+                  *ngIf="rowData.indexRow === rowIndex"
+                  [attr.rowspan]="rowData.totalRow"
+                  (click)="handleClickScene(rowData.scene, rowData)"
+                >
+                  <u>{{ rowData.scene ? rowData.scene : '&nbsp;'}}</u>
+                </td>
+                <td class="custom-column-width">{{ rowData.tag ? rowData.tag : '&nbsp;'}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of headerVideo" [attr.colspan]="col.colspan" class="text-center height-50px">
+                  <div class="ellipsis-text">{{ col.header }}</div>
+                  Total time : {{ col.total === 0 ? '&nbsp;' : isNum(col.total) ? (col.total | number: '0.1-1') : col.total }}
+                </th>
+              </tr>
+              <tr>
+                <th *ngFor="let col of columns" class="scene-tag-name text-center height-50px">{{ col.header }}</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+              <tr>
+                <ng-template ngFor let-col [ngForOf]="columns">
+                  <ng-template [ngIf]="!col.merge">
+                    <td class="text-right custom-column-width">
+                      {{ isNum(rowData[col.field].average) ? (rowData[col.field].average | number: '0.1-1') : rowData[col.field].average }}
+                    </td>
+                  </ng-template>
+                  <ng-template [ngIf]="col.merge">
+                    <td
+                      *ngIf="rowData.indexRow === rowIndex"
+                      [attr.rowspan]="rowData.totalRow"
+                      class="text-right custom-column-width"
+                    >
+                      {{ isNum(rowData[col.field].average) ? (rowData[col.field].average | number: '0.1-1') : rowData[col.field].average }}
+                    </td>
+                  </ng-template>
+                </ng-template>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div id="average-chart" class="mr-5 mt-4 px-2 d-flex"></div>
+      </mat-tab>
+      <mat-tab label="Percentage">
+        <div class="mt-4 px-2">
+          <p-table
+            [columns]="headerTable"
+            [value]="tableData"
+            [scrollable]="true"
+            scrollHeight="250px"
+            frozenWidth="300px"
+            [style]="getStyle()"
+          >
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <col *ngFor="let col of columns" class="custom-column-width" />
+              </colgroup>
+            </ng-template>
+            <ng-template pTemplate="frozenheader">
+              <tr>
+                <th class="custom-column-width height-77px border-right-none"></th>
+                <th class="custom-column-width height-77px"></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="frozenbody" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+              <tr>
+                <td
+                  class="cursor-pointer custom-column-width text-truncate td-text-bold"
+                  *ngIf="rowData.indexRow === rowIndex"
+                  [attr.rowspan]="rowData.totalRow"
+                  (click)="handleClickScene(rowData.scene, rowData)"
+                >
+                  <u>{{ rowData.scene ? rowData.scene : '&nbsp;'}}</u>
+                </td>
+                <td class="custom-column-width">{{ rowData.tag ? rowData.tag : '&nbsp;'}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of headerVideo" [attr.colspan]="col.colspan" class="text-center height-50px">
+                  <div class="ellipsis-text">{{ col.header }}</div>
+                  Total time : {{ col.total === 0 ? '&nbsp;' : isNum(col.total) ? (col.total | number: '0.1-1') : col.total }}
+                </th>
+              </tr>
+              <tr>
+                <th *ngFor="let col of columns" class="scene-tag-name text-center height-50px">{{ col.header }} (%)</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+              <tr>
+                <ng-template ngFor let-col [ngForOf]="columns">
+                  <ng-template [ngIf]="!col.merge">
+                    <td class="text-right custom-column-width">
+                      {{ col.total !== 0 ? (rowData[col.field].percentage | number: '0.1-1') : '&nbsp;' }}
+                    </td>
+                  </ng-template>
+                  <ng-template [ngIf]="col.merge">
+                    <td
+                      *ngIf="rowData.indexRow === rowIndex"
+                      [attr.rowspan]="rowData.totalRow"
+                      class="text-right custom-column-width"
+                    >
+                      {{ col.total !== 0 ? (rowData[col.field].percentage | number: '0.1-1') : '&nbsp;' }}
+                    </td>
+                  </ng-template>
+                </ng-template>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div id="percentage-chart" class="mr-5 mt-4 px-2 d-flex"></div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-drawer-content>
+</mat-drawer-container>
+

@@ -1,0 +1,60 @@
+<div class="container-custom document-modal-block">
+  <h1 mat-dialog-title>
+    <div class="document-modal-header position-relative">
+      <div class="d-flex justify-content-center">
+        <span class="badge badge-primary document-modal-title">Document</span>
+      </div>
+    </div>
+  </h1>
+  <div mat-dialog-content>
+    <div class="document-modal-body">
+      <div class="d-flex justify-content-start align-items-center flex-wrap">
+        <div class="document-img document-item d-flex align-items-center w-100 target" *ngFor="let document of listDocument">
+          <div class="document-content d-flex align-items-center">
+            <img class="document_icon" src="../../../../../assets/icons/document_orange.svg" alt="edit image" />
+            <div class="document-name">
+              <h5 class="text-center text-truncate">{{ document.name }}</h5>
+              <p class="document-text"><span>{{ document.uploadDate | date:'yyyy-MM-dd HH:mm'}}</span></p>
+            </div>
+          </div>
+          
+          <div class="d-flex control-document justify-content-end text-center document-btn">
+            <button
+              *ngIf="isRoleAdmin || isRoleUserPro || isRoleUserUploader || isRoleUserStandar"
+              class="btn button-download"
+              (click)="downloadDocument(document)"
+              matRipple
+            >
+              <img src="../../../../../assets/icons/download.svg" alt="download icon"/>
+            </button>
+            <button
+              class="btn button-delete"
+              *ngIf="isRoleAdmin || isRoleUserPro || isRoleUserUploader"
+              (click)="deleteDocument(document)"
+              matRipple
+            >
+              <img src="../../../../../assets/icons/delete.svg" alt="delete icon"/>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="popup-document-action">
+    <div class="d-flex w-100">
+      <div class="d-flex upload-document justify-content-start w-100 text-center" *ngIf="isRoleAdmin || isRoleUserPro || isRoleUserUploader">
+        <button class="btn-upload w-100" (click)="chooseFile()" matRipple>
+          <img src="../../../../../assets/icons/upload_document_yellow.svg" alt="icon document"/>
+          <span>Upload Document</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap-model-footer">
+    <div>
+      <button type="button" class="btn m-0 w-equal" (click)="closePopup()" matRipple>Cancel</button>
+    </div>
+    
+  </div>
+</div>
+

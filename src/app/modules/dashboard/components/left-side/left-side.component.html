@@ -1,0 +1,134 @@
+<section id="dashboard-leftside" class="w-100 d-flex flex-column">
+  <!-- <div class="title mb-1 d-flex align-items-center justify-content-center">
+    <span class="text-truncate ml-1" [matTooltip]="videoTitle" matTooltipClass="tooltip-confirm">{{ videoTitle }}</span>
+  </div> -->
+  <div class="left-side-content">
+    <div class="leftside-item mb-1">
+      <div *ngIf="isEditXML" class="label-left-block title">
+        <span style="background-color: transparent">Label</span>
+        <button (click)="onCreateNewLabel()"
+          class="btn btn-secondary enable-btn">
+          <i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add Label
+        </button>
+      </div>
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header *ngIf="!isEditXML" [collapsedHeight]="'52px'" [expandedHeight]="'52px'">Label
+        </mat-expansion-panel-header>
+        <div *ngIf="!isEditXML else divDataEditXML" class="data-list">
+          <div class="text-truncate w-100 data-item" *ngFor="let xml of listXML; let i = index"
+            (click)="toggleDataActive(xml)" [ngClass]="{ active: xml.select }">
+            {{ xml.name }}
+          </div>
+        </div>
+        <ng-template #divDataEditXML>
+          <div class="data-list">
+            <div class="text-truncate w-100 data-item edit-xml-item" *ngFor="let xml of listXML; let i = index"
+              [ngClass]="{ myInActive: xml.select }" [id]="'xmlId-'+ xml.id">
+              <div (click)="toggleDataActive(xml)" [id]="'xmlId-name-'+ xml.id" [ngClass]="{ myActive: xml.select }"
+                matTooltip="{{xml.name}}" style="width: 100%" class="xml-name">
+                {{ xml.name }}
+              </div>
+              <div [id]="'wrap-icon-btn-' + xml.id" class="icon">
+                <mat-icon [id]="'saveBtn-'+ xml.id" [ngStyle]="{'display': 'none'}"
+                  [ngClass]="(isShowBtnSave) ? 'enable-icon' : 'disable-icon'"
+                  (click)="onChoseSaveType($event,{content: xml.id})">save</mat-icon>
+                <mat-icon [id]="'draftBtn-'+ xml.id" [ngStyle]="{'display': 'none'}"
+                  [ngClass]="(false) ? 'enable-icon' : 'disable-icon'" (click)="onEditXML(xml)" *ngIf="false">assignment
+                </mat-icon>
+                <mat-icon class="border-bottom" [id]="'editBtn-'+ xml.id" (click)="onEditXML(xml)">
+                  edit
+                </mat-icon>
+                <mat-icon class="border-bottom" [id]="'deleteBtn-'+ xml.id" (click)="onDeleteXML(xml)">delete</mat-icon>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </mat-expansion-panel>
+    </div>
+
+    <div class="leftside-item mb-1" *ngIf="listTimeSeries && !isEditXML">
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header [collapsedHeight]="'52px'" [expandedHeight]="'52px'">Time Series
+        </mat-expansion-panel-header>
+        <div class="data-list">
+          <div class="text-truncate w-100 data-series-item" *ngFor="let timeSeries of listTimeSeries; let i = index"
+            (click)="toggleTimeSeriesActive(timeSeries)" [ngClass]="{ active: timeSeries.select }">
+            {{ timeSeries.name }}
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </div>
+
+    <div class="leftside-item mb-1">
+      <div *ngIf="!isEditXML; else notExpansion">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header [collapsedHeight]="'52px'" [expandedHeight]="'52px'">Scene
+          </mat-expansion-panel-header>
+          <div class="data-list">
+            <span *ngFor="let scene of scenes" class="scene-tag-item scene-item active"
+              [ngStyle]="{ 'background-color': scene.color }" (click)="handleSceneClick($event, scene.name)">
+              {{ scene.name }}
+            </span>
+          </div>
+        </mat-expansion-panel>
+      </div>
+
+      <ng-template #notExpansion>
+        <div id="not-expansion">
+          <div class="div-item-left title">
+            <span style="background-color: transparent">Scene</span>
+            <button (click)="onCreateNewScene()" [ngClass]="(enableBtnCreateNew) ? 'enable-btn' : 'disable-btn'"
+              class="btn btn-secondary">
+              <i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add new
+            </button>
+          </div>
+          <div *ngIf="isShowGanttChart" class="data-list item-list">
+            <span *ngFor="let scene of scenes; index as i" [id]="'sceneId-'+(i+1)"
+              (contextmenu)='onRightClick($event,{content: scene.name})'
+              class="scene-tag-item scene-item scene-item-edit-xml active"
+              [ngStyle]="{ 'background-color': scene.color }" (click)="handleSceneClick($event, scene.name, i + 1)">
+              {{ scene.name ? scene.name : '&nbsp;' }}
+            </span>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="leftside-item mb-1" *ngIf="!isEditXML">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header [collapsedHeight]="'52px'" [expandedHeight]="'52px'">Tag
+        </mat-expansion-panel-header>
+        <div class="data-list">
+          <span *ngFor="let tag of tags" class="scene-tag-item tag-item disabled"
+            [ngStyle]="{ 'background-color': tag.color }" (click)="handleTagClick($event, tag.name)">
+            {{ tag.name ? tag.name : '&nbsp;' }}
+          </span>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </div>
+
+  <!--  wrap right click on scene-->
+  <div style='visibility: hidden; position: fixed;' [style.left]='menuRightClickScenePosition.x'
+    [style.top]='menuRightClickScenePosition.y' [matMenuTriggerFor]='rightMenuScene'>
+  </div>
+  <mat-menu [id]="rightMenuScene" #rightMenuScene="matMenu">
+    <ng-template matMenuContent let-item="sceneName">
+      <button class="text-center" (click)="onDeleteScene(item.content)" mat-menu-item>Delete
+      </button>
+    </ng-template>
+  </mat-menu>
+
+  <!--  wrap left click on save-->
+  <div style="visibility: hidden; position: fixed;" [style.left]="menuLeftClickSavePosition.x"
+    [style.top]="menuLeftClickSavePosition.y" [matMenuTriggerFor]="leftMenuSave">
+  </div>
+  <mat-menu [id]="leftMenuSave" #leftMenuSave="matMenu">
+    <ng-template matMenuContent let-item="xmlId">
+      <button class="text-center" (click)="onSaveOverrideXML(item.content)" mat-menu-item>Save
+      </button>
+      <button class="text-center" (click)="onSaveAsXML(item.content)" mat-menu-item>Save as
+      </button>
+    </ng-template>
+  </mat-menu>
+</section>

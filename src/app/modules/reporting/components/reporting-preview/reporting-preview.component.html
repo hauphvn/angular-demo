@@ -1,0 +1,126 @@
+<div class="report-video-list-container h-100 d-flex flex-column">
+  <div mat-dialog-title>
+    <div class="popup-header d-flex justify-content-between py-3">
+      <div
+        (click)="dialogRef.close()"
+        class="back-icon">
+        <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color"
+                  role="img"
+                  aria-hidden="true">keyboard_arrow_left
+        </mat-icon>
+        <span>Back</span>
+      </div>
+      <div class="wrap-filter">
+        <span>Scene List</span>
+        <p-multiSelect
+          display="chip"
+          class="multiselect-custom"
+          [options]="data.scenes"
+          [(ngModel)]="selectedScenes"
+          (onPanelHide)="handleFilterScene()"
+          defaultLabel="All tag 1"
+          optionLabel="name"
+          optionValue="name"
+        >
+          <ng-template let-value pTemplate="selectedItems">
+            <div  *ngIf="selectedScenes.length < 3; else lengthItem">
+              <div class="scene-item scene-item-value" *ngFor="let scene of selectedScenes">
+                <div
+                  matTooltip="{{scene.name}}"
+                  class="scene-name">{{scene.name}}</div>
+                <mat-icon (click)="onRemoveScene(scene.name)">close</mat-icon>
+              </div>
+            </div>
+            <ng-template #lengthItem>
+              {{selectedScenes.length}} items selected
+            </ng-template>
+            <div *ngIf="!selectedScenes || selectedScenes.length === 0" class="scene-placeholder">
+              Choose source
+            </div>
+          </ng-template>
+        </p-multiSelect>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-content class="report-video-list__content">
+    <div class="left-content__container d-flex flex-column">
+      <as-split direction="vertical">
+        <as-split-area>
+          <div class="videos-area d-flex justify-content-start">
+            <div class="video-box px-1" *ngFor="let video of videoDetailList; let i = index">
+              <app-dashboard-video [idVid]="i" [videoConfig]="video" [videoList]="videoDetailList">
+              </app-dashboard-video>
+            </div>
+          </div>
+          <app-controll-bar></app-controll-bar>
+        </as-split-area>
+        <as-split-area>
+          <mat-drawer-container>
+            <div class="gantt-chart__group">
+              <div class="gantt-chart__filter-control d-flex w-100 justify-content-between">
+                <div class="chart-zoom d-flex align-items-center">
+                  <span class="zoom-icon noselect material-icons mr-2" (click)="handleZoomClick(-1)">
+                    zoom_out
+                  </span>
+                  <div class="zoom-slider-container position-relative">
+                    <div class="input-wrapper w-100 position-relative">
+                      <mat-slider #zoomSlider
+                        class="zoom-input w-100"
+                        [invert]="false"
+                        [max]="ZOOM_OPTIONS.MAX_ZOOM"
+                        [min]="ZOOM_OPTIONS.MIN_ZOOM"
+                        [step]="ZOOM_OPTIONS.STEP_ZOOM"
+                        [thumbLabel]="false"
+                        [(ngModel)]="currentZoom"
+                        [vertical]="false"
+                        aria-labelledby="example-name-label"
+                        (mousedown)="showValueZoom = true"
+                        (mousemove)="handleUpdateValueLeftPos($event)">
+                      </mat-slider>
+                    </div>
+                  </div>
+                  <span class="zoom-icon noselect material-icons ml-2" (click)="handleZoomClick(1)">
+                    zoom_in
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="gantt-chart__group" *ngIf="taskTypes.taskName.length > 0">
+              <app-gantt-chart [taskTypes]="taskTypes" [tasksFormated]="tasksFormated" [numTypeOfXML]="numTypeOfXML" (videoEnded)="handleNextVideoSet()">
+              </app-gantt-chart>
+            </div>
+
+            <div class="line-chart__group" *ngIf="listTimeSeriesData.length > 0">
+              <app-line-chart
+                [id]="line.id"
+                [data]="line.data"
+                *ngFor="let line of listTimeSeriesShowing; let i = index; trackBy: trackByFunction"
+              ></app-line-chart>
+            </div>
+          </mat-drawer-container>
+        </as-split-area>
+      </as-split>
+    </div>
+
+    <div class="right-content__container">
+      <div class="right__title px-3 py-2">Video set list</div>
+      <div class="list-videoset mt-2 pl-2">
+        <div
+          class="item__wrapper d-flex mb-2"
+          [ngClass]="{ select: i === indexSelect }"
+          *ngFor="let videoSet of videoSetList; let i = index"
+          (click)="handleChangeVideoSet(i)"
+        >
+          <div class="item__image-wrapper w-50 text-center">
+            <img [src]="videoSet.thumbnail" class="" alt="Video thumbnail" />
+          </div>
+          <div class="item__info pl-2">
+            <div class="item__title mb-2">{{ videoSet.title }}</div>
+            <div class="item__owner">{{ videoSet.owner }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

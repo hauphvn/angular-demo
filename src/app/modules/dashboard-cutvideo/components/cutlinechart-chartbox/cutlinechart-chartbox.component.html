@@ -1,0 +1,21 @@
+<as-split direction="vertical">
+  <as-split-area>
+    <mat-drawer-container>
+      <app-line-chart
+        [id]="lineInfo.id"
+        [data]="lineInfo.data"
+        [syncGanttChart]='false'>
+      </app-line-chart>
+    </mat-drawer-container>
+  </as-split-area>
+</as-split>
+<div >
+  <div [formGroup]="formStartTimeLine">
+    <app-cutvideo-controll-bar
+      [stringStartTime]="formStartTimeLine.controls.startTimeLine.value"
+      [isShowPlayButton]='false'
+      [showTextTimeStart]="true"
+      (nextBackClick)="handleNextBackClick($event)">
+    </app-cutvideo-controll-bar>
+  </div>
+</div>

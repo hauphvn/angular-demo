@@ -1,0 +1,38 @@
+<div class="list-folder__container mb-4">
+  <div class="d-flex folder-header">
+    <span class="folder-title" [matTooltip]="folder.name" matTooltipClass="tooltip-confirm">
+      {{ folder.name }}
+    </span>
+    <div>
+      <span class="sort-by">Sort by</span>
+      <p-dropdown [dropdownIcon]="'pi pi-caret-down'" [options]="sortingOptions" class="options"
+        [(ngModel)]="sortingConditionVideo" (onChange)="changeSortOption()" optionLabel="value"></p-dropdown>
+    </div>
+  </div>
+  <div class="folder-content " *ngIf="this.folder.videoData">
+    <div class="table-colum mb-2 d-flex w-100">
+      <span class="width-custom-10">Video</span>
+      <span class="width-custom-30">Video Title</span>
+      <span class="width-custom-15">Time</span>
+      <span class="width-custom-20 text-center">Access to Dashboard</span>
+      <span class="width-custom-20 text-center">Details</span>
+    </div>
+    <hr />
+    <div *ngFor="let video of this.folder.videoData">
+      <app-video
+        class="w-20 d-flex justify-content-start"
+        [video]="video"
+        [folderId]="this.folder.id"
+        (deleteVideoDetailPopup)="this.deleteVideoDetail($event)"
+      >
+      </app-video>
+    </div>
+  </div>
+  <div class="show-more w-100 mt-2" *ngIf="this.folder.showMore">
+    <hr/>
+    <div class="justify-content-end d-flex custom-cursor" (click)="showMore()">
+      <img [src]="'../../../assets/icons/see-more.svg'" class="mr-2" />
+      <span> See more </span>
+    </div>
+  </div>
+</div>

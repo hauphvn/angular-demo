@@ -1,0 +1,92 @@
+@import '../../../../../assets/scss/mixin';
+
+.wrap-project-reporting {
+  .style-text {
+    font-weight: bold;
+    color: #292929;
+  }
+  ::ng-deep {
+    .mat-expansion-panel {
+      background-color: transparent;
+    }
+
+    .mat-expansion-panel-header {
+      height: 50px !important;
+      padding: 0 20px;
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0 20px 16px;
+    }
+
+    .mat-expansion-panel-header-title {
+      font-size: 16px;
+      line-height: 19px;
+      @extend .style-text;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-label {
+      padding: 5px 10px;
+    }
+
+    mat-checkbox .mat-checkbox-layout {
+      margin: 0;
+      flex-direction: row-reverse;
+      width: 100%;
+      gap: 5px;
+      margin-bottom: 10px;
+
+      .mat-checkbox-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        @include size12;
+        line-height: 19px;
+      }
+    }
+  }
+
+  .list-video-scene-tag {
+    display: flex;
+    align-items: center;
+    border: 1px solid $color-border1;
+    box-sizing: border-box;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .wrap-folder-list{
+    padding-left: 0;
+    width: 33.33%;
+    .wrap-folder-detail-selected{
+      background-color: transparent;
+      padding: 0;
+      max-width: 197px;
+      // width: 197px;
+      width: 100%;
+      margin: 0;
+      height: 155px;
+      max-height: 155px;
+      border-right: 1px solid $color-border1;
+      padding: 10px 5px 0 10px;
+      overflow-y: auto;
+    }
+  }
+
+  .folder-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid $color-border1;
+    padding-top: 10px;
+
+    .folder-text {
+      font-size: 14px;
+      line-height: 15px;
+      @extend .style-text;
+    }
+  }
+
+  .chips-list {
+    padding-left: 0;
+  }
+}

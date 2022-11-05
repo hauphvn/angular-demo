@@ -1,0 +1,80 @@
+@import '../../../../../assets/scss/common';
+
+.wrap-save-as-xml {
+  background-color: $color-white;
+
+  .mat-dialog-actions {
+    margin-bottom: -20px;
+    padding: 0;
+  }
+
+  .dialog-title {
+    @include sizeTitleModal;
+    border-bottom: 1px solid $color-border1;
+  }
+
+  .dialog-input {
+    padding-bottom: 18px;
+    padding-right: 10px;
+  }
+
+  .dialog-content {
+    //padding: 0 0 30px 0 !important;
+    margin: 0;
+    max-height: calc(100% - 140px);
+    padding-left: 20%;
+    padding-right: 20%;
+    margin-bottom: 18px;
+    overflow: hidden;
+
+    .middle-title {
+      font-size: 1.2em;
+    }
+
+    .dialog-input {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      label {
+        margin: 0px 18px 0px 0px;
+      }
+
+      input {
+        background: $color-white !important;
+        border: 1px solid $color-border1 !important;
+        box-sizing: border-box;
+        border-radius: 8px;
+        color: $color-black1;
+        margin: 0;
+        max-width: 62%;
+        width: 100%;
+
+        &:focus {
+          box-shadow: unset !important;
+        }
+      }
+    }
+  }
+
+  .btn-block {
+    margin: 0px !important;
+    padding: 0;
+
+    button {
+      @include buttonModal;
+
+      &.btn--primary {
+        background-color: $color-yellow;
+      }
+
+      &.btn--tertiary {
+        background-color: $color-white;
+      }
+    }
+  }
+
+  mat-error {
+    font-size: 0.8em;
+  }
+}

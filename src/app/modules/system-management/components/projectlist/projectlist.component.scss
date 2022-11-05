@@ -1,0 +1,69 @@
+@import '../../../../../assets/scss/common';
+
+.project-list-container {
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .title {
+    .fs-24-px {
+      font-size: 24px;
+      line-height: 28px;
+      font-weight: bold;
+      color: $color-black1;
+    }
+  }
+  .control-buttons {
+    width: 85%;
+  }
+
+  .search-input {
+    @extend .input-search;
+  }
+
+  .bg-save {
+    background-color: #3f51b5;
+  }
+  .bg-cancel {
+    background-color: #757680;
+  }
+
+  .btn-primary {
+    @extend .btn-search;
+  }
+  .btn-add {
+    @include buttonAddUser;
+    height: 32px;
+    font-weight: normal;
+  }
+
+  .project-list {
+    background: $color-white;
+    box-shadow: 0px 4px 15px rgba(24, 24, 24, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 200px;
+    padding-bottom: 20px;
+    .no-data {
+      height: 198px;
+      color: #afafaf;
+      font-size: 30px;
+    }
+  }
+
+}
+
+@media screen and (max-width: 1400px) {
+  .search-input {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .control-buttons {
+    width: 70%;
+  }
+  .search-input {
+    width: 100%;
+  }
+}

@@ -1,0 +1,36 @@
+<div class="wrap-add-new-folder h-100">
+  <h2 mat-dialog-title class="dialog-title">
+    Add Folder
+  </h2>
+  <div mat-dialog-content class="dialog-content py-2" [formGroup]="form">
+    <div class="row dialog-row m-0 custom-mat-form-field p-0">
+      <div class="col-12 p-0 dialog-label">
+        <label for="name">Name:</label>
+        <span class="text-danger">*</span>
+      </div>
+      <div class="col-12 p-0 dialog-input">
+        <input
+          #nameInput
+          matInput
+          id="name"
+          class="form-control"
+          formControlName="name"
+          (ngModelChange)="reloadButtonSave()"/>
+        <mat-error style="height: 20px; display: block; margin-bottom: 10px;">
+          <span *ngIf="form.get('name').dirty || form.get('name').touched">
+            {{form.controls.name.errors?.message}}
+          </span>
+        </mat-error>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-center align-items-center dialog-controlls">
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button class="btn btn--tertiary w-equal" (click)="closePopup()">
+      Cancel
+    </button>
+    <button mat-button [disabled]="!enableButton" class="btn btn--primary w-equal" (click)="handleSave()">
+      Save
+    </button>
+  </div>
+</div>

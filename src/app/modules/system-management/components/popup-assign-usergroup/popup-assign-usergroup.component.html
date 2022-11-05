@@ -1,0 +1,47 @@
+<div class="assign-usergroup-container h-100">
+  <h2 mat-dialog-title class="dialog-title">
+    Assign User Group
+  </h2>
+  <div mat-dialog-content class="dialog-content py-2">
+    <div class="row m-0 custom-mat-form-field flex-nowrap dialog-input">
+      <input #nameInput matInput id="name" class="form-control search-input" placeholder="Type here to search for group" (keyup.enter)="searchTable(nameInput.value)"/>
+      <button mat-button class="btn btn-search__block ml-0" (click)="searchTable(nameInput.value)">
+        <mat-icon>search</mat-icon>
+        <span>Search</span>
+      </button>
+    </div>
+    <div class="assign-user__group text-left">
+      Please choose the user group on table
+    </div>
+    <div class="row m-0 mb-2 custom-mat-form-field justify-content-center table-container">
+      <div class="h-100 assign-user__list">
+        <p-table #dt [value]="listUserGroupShow" [columns]="cols">
+          <ng-template pTemplate="body" let-data>
+            <tr>
+              <td class="td-table-assign">
+                <p-checkbox
+                  class="user-group-row"
+                  name="userGroup"
+                  [value]="data.id + '__' + data.name"
+                  [label]="data.name"
+                  [(ngModel)]="selectedUserGroup"
+                  [inputId]="'input' + data.id"
+                  (onChange)="enableSave = true"
+                ></p-checkbox>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-center align-items-center btn-block dialog-controlls">
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button class="btn btn--tertiary w-equal" [mat-dialog-close]="false">
+      Cancel
+    </button>
+    <button mat-button class="btn btn--primary w-equal" (click)="onSaveClick()" [disabled]="!enableSave">
+      Save
+    </button>
+  </div>
+</div>

@@ -1,0 +1,261 @@
+@import '../../../../../assets/scss/mixin';
+
+.dialog-dashboard-setting {
+  .dialog-title {
+    @include sizeTitleModal;
+    border-bottom: 1px solid $color-border1;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  .drag-drop-item {
+    margin: 0;
+    background-color: #FFF2C7;
+    color: $color-grey;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .button-assign {
+    width: 25px;
+    margin-bottom: 20px;
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  ::ng-deep {
+    .ui-dialog {
+      padding: 20px;
+      z-index: 999;
+      background: $color-white;
+      border-radius: 16px !important;
+      box-shadow: 0px 4px 15px rgb(24 24 24 / 10%) !important;
+
+      .ui-dialog-titlebar {
+        padding: 0;
+        background-color: $color-white;
+        border: none;
+      }
+
+      .ui-dialog-content {
+        border: none;
+        padding: 0 0.5em 0 0.5em;
+        overflow: hidden;
+      }
+
+      .ui-dialog-footer {
+        border: none;
+        padding: 1rem;
+      }
+    }
+
+    .ui-chkbox .ui-chkbox-box {
+      color: #ffffff !important;
+      border-radius: 0 !important;
+      width: 10px;
+      height: 10px;
+
+      &.ui-state-active {
+        border-color: $color-green !important;
+        background-color: $color-green !important;
+      }
+
+      .ui-chkbox-icon {
+        font-size: 8px;
+      }
+    }
+
+    .ui-listbox {
+      border: none;
+      width: 100%;
+
+      .ui-listbox-list-wrapper {
+        overflow-y: hidden;
+        max-height: 100% !important;
+      }
+
+      .ui-listbox-list {
+        background-color: $color-white;
+        padding: 0 10px;
+
+        .ui-listbox-item {
+          &,
+          &.ui-state-highlight {
+            color: $color-grey !important;
+            background-color: transparent !important;
+            padding: 10px 0;
+            border-bottom: 1px solid $color-border1;
+            border-radius: 0 !important;
+            font-size: 14px;
+            line-height: 15px;
+          }
+        }
+      }
+
+      .ui-listbox-header {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 15px;
+        color: $color-grey;
+        background-color: transparent;
+        border-bottom: 1px solid $color-border1;
+        border-radius: 0 !important;
+        padding: 0 10px 10px 10px;
+      }
+    }
+
+    .list-box-second {
+      .ui-listbox-header {
+        padding-top: 10px;
+        border-top: 1px solid $color-border1;
+      }
+    }
+
+    .list-box-third {
+      .column__title {
+        background-color: #a6a6a6;
+        padding: 0.429em 0.857em 0.429em 0.857em;
+        text-align: center;
+        color: white;
+        font-weight: 600;
+        border-radius: 3px;
+      }
+
+      .column__list {
+        height: 50vh;
+        padding: 0;
+        background-color: $color-white;
+        font-size: 14px;
+        line-height: 15px;
+        color: $color-grey;
+
+        .ui-listbox {
+          padding-top: 10px;
+
+          .ui-listbox-list {
+            .ui-listbox-item {
+              &,
+              &.ui-state-highlight {
+                padding: 0 0 5px 0;
+                border-bottom: 0;
+
+                &:first-child {
+                  padding-top: 10px;
+                }
+                &:last-child {
+                  padding-bottom: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .ui-inputtext {
+      padding: 0 !important;
+    }
+  }
+
+  .checkbox-item {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    ::ng-deep {
+      .ui-chkbox.ui-widget {
+        width: 10px;
+        height: 10px;
+        margin: 0;
+      }
+    }
+  }
+
+  .btn-block {
+    gap: 10px;
+
+    button {
+      @include buttonModal;
+      margin: 0;
+
+      &.btn-save {
+        background-color: $color-yellow;
+      }
+
+      &.btn-cancel {
+        background-color: $color-white;
+      }
+    }
+  }
+}
+
+.dashboard-setting-container {
+  background-color: $color-white;
+
+  .dashboard-setting-wrapper {
+    padding: 17px 0 0 0;
+    height: 59vh;
+  }
+
+  .column-side {
+    width: calc(50% - 25px);
+    border: 1px solid $color-border1;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 10px 0;
+    height: 55vh;
+    overflow-y: hidden;
+
+    &.column-side-right {
+      padding: 0;
+
+      .column__list {
+        height: 53vh !important;
+      }
+    }
+
+    .list-box-first,
+    .list-box-second {
+      background-color: $color-white;
+      padding: 0 0 0.5rem 0;
+      overflow-y: auto;
+    }
+
+    .result-box {
+      height: calc(50% - 5px);
+      border-bottom: 1px solid $color-border1;
+      overflow-y: auto;
+
+      > span {
+        padding: 0 10px 10px;
+        border-bottom: 1px solid $color-border1;
+        padding-top: 10px;
+        display: block;
+        font-weight: bold;
+      }
+    }
+
+    .icon-swap {
+      height: 28px;
+      border-bottom: 1px solid $color-border1;
+
+      img {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .h-60 {
+    height: 53%;
+  }
+  .h-40 {
+    height: 49%;
+  }
+}
+

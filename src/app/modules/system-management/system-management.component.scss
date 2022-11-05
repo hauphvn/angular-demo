@@ -1,0 +1,54 @@
+@import '../../../assets/scss/mixin';
+
+::ng-deep mat-ink-bar {
+  display: none;
+}
+
+.system-man-container {
+  &.padding-equal {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  nav[mat-tab-nav-bar] {
+    border-bottom: 1px solid $color-border1;
+  }
+
+  div[mat-tab-links] {
+    gap: 30px;
+  }
+
+  ::ng-deep .mat-tab-links {
+    gap: 0;
+    padding-top: 11px;
+  }
+
+  a[mat-tab-link] {
+    opacity: unset;
+    @extend .color-black-bold;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    color: #8E8E8E;
+    height: auto;
+    padding: 11px 15px 11px 15px;
+    width: 240px;
+    border-bottom: 2px solid transparent;
+    min-width: auto;
+    &:hover {
+      color: $color-black-dark;
+      text-decoration: none;
+    }
+    &.mat-tab-label-active {
+      border-bottom: 2px solid $color-yellow;
+      color: $color-black-dark;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  a[mat-tab-link] {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    font-size: 24px;
+  }
+}

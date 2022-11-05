@@ -1,0 +1,33 @@
+.dashboard-slider-wrapper {
+  background-color: #c5c5c5;
+  .dashboard-slider {
+    height: 10px;
+    background-color: #e58e1d;
+  }
+
+  .slider-cue-point {
+    height: 10px;
+    background-color: red;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .slider-tooltip {
+    padding: 0px 6px;
+    top: -35px;
+    z-index: 300;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+  }
+}

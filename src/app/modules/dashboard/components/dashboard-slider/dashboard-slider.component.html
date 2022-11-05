@@ -1,0 +1,7 @@
+<div id="dashboard-slider-wrapper" class="dashboard-slider-wrapper w-100 position-relative">
+  <div class="dashboard-slider" [ngStyle]="{ width: (value * 100) / max + '%' }"></div>
+  <div [ngClass]="{ 'd-none': !isHover, 'slider-tooltip': true }" [ngStyle]="{ left: leftTooltip - 16 + 'px' }">
+    <span>{{ valueString }}</span>
+  </div>
+  <div *ngFor="let cue of cueList" class="slider-cue-point position-absolute" [ngStyle]="style(cue)"></div>
+</div>

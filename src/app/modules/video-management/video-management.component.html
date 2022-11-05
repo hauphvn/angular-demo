@@ -1,0 +1,60 @@
+<div class="main-content">
+  <div class="main-content__project">
+    <div class="row projects-sort_section">
+      <span class="title-page mt-2">Projects</span>
+      <div class="mt-2 d-flex" *ngIf="projectList && projectList.length > 0">
+        <span class="sort-label mr-2">Sort by</span>
+        <p-dropdown
+          [options]="sortingOptions"
+          [dropdownIcon]="'pi pi-caret-down'"
+          class="options"
+          [(ngModel)]="sortingConditionProject"
+          optionLabel="value"
+          (onChange)="changeSortOption()"
+        ></p-dropdown>
+      </div>
+    </div>
+   
+    <div class="project-list mb-3">
+      <div
+        *ngIf="!projectList || projectList.length === 0"
+        class="no-data d-flex align-items-center justify-content-center"
+      >
+        No project found
+      </div>
+      <div *ngIf="projectList && projectList.length > 0">
+        
+        <div class="row mx-0 project-row">
+          <app-project-box
+            (click)="projectClick(project)"
+            class="w-20 project-item"
+            *ngFor="let project of projectList"
+            [project]="project"
+            [projectId]="projectId"
+          >
+          </app-project-box>
+        </div>
+        <div class="row custom-paginator d-flex justify-content-end">
+          <p-paginator
+            [rows]="size"
+            [totalRecords]="totalElements"
+            (onPageChange)="paginate($event)"
+            *ngIf="showPagination"
+            [first]="(currentPage - 1) * size"
+          ></p-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-folder-table
+    *ngIf="projectList && projectList.length > 0"
+    [listFolder]="listFolder"
+    [projectName]="projectName"
+    [projectId]="projectId"
+    (currentSortType)="getSortTypeCurrentFolder($event)"
+    [reGetFolderListOfProject]="getFolderInProject"
+    (copyDone)="getCopyDone($event)"
+    (afterVideoDelete)="handleAfterDeleteVideo()"
+  >
+  </app-folder-table>
+</div>

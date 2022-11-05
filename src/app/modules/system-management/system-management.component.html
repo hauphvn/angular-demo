@@ -1,0 +1,11 @@
+<div class="system-man-container padding-equal pt-1">
+  <nav mat-tab-nav-bar mat-align-tabs="center">
+    <div *ngFor="let link of navLinks">
+      <a mat-tab-link *ngIf="(link.index === 0 && isRoleUserPro) || isRoleAdmin" [routerLink]="link.link" routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive">
+        {{ link.label }}
+      </a>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

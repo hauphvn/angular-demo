@@ -1,0 +1,205 @@
+<div class="container-custom">
+  <h1 mat-dialog-title class="dialog-title">
+    {{ this.header }}
+  </h1>
+  <div mat-dialog-content>
+    <div class="wrap-checkbox-pattern">
+      <div *ngFor="let item of copyPatternOptions" >
+        <input name="groupChooseCopyPattern" id="'pattern-'{{item.key}}" type="radio" (change)="chooseCopyPattern(item)"
+                value="{{item.value}}" [checked]="item.checked"/>
+        <label [class]="item.checked ? 'active' : ''" for="'pattern-'{{item.key}}">{{item.value}}</label>
+      </div>
+    </div>
+    <div class="wrap-option-copy">
+      <div class="ui-g option-copy">
+        <div class="option-type">Type</div>
+        <div *ngFor="let item of copyVideoOptions" class="option-label">
+          <input type="radio" id="{{item.key}}" name="groupChooseCopyVideo" (change)="chooseCopyVideoType(item)"
+            value="{{item.value}}" [checked]="item.checked"
+          />
+          <label for="{{item.key}}">{{item.value}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="wrap-process__block">
+      <div class="wrap-process" [ngClass]="{'individual-avtice': isChoseIndividualVideoPattern === true}">
+        <h4>Copy Source</h4>
+        <div class="container wrap-chose-copy-source">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <mat-form-field>
+                  <mat-select
+                    [(ngModel)]="selectedOptionSourceFolder"
+                    (selectionChange)="choseFolderSource($event)"
+                    placeholder="Choose Copy Source"
+                  >
+                  <div class="option-wrapper">
+                    <mat-option *ngFor="let folder of listFolder" [value]="folder.id">
+                      {{folder.name}}
+                    </mat-option>
+                  </div>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap-process" *ngIf="isChoseVideoSetPattern" [ngClass]="{'individual-avtice float-right': isChoseIndividualVideoPattern === true}">
+        <h4>Video Set</h4>
+        <div class="container wrap-chose-copy-source">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <mat-form-field>
+                  <mat-select
+                    [(ngModel)]="selectedOptionVideoSetSource"
+                    (selectionChange)="choseVideoSetSource($event)"
+                    placeholder="Choose Video Set"
+                  >
+                  <div class="option-wrapper">
+                    <mat-option *ngFor="let videoSet of listVideoSetByFolderSourceOnly" [value]="videoSet.id">
+                      {{videoSet.name}}
+                    </mat-option>
+                  </div>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isChoseIndividualVideoPattern" class="wrap-choose-data wrap-process">
+        <div>
+          <h4>Choose data</h4>
+          <div class="container wrap-checkbox-individual">
+            <div class="row">
+              <div class="col-sm-4 ">
+                  <span>Video list</span>
+                <div class="d-flex align-items-center">
+                  <label class="form-check-label" for="individual-video-detail">Select All</label>
+                  <input [checked]="isChoseAllVideoDetail" (click)="choseAllVideoDetail()" class="form-check-input" type="checkbox"
+                        id="individual-video-detail" value="1" />
+                </div>
+              </div>
+              <div class="col-sm-4 ">
+                  <span>Lable list</span>
+                <div class="d-flex align-items-center">
+                  <label class="form-check-label" for="individual-xml-detail">Select All</label>
+                  <input [checked]="isChoseAllXML" (click)="choseAllXMLDetail()" class="form-check-input" type="checkbox"
+                      id="individual-xml-detail" value="2" />
+                </div>
+              </div>
+              <div class="col-sm-4 ">
+                <span>Time Series List</span>
+                <div class="d-flex align-items-center">
+                <label class="form-check-label" for="individual-time-detail">Select All</label>
+                  <input [checked]="isChoseAllTime" (click)="choseAllTimeSeries()" class="form-check-input" type="checkbox"
+                      id="individual-time-detail" value="3" />
+                </div>
+              </div>
+            </div>
+            <div class="row individual__content">
+              <div class="col-sm-4">
+                <div class="info-text" *ngIf="listSpecVideoDetailIdOfVideoSet.length === 0">Please choose video set to display data for selecting</div>
+                <div *ngFor="let video of listSpecVideoDetailIdOfVideoSet" class="form-check">
+                  <label class="form-check-label custom-text" for="video-detail-{{video.id}}" [matTooltip]="video.title">
+                    {{video.title}}
+                  </label>
+                  <input [checked]="video.checked" (click)="chosenVideoDetail(video.id)" class="form-check-input" type="checkbox" value="{{video.id}}" id="video-detail-{{video.id}}">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="info-text" *ngIf="listSpecXMLDetailIdOfVideoSet.length === 0">Please choose video set to display data for selecting</div>
+                <div *ngFor="let xml of listSpecXMLDetailIdOfVideoSet" class="form-check">
+                  <label class="form-check-label custom-text" for="xml-detail-{{xml.id}}" [matTooltip]="xml.title">
+                    {{xml.title}}
+                  </label>
+                  <input [checked]="xml.checked" (click)="chosenXML(xml.id)" class="form-check-input" type="checkbox" value="{{xml.id}}" id="xml-detail-{{xml.id}}">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="info-text" *ngIf="listSpecTimeSerDetailIdOfVideoSet.length === 0">Please choose video set to display data for selecting</div>
+                <div *ngFor="let time of listSpecTimeSerDetailIdOfVideoSet" class="form-check">
+                  <label class="form-check-label custom-text" for="time-detail-{{time.id}}" [matTooltip]="time.title">
+                    {{time.title}}
+                  </label>
+                  <input [checked]="time.checked" (click)="chosenTimeSeries(time.id)" class="form-check-input" type="checkbox" value="{{time.id}}" id="time-detail-{{time.id}}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap-process" [ngClass]="{'individual-avtice': isChoseIndividualVideoPattern === true}">
+        <h4>Destination</h4>
+        <div class="container wrap-chose-copy-source">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <mat-form-field>
+                  <mat-select
+                    [(ngModel)]="selectedOptionTargetFolder"
+                    (selectionChange)="choseFolderTarget($event)"
+                    placeholder="Choose Destination"
+                  >
+                  <div class="option-wrapper">
+                    <mat-option *ngFor="let folder of listFolder" [value]="folder.id">
+                      {{folder.name}}
+                    </mat-option>
+                  </div>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap-process float-right" *ngIf="isChoseIndividualVideoPattern" [ngClass]="{'individual-avtice': isChoseIndividualVideoPattern === true}">
+        <h4>Video Set</h4>
+        <div class="container wrap-chose-copy-source">
+          <div class="row">
+            <div class="col-sm-12">
+              <div *ngIf="isChoseIndividualVideoPattern" class="input-group">
+                <mat-form-field>
+                  <mat-select
+                    [(ngModel)]="selectedOptionVideoSetTarget"
+                    (selectionChange)="choseVideoSetTarget($event)"
+                    placeholder="Select Video Set"
+                  >
+                  <div class="option-wrapper">
+                    <mat-option *ngFor="let videoSet of listVideoSetByFolderTargetOnly" [value]="videoSet.id">
+                      {{videoSet.name}}
+                    </mat-option>
+                  </div>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="wrap-model-footer">
+    <div>
+      <button type="button" class="btn btn-secondary m-0 w-equal" (click)="closeModal()" matRipple>Cancel</button>
+    </div>
+    <div>
+      <button
+        type="submit"
+        class="btn btn-primary color-base w-equal"
+        matRipple
+        [disabled]="!validated"
+        (click)="handleSaveClick()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>

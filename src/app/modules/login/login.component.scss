@@ -1,0 +1,127 @@
+@import "../../../assets/scss/variables.scss";
+@import "../../../assets/scss/_mixin.scss";
+
+.login-container {
+  height: 100%;
+
+  .login-title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 41px;
+    text-align: center;
+    color: #666666;
+  }
+
+  .login-form {
+    padding: 20px !important;
+    background-color: $color-white !important;
+    border-radius: 16px !important;
+    border: 1px solid #e5e5e5;
+    width: 100%;
+    max-width: 408px;
+    padding: 2rem;
+    label {
+      font-size: 20px;
+    }
+
+    > hr {
+      width: 100%;
+      border: 1px solid #e6e6e6;
+      height: 0px;
+    }
+    // Footer
+    .login-footer-area {
+      a {
+        text-decoration: underline;
+        font-style: italic;
+        font-size: 20px;
+      }
+    }
+
+    .dialog-input {
+      label {
+        @include size12;
+      }
+
+      div {
+        position: relative;
+
+        img {
+          position: absolute;
+          width: 22px;
+          height: 22px;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          z-index: 9;
+        }
+      }
+
+      input {
+        background: #FDFDFD !important;
+        border: 1px solid $color-border !important;
+        box-sizing: border-box;
+        border-radius: 8px;
+        height: 48px;
+        font-size: 14px;
+        &:focus {
+          box-shadow: unset !important;
+          border: 1.5px solid #FFD961 !important;
+        }
+      }
+
+      .active {
+        fill: #646262;
+      }
+
+      .non-active {
+        fill: #939393;
+      }
+
+      &:focus-within label {
+        color: #FABE00;
+      }
+    }
+
+    .login-button {
+      color: $color-black-dark !important;
+      border: 1px solid #E8E5E5;
+      box-sizing: border-box;
+      border-radius: 8px;
+      height: 48px;
+      @include size12;
+      font-weight: bold;
+      width: 100%;
+      height: 48px;
+      background-color: #FABE00;
+    }
+
+    .login-contact-text {
+      @include size12;
+      color: #939393 !important;
+    }
+  }
+}
+
+.logo-img-main {
+  width: 232px;
+}
+
+
+.logo-img {
+  width: 175px;
+  height: 40px;
+}
+
+.label-icon {
+  width: 131px;
+  height: 18px;
+}
+.copy-right {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  color: gray;
+}

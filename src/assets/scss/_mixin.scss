@@ -1,0 +1,233 @@
+@import './variables.scss';
+
+.color-black-bold {
+    color: $color-black-dark;
+    font-weight: bold;
+}
+
+@mixin sizeDefault {
+    font-size: 16px;
+    line-height: 19px;
+    @extend .color-black-bold;
+}
+
+@mixin sizeTitle {
+    font-size: 30px;
+    line-height: 54px;
+    @extend .color-black-bold;
+}
+
+@mixin size24 {
+    font-size: 24px;
+    line-height: 28px;
+    @extend .color-black-bold;
+}
+
+@mixin sizeTitleModal {
+    @include size24;
+    text-align: center;
+    padding: 10px 0 10px 0;
+    color: $color-black1;
+}
+
+@mixin size16 {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $color-black-dark;
+}
+
+@mixin size12 {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 15px;
+    color: $color-black1;
+}
+
+@mixin sizeSmall {
+    font-size: 14px;
+    line-height: 12px;
+    color: $color-black1;
+    font-weight: normal;
+}
+
+@mixin modalWrapper {
+    padding: 20px !important;
+    background-color: $color-white !important;
+    box-shadow: 0px 4px 15px rgba(24, 24, 24, 0.1) !important;
+    border-radius: 16px !important;
+}
+
+@mixin buttonModal {
+    border: 1px solid #E8E5E5;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: 176px !important;
+    height: 48px;
+    @include size12;
+    font-weight: bold;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin inputPlaceholder($color) {
+    &::-webkit-input-placeholder { /* Edge */
+        color: $color;
+        font-size: 11px;
+    }
+
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $color;
+        font-size: 11px;
+    }
+
+    &::placeholder {
+        color: $color;
+        font-size: 11px;
+    }
+}
+
+@mixin buttonAddUser {
+    border-radius: 8px;
+    background-color: $color-yellow !important;
+    font-size: 14px;
+    line-height: 16px;
+    color: $color-black1;
+    font-weight: bold;
+    @include flex-center;
+    gap: 5px;
+    border: none;
+}
+
+@mixin customDropdown {
+    border-radius: 13px !important;
+}
+
+@mixin buttonMenuOptions {
+  border-radius: 14px;
+  margin-left: 5px;
+  border: 1px solid #ddd;
+}
+
+::ng-deep {
+    .ui-corner-all,
+    .ui-dropdown-trigger {
+        @include customDropdown;
+    }
+
+    .ui-dropdown {
+        min-width: 9.5rem;
+    }
+
+    .ui-dropdown-items-wrapper {
+        padding: 2px;
+    }
+
+    .document-dialog-class  {
+        margin: 0 auto !important;
+    }
+
+    .ui-state-highlight {
+        background-color: #FABE00 !important;
+        color: #292929 !important;
+    }
+
+    .ui-dropdown-trigger-icon {
+        color: black;
+    }
+
+    .cdk-overlay-dark-backdrop {
+      background: rgba(24, 24, 24, 0.05);
+      backdrop-filter: blur(15px);
+    }
+
+    .mat-dialog-container {
+        @include modalWrapper;
+    }
+
+    .add-project-dialog-class,
+    .assign-user-dialog-class,
+    .user-group-list-dialog-class,
+    .user-list-dialog-class {
+        margin: 0 auto !important;
+    }
+
+    .ui-paginator {
+        background-color: white !important;
+        border: none !important;
+    }
+    .ui-paginator-page {
+    border-radius: 0px !important;
+    border: 1px solid #e2e2e2 !important;
+    }
+    .ui-paginator-pages > .ui-paginator-page:first-child {
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 0px !important;
+    }
+    .ui-paginator-pages > .ui-paginator-page:last-child {
+    border-top-right-radius: 8px !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 8px !important;
+    }
+
+    .ui-paginator-last, .ui-paginator-next, .ui-paginator-first, .ui-paginator-prev {
+        color: $color-black1 !important;
+    }
+
+    .ui-state-active {
+    background-color: #fabe00 !important;
+    color: black !important;
+    font-weight: bold !important;
+    border: 1px solid #fabe00 !important;
+    }
+
+    .option-wrapper {
+        padding: 2px 0;
+        .mat-option {
+            padding: 2px;
+            height: 30px !important;
+            line-height: 30px !important;
+            background: $color-white !important;
+
+            .mat-option-text {
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 15px;
+                color: $color-black-dark;
+                padding: 10px;
+
+                &:hover {
+                    background: rgba($color: $color-yellow, $alpha: 0.4);
+                }
+            }
+
+            &.mat-active {
+                .mat-option-text {
+                    background: $color-yellow;
+                    border-radius: 6px;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+
+  li.ui-dropdown-item.ui-corner-all {
+    font-size: 14px;
+  }
+
+  .mat-error {
+    padding-top: 4px;
+    font-size: 12px;
+  }
+
+  .mat-autocomplete-visible {
+    margin-top: 2px;
+  }
+}

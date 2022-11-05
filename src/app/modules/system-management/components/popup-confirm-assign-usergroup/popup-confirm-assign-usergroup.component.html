@@ -1,0 +1,41 @@
+<div class="wrap-confirm-assign-group-user h-100">
+  <h2 mat-dialog-title class="dialog-title">
+    Group Confirm
+  </h2>
+  <div mat-dialog-content class="dialog-content py-2">
+    <div class="row dialog-row m-0 custom-mat-form-field p-0">
+      <div class="col-12 p-0 dialog-label">
+        <label>Add the following groups</label>
+      </div>
+      <div
+        class="dialog-input p-2 w-100"
+        [matTooltip]="confirmAddString"
+        matTooltipClass="tooltip-confirm">
+        <ng-container *ngFor="let item of data.confirmAddList; let i = index">
+          <span class="confirm-item" *ngIf="i !== 0">、</span>
+          <span class="confirm-item">{{ item }}</span>
+        </ng-container>
+      </div>
+      <div class="col-12 p-0 dialog-label">
+        <label>Delete the following groups</label>
+      </div>
+      <div
+        class="dialog-input p-2 w-100"
+        [matTooltip]="confirmDeleteString"
+        matTooltipClass="tooltip-confirm">
+        <ng-container *ngFor="let item of data.confirmDeleteList; let i = index">
+          <span class="confirm-item" *ngIf="i !== 0">、</span>
+          <span class="confirm-item">{{ item }}</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-center align-items-center dialog-controlls">
+    <button mat-button class="btn btn--tertiary w-equal" [mat-dialog-close]="false">
+      Cancel
+    </button>
+    <button mat-button class="btn btn--primary w-equal" (click)="onSaveClick()">
+      Save
+    </button>
+  </div>
+</div>

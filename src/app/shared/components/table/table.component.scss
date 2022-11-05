@@ -1,0 +1,199 @@
+@import '../../../../assets/scss/mixin';
+
+::ng-deep .ui-paginator {
+  text-align: right;
+  background-color: $color-white !important;
+  span.ui-paginator-pages {
+    margin: 0 !important;
+  }
+}
+
+::ng-deep {
+  .button-controll {
+    button {
+      margin-right: 0.5em;
+    }
+
+    &.btn-table-edit {
+      padding: 20px 10px !important;
+      justify-content: center !important;
+      align-items: center !important;
+
+      button {
+        margin: 0 !important;
+      }
+    } 
+  }
+
+  .ui-dropdown {
+    width: unset !important;
+    min-width: 100px;
+  }
+
+  .table-block {
+    .ui-table {
+      .ui-table-thead > tr > th {
+        border: none;
+        background-color: $color-white;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 20px 20px 12px 20px;
+        @include sizeSmall;
+        line-height: 12px;
+        color: #8E8E8E;
+
+        &.last-column {
+          max-width: 98px;
+        }
+      }
+
+      .ui-table-tbody > tr {
+        position: relative;
+        &:first-child {
+          border-top: 1px solid $color-border1;
+        }
+        &::after {
+          content: '';
+          width: calc(100% - 40px);
+          position: absolute;
+          height: 1px;
+          background-color: $color-border1;
+          left: 20px;
+          bottom: 0;
+        }
+
+        &:last-child {
+          &::after {
+            content: '';
+            width: 0;
+          }
+        }
+        color: $color-grey !important;
+        font-weight: normal !important;
+        font-size: 14px;
+        line-height: 18px;
+        &:nth-child(even), &:nth-child(odd) {
+          background-color: $color-white;
+        }
+        &.ui-state-highlight {
+          background-color: #eaeaea !important;
+          color: $color-grey !important;
+        }
+        > td {
+          padding: 13px 20px 16px 20px;         
+
+          span {
+            display: flex;
+          }
+
+          &:last-child {
+            padding: 10px 0;
+            @include flex-center;
+            justify-content: flex-start;
+            padding-left: 20px;
+            gap: 10px;
+            width: 96px !important;
+          }
+
+          &:first-child {
+            color: $color-black1 !important;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .ui-button.ui-state-default {
+      &.ui-button-info, &.ui-button-danger, &.ui-button-success, &.ui-button-cancel {
+        width: 24px;
+        height: 24px;
+        border: 1px solid $color-border1;
+        box-sizing: border-box;
+        border-radius: 4px !important;
+        background-color: transparent;
+        margin: 0;
+
+        &:hover {
+          background-color: transparent !important;
+          border: 1px solid $color-border1 !important;
+        }
+
+        .pi-pencil:before {
+          color: #212121;
+        }
+      }
+
+      &.ui-button-danger {
+        @include flex-center;
+        span {
+          display: none;
+        }
+      }
+
+      &.ui-button-success {
+        background-color: #428354;
+        border: none;
+        &:hover {
+          background-color: #428354 !important;
+          border: none !important;
+        }
+      }
+      &.ui-button-cancel {
+        background-color: #363a37;
+        border: none;
+        &:hover {
+          background-color: #363a37 !important;
+          border: none !important;
+        }
+      }
+    }
+  }
+
+  .ui-table .ui-table-tbody > tr > td,
+  .ui-paginator {
+    border: none !important;
+  }
+
+  .ui-table-wrapper {
+    min-height: 245px;
+  }
+}
+
+button.table-icon {
+  width: 27px;
+  height: 27px;
+  line-height: 27px;
+}
+span.data-output {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-table-select {
+  background-color: #eaeaea !important;
+}
+
+.text-uppercase-first-letter {
+  text-transform: lowercase;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.bg-dropdown {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 15px;
+  color: $color-grey !important;
+  @extend .text-uppercase-first-letter;
+}
+
+th.last-column,
+td.button-controll {
+  width: 110px !important;
+}

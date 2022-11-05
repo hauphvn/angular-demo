@@ -1,0 +1,102 @@
+<div class="main-comment" [ngClass]="{ active: showComment, 'main-comment-zoomer': (zoomPercent > 100 || PCZoomLevel > 100) }" [formGroup]="replyForm">
+  <div class="comment-info d-flex justify-content-end align-items-center" style="height: 20px">
+      <button
+        [matMenuTriggerFor]="commentMenu"
+        mat-icon-button
+        aria-label="Icon show menu"
+        class="button-comment-submenu"
+        *ngIf="commentItem.userId === userId"
+      >
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+  </div>
+  <div class="comment-content">
+    <div class="d-flex position-relative comment-content__block">
+      <span class="name-circle d-inline-block text-center" [title]="commentItem.author"> {{ commentItem.author.slice(0, 2) }} </span>
+      <div class="content-group">
+        <div class="comment-time-scenename d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center comment-time-item">
+            <span>{{ commentItem.timeInVideo }} - </span>
+            <span class="align-self-end text-truncate comment-scenename" [title]="commentItem.sceneName">{{ commentItem.sceneName }}</span>
+          </div>
+          <div class="time-comment align-self-end">{{ commentItem.timeRelative }}</div>
+        </div>
+        <div class="content">{{ commentItem.message }}</div>
+      </div>
+    </div>
+    <div [class]="commentItem.replies.length > 0 ? 'view-reply' : 'hide view-reply'" (click)="toggleActive($event, active)" >
+      <img #active src="../../../../../assets/icons/triangle-icon.svg" alt="view reply"/>
+      <span>View replies</span>
+    </div>
+  </div>
+  <div *ngFor="let reply of commentItem.replies" class="reply">
+    <button
+      [matMenuTriggerFor]="replyMenu"
+      [matMenuTriggerData]="{ reply: reply }"
+      mat-icon-button
+      aria-label="Icon show menu"
+      class="button-child-comment-submenu d-flex"
+      *ngIf="reply.userId === userId"
+    >
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+    <div class="reply-content d-flex comment-content__block">
+      <span class="reply-name-circle text-center" [title]="reply.author"> {{ reply.author.slice(0, 2) }} </span>
+      <div class="reply-content-group">
+        <div class="reply-content-box">
+          <div class="comment-time-scenename d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center comment-time-item">
+              <span>{{ reply.timeComment | convertTimeComment }} - </span>
+              <span class="align-self-end text-truncate comment-scenename" [title]="commentItem.sceneName">{{ commentItem.sceneName }}</span>
+            </div>
+            <div class="time-comment align-self-end">{{ reply.timeRelative }}</div>
+          </div>
+          <div class="content">{{ reply.message }}</div>
+        </div>        
+      </div>
+    </div>
+  </div>
+  <div class="input-reply">
+    <img
+      [src]="replyData.reply.value.length > 0 ? '../../../../../assets/icons/reply-active.svg' : '../../../../../assets/icons/reply-comment.svg'"
+      alt="reply comment"
+    />
+    <div class="input-group">
+      <input
+        type="text"
+        placeholder="Reply to this comment"
+        formControlName="reply"
+        maxlength="200"
+        (keyup.enter)="addReply(active)"
+      />
+    </div>
+  </div>
+  <div class="btn-block" *ngIf="replyData.reply.value.length > 0">
+    <button class="btn btn-cancel" type="button" (click)="cancelReply()">Cancel</button>
+    <button class="btn btn-send" type="button" (click)="addReply(active)">Send</button>
+  </div>
+</div>
+
+<mat-menu #commentMenu="matMenu" class="menu-comment">
+  <button mat-menu-item class="d-flex align-items-center" (click)="editComment()">
+    <mat-icon class="mr-0">edit</mat-icon>
+    <span class="ml-2">Edit</span>
+  </button>
+  <button mat-menu-item class="d-flex align-items-center" (click)="deleteComment()">
+    <mat-icon class="mr-0">delete</mat-icon>
+    <span class="ml-2">Delete</span>
+  </button>
+</mat-menu>
+
+<mat-menu #replyMenu="matMenu" class="menu-reply">
+  <ng-template matMenuContent let-aliasMenuItems="reply">
+    <button mat-menu-item class="d-flex align-items-center" (click)="editReply(aliasMenuItems)">
+      <mat-icon class="mr-0">edit</mat-icon>
+      <span class="ml-2">Edit</span>
+    </button>
+    <button mat-menu-item class="d-flex align-items-center" (click)="deleteReply(aliasMenuItems)">
+      <mat-icon class="mr-0">delete</mat-icon>
+      <span class="ml-2">Delete</span>
+    </button>
+  </ng-template>
+</mat-menu>

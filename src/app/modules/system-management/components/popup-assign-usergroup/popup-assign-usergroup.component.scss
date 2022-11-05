@@ -1,0 +1,129 @@
+@import '../../../../../assets/scss/common';
+
+.assign-usergroup-container {
+  background-color: $color-white;
+  .mat-dialog-actions {
+    margin-bottom: -20px;
+    padding: 0;
+  }
+  .dialog-title {
+    @include sizeTitleModal;
+    border-bottom: 1px solid $color-border1;
+  }
+
+  .dialog-input {
+    padding-bottom: 18px;
+    padding-right: 10px;
+  }
+
+  .search-input {
+    @extend .input-search;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .btn-search__block {
+    @extend .btn-search;
+
+    ::ng-deep {
+      .mat-button-wrapper {
+        display: flex;
+        gap: 9px;
+      }
+    }
+  }
+
+  .dialog-content {
+    padding: 0 0 30px 0 !important;
+    margin: 0;
+    max-height: calc(100% - 140px);
+    padding-left: 20%;
+    padding-right: 20%;
+    margin-bottom: 18px;
+    overflow: hidden;
+
+    .assign-user__group {
+      padding-bottom: 0;
+    }
+
+    .assign-user__list {
+      padding-top: 10px;
+
+      td.td-table-assign {
+        padding: 0;
+      }
+      ::ng-deep {
+        .ui-table-wrapper {
+          min-height: auto;
+        }
+        .ui-table-tbody {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          overflow-x: hidden;
+          gap: 10px;
+          padding-left: 2px;
+
+          tr {
+            border: 1px solid $color-border1;
+            box-sizing: border-box;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: $color-white;
+
+            p-checkbox.user-group-row {
+              .ui-chkbox,.ui-widget {
+                display: none;
+              }
+              label {
+                @include sizeSmall;
+                color: $color-grey;
+                margin: 0;
+                padding: 10px 16px;
+                cursor: pointer;
+                &.ui-label-active {
+                  color: #F39800;
+                  background-color: #FFE8C2;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+    }
+    .table-container {
+      overflow-y: auto;
+      max-height: 167px;
+    }
+    .middle-title {
+      font-size: 1.2em;
+    }
+
+    .dialog-input input {
+      background: white !important;
+      border: 1px solid #ced4da !important;
+      &:focus {
+        box-shadow: unset !important;
+      }
+    }
+  }
+
+  .btn-block {
+    margin: 0px !important;
+    padding: 0;
+    button {
+      @include buttonModal;
+      &.btn--primary {
+        background-color: $color-yellow;
+      }
+      &.btn--tertiary {
+        background-color: $color-white;
+      }
+    }
+  }
+  mat-error {
+    font-size: 0.8em;
+  }
+  
+}

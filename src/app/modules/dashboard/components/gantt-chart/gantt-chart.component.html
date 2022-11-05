@@ -1,0 +1,33 @@
+<div id="gantt-xaxix"></div>
+<div id="gantt-chart-area" #ganttArea></div>
+
+<mat-menu #chartContextMenu="matMenu">
+  <ng-template matMenuContent let-data="data">
+    <button
+      *ngIf='!isEditXML; else wrapEditXML'
+      mat-menu-item
+      (click)="handleAddCommentContextMenu(data)">Add comment
+    </button>
+    <ng-template #wrapEditXML>
+      <button
+        *ngIf="(isExistedSceneBar || !sceneNameAddNewFromLeftSide); else addNewSceneBarByRightClick"
+        class='text-center'
+        mat-menu-item
+        (click)="handleDeleteSceneBarContextMenu(data)">Delete
+      </button>
+    </ng-template>
+    <ng-template #addNewSceneBarByRightClick>
+      <button
+        class='text-center'
+        mat-menu-item
+        (click)="handleAddNewSceneBarBarContextMenu(data)">Add a new scene bar
+      </button>
+    </ng-template>
+  </ng-template>
+</mat-menu>
+<div
+  style="visibility: hidden; position: fixed"
+  [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y"
+  [matMenuTriggerFor]="chartContextMenu"
+></div>

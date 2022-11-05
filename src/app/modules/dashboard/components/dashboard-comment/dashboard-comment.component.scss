@@ -1,0 +1,56 @@
+@import '../../../../../assets/scss/mixin.scss';
+
+#dashboard-rightside {
+  height: calc(100% - 54px);
+  .title {
+    line-height: 28px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #F9F9F9;
+    padding: 10px 20px 15px;
+    border-bottom: 1px solid $color-grey;
+    &,
+    & * {
+      background-color: #8E8E8E;
+    }
+  }
+
+  .rightside-item {
+    height: 100%;
+    padding-bottom: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .create-comment {
+    left: 0;
+    bottom: -54px;
+    width: 100%;
+    padding: 0 20px;
+    background-color: #F9F9F9;
+    input.custom-input,
+    button {
+      color: $color-black1;
+      font-size: 14px;
+      border: 1px solid $color-yellow;
+    }
+
+    button {
+      background-color: $color-yellow;
+    }
+
+    input.custom-input {
+      border: 1px solid $color-border1;
+      border-right: none;
+
+      @include inputPlaceholder(#8E8E8E);
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+  .icon-color {
+    color: white;
+  }
+}

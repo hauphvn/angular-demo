@@ -1,0 +1,69 @@
+<div class="folder-list-container">
+  <div class="d-flex justify-content-between">
+    <div class="title">
+      <strong><span class="fs-24-px">Folder Title</span> </strong>
+    </div>
+    <div class="control-buttons">
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-primary btn-add"
+          (click)="openPopupAssignUserGroup()"
+          *ngIf="!isEdit && isRoleAdmin"
+          [disabled]="!data || !data.length"
+          matRipple
+        >
+          <img src="../../../../../assets/icons/add_user.svg" alt="assign user"/>
+          <span>Assign User Group</span>
+        </button>
+        <button
+          type="button"
+          class="btn bg-save btn-primary-unfocus mr-2"
+          (click)="saveChange()"
+          *ngIf="isEdit"
+          matRipple
+        >
+          <!-- <i class="fa fa-check"></i> -->
+          Save
+        </button>
+        <button
+          type="button"
+          class="btn bg-cancel btn-primary-unfocus"
+          (click)="cancelChange()"
+          *ngIf="isEdit"
+          matRipple
+        >
+          <!-- <i class="fa fa-times"></i> -->
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="border table-borderless border-dark clearfix folder-list">
+    <div class="no-data d-flex align-items-center justify-content-center" *ngIf="!data || data.length === 0">
+      No folder found
+    </div>
+    <app-table
+      *ngIf="!!data && data.length > 0"
+      #folderTable
+      [tableConfig]="tableConfig"
+      [cols]="cols"
+      [(data)]="data"
+      (selectedItem)="handleSelectItem($event)"
+      (saveEdit)="handleSaveEdit($event)"
+      (delete)="handleDeleteItem($event)"
+      [keySearch]="keySearch"
+      [isShowBtnEdit]="isRoleAdmin || isRoleUserPro"
+      [isShowBtnDelete]="isRoleAdmin || isRoleUserPro"
+      [countPagination]="4"
+    ></app-table>
+  </div>
+  <div class="btn-block">
+    <button type="button" *ngIf="isRoleAdmin || isRoleUserPro" class="btn btn-create__fordel" (click)="handleAddFolder()" matRipple>
+      <i class="fa fa-plus"></i>
+      Create New Folder
+    </button>
+  </div>
+</div>
+
